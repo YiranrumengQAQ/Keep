@@ -1,0 +1,115 @@
+/* ═══════════════════════════════════════════════════════════════
+   09. 周切换标签
+   ═══════════════════════════════════════════════════════════════ */
+.week-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x proximity;
+}
+
+.week-tabs::-webkit-scrollbar { display: none; }
+.week-tabs[hidden] { display: none; }
+
+[data-style="neobrutal"] .week-tabs { padding: 4px 2px 14px; }
+
+.week-tab {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition:
+    background-color .2s var(--ease),
+    border-color .2s var(--ease),
+    color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .16s var(--ease);
+}
+
+.week-tab:hover { border-color: var(--accent); }
+
+.week-tab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+[data-style="clay"] .week-tab {
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-sm);
+  padding: 10px 18px;
+}
+
+[data-style="clay"] .week-tab:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+[data-style="clay"] .week-tab.is-active {
+  box-shadow:
+    6px 6px 14px rgba(109, 139, 255, .4),
+    -4px -4px 10px rgba(255, 255, 255, .9);
+}
+
+[data-theme="dark"][data-style="clay"] .week-tab.is-active {
+  box-shadow:
+    6px 6px 14px rgba(0, 0, 0, .55),
+    -4px -4px 10px rgba(255, 255, 255, .03);
+}
+
+[data-style="neobrutal"] .week-tab {
+  border-width: 3px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--border);
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .week-tab.is-active {
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+[data-style="neobrutal"] .week-tab:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--border);
+}
+
+[data-style="neobrutal"] .week-tab:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--border);
+}
+
+[data-style="glass"] .week-tab {
+  background: rgba(255, 255, 255, .35);
+  border-color: rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 12px -6px rgba(31,38,135,.18);
+}
+
+[data-theme="dark"][data-style="glass"] .week-tab {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 3px 12px -6px rgba(0,0,0,.5);
+}
+
+[data-style="glass"] .week-tab.is-active {
+  background: linear-gradient(135deg, var(--accent), #6d5bff);
+  border-color: rgba(255, 255, 255, .5);
+  box-shadow:
+    0 6px 20px -6px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+
+.wt-label { font-size: 13.5px; font-weight: 650; }
+.wt-range { font-size: 11px; opacity: .72; }

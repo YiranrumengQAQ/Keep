@@ -1,0 +1,109 @@
+/* ═══════════════════════════════════════════════════════════════
+   03. 风格三 —— 新野兽派（Neobrutalism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 极粗实心描边（2-3px 纯黑），零模糊硬投影
+     · 高饱和撞色 + 绝对黑白的强对比
+     · 方角微圆（4-6px），拒绝柔和
+     · 交互位移：按下 → 实体"拍进"阴影
+     · 粗重字体、无渐变、无透明度渐变
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="neobrutal"] {
+  color-scheme: light;
+
+  --bg: #fdf6e3;
+  --bg-image:
+    linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),
+    linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px);
+  --bg-size: 22px 22px;
+
+  --surface: #ffffff;
+  --surface-2: #fff2c4;
+  --surface-3: #ffe9a8;
+  --surface-glass: #ffffff;
+
+  --border: #111111;
+  --border-strong: #111111;
+  --border-w: 3px;
+
+  --text: #111111;
+  --text-muted: #3d3d3d;
+  --text-soft: #6b6b6b;
+
+  --accent: #ff5c00;
+  --accent-hover: #ff7a2f;
+  --accent-contrast: #ffffff;
+  --accent-soft: #ffe0cc;
+  --accent-ring: rgba(255, 92, 0, .35);
+
+  --radius: 6px;
+  --radius-sm: 5px;
+  --radius-xs: 4px;
+
+  --shadow: 6px 6px 0 #111111;
+  --shadow-sm: 4px 4px 0 #111111;
+  --shadow-hover: 8px 8px 0 #111111;
+
+  /* 课程色块 */
+  --slot-s: 94%;
+  --slot-l: 80%;
+  --slot-s2: 90%;
+  --slot-l2: 74%;
+  --slot-bs: 0%;
+  --slot-bl: 0%;
+  --slot-ts: 0%;
+  --slot-tl: 8%;
+  --slot-bw: 3px;
+  --slot-radius: 5px;
+
+  --header-bg: #ffffff;
+  --header-blur: none;
+  --card-blur: none;
+
+  --lift: 0;
+  --ease: cubic-bezier(.2, .9, .3, 1);
+  --dur: .14s;
+}
+
+[data-theme="dark"][data-style="neobrutal"] {
+  color-scheme: dark;
+
+  --bg: #16161a;
+  --bg-image:
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  --bg-size: 22px 22px;
+
+  --surface: #22222a;
+  --surface-2: #2b2b36;
+  --surface-3: #343442;
+  --surface-glass: #22222a;
+
+  --border: #f2f2f2;
+  --border-strong: #f2f2f2;
+
+  --text: #f5f5f5;
+  --text-muted: #b8b8c4;
+  --text-soft: #8a8a98;
+
+  --accent: #ff7a2f;
+  --accent-hover: #ff914d;
+  --accent-contrast: #16161a;
+  --accent-soft: #3a2418;
+  --accent-ring: rgba(255, 122, 47, .45);
+
+  --shadow: 6px 6px 0 #f2f2f2;
+  --shadow-sm: 4px 4px 0 #f2f2f2;
+  --shadow-hover: 8px 8px 0 #f2f2f2;
+
+  --slot-s: 88%;
+  --slot-l: 78%;
+  --slot-s2: 84%;
+  --slot-l2: 72%;
+  --slot-bs: 0%;
+  --slot-bl: 0%;
+  --slot-ts: 0%;
+  --slot-tl: 8%;
+
+  --header-bg: #22222a;
+}

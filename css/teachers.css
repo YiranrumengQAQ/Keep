@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════════════════════
+   11. 教师信息
+   ═══════════════════════════════════════════════════════════════ */
+.teachers {
+  background: var(--surface);
+  -webkit-backdrop-filter: var(--card-blur);
+  backdrop-filter: var(--card-blur);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px 20px;
+  transition:
+    background-color .45s var(--ease),
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease);
+}
+
+.teachers-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .teachers-title { font-weight: 800; }
+
+.teachers-title svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent);
+  flex: none;
+}
+
+[data-style="neobrutal"] .teachers-title svg {
+  stroke-width: 2.5;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 9px;
+}
+
+[data-style="neobrutal"] .teacher-grid { gap: 12px; }
+
+.teacher-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  background: var(--surface-2);
+  border: var(--border-w) solid transparent;
+  font-size: 13px;
+  transition: background-color .25s var(--ease), border-color .25s var(--ease);
+}
+
+[data-style="neobrutal"] .teacher-item {
+  border-color: var(--border);
+  border-width: 2px;
+  border-radius: 4px;
+}
+
+[data-style="clay"] .teacher-item {
+  border-color: rgba(255, 255, 255, .7);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface-2);
+}
+
+[data-theme="dark"][data-style="clay"] .teacher-item {
+  border-color: rgba(255, 255, 255, .05);
+}
+
+[data-style="glass"] .teacher-item {
+  background: rgba(255, 255, 255, .3);
+  border-color: rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"][data-style="glass"] .teacher-item {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.t-name {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.t-person { font-weight: 650; flex: none; }
+[data-style="neobrutal"] .t-person { font-weight: 800; }
+
+.footnote {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}

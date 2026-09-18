@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════════════════════
+   06. 分段控件（主题切换）
+   ═══════════════════════════════════════════════════════════════ */
+.segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface-2);
+  border: var(--border-w) solid var(--border);
+  border-radius: 999px;
+  flex: none;
+  transition: background-color .3s var(--ease), border-color .3s var(--ease);
+}
+
+.seg-btn {
+  min-width: 36px;
+  height: 30px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color .2s var(--ease),
+    color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .14s var(--ease);
+}
+
+.seg-btn svg { width: 16px; height: 16px; display: block; }
+
+.seg-btn:hover { color: var(--text); }
+
+.seg-btn.is-active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 粘土 */
+[data-style="clay"] .segmented {
+  background: var(--surface-2);
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-inset);
+  padding: 4px;
+}
+
+[data-style="clay"] .seg-btn.is-active {
+  background: var(--surface);
+  box-shadow:
+    4px 4px 10px rgba(163, 177, 198, .5),
+    -3px -3px 8px rgba(255, 255, 255, .95);
+}
+
+[data-theme="dark"][data-style="clay"] .seg-btn.is-active {
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, .55),
+    -3px -3px 8px rgba(255, 255, 255, .03);
+}
+
+/* 新野兽派 */
+[data-style="neobrutal"] .segmented {
+  background: var(--surface);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--border);
+  padding: 3px;
+  gap: 3px;
+}
+
+[data-style="neobrutal"] .seg-btn {
+  border-radius: 2px;
+  color: var(--text);
+}
+
+[data-style="neobrutal"] .seg-btn.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: none;
+  outline: 2px solid var(--border);
+  outline-offset: -2px;
+}
+
+/* 玻璃 */
+[data-style="glass"] .segmented {
+  background: rgba(255, 255, 255, .3);
+  border-color: rgba(255, 255, 255, .6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 4px 14px -6px rgba(31,38,135,.2);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+
+[data-theme="dark"][data-style="glass"] .segmented {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 4px 14px -6px rgba(0,0,0,.5);
+}
+
+[data-style="glass"] .seg-btn.is-active {
+  background: rgba(255, 255, 255, .6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 2px 6px -2px rgba(31,38,135,.2);
+}
+
+[data-theme="dark"][data-style="glass"] .seg-btn.is-active {
+  background: rgba(255, 255, 255, .13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+/* 宽版分段 */
+.segmented.seg-wide {
+  width: 100%;
+  padding: 4px;
+}
+
+.segmented.seg-wide .seg-btn {
+  flex: 1;
+  height: 36px;
+  border-radius: 999px;
+}
+
+[data-style="neobrutal"] .segmented.seg-wide .seg-btn { border-radius: 2px; }

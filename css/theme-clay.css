@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════════
+   02. 风格二 —— 粘土拟物（Claymorphism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 双向柔光阴影（左上高光 / 右下投影），塑造挤压黏土的体积感
+     · 超柔圆角（20-28px），所有元素"肉感"饱满
+     · 内嵌高光 + 内阴影，营造可捏压的柔软错觉
+     · 粉彩渐变表面，低饱和高亮度
+     · 按压时内凹（inset shadow），回弹有弹性缓动
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="clay"] {
+  color-scheme: light;
+
+  --bg: #eef1fa;
+  --bg-image:
+    radial-gradient(1200px 800px at 8% -4%, #e3ebff 0%, transparent 58%),
+    radial-gradient(1000px 700px at 98% 6%, #f6e6ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 50% 108%, #e0f5ff 0%, transparent 60%);
+
+  --surface: #eef1fb;
+  --surface-2: #e7ebf8;
+  --surface-3: #dfe4f4;
+  --surface-glass: #eef1fb;
+
+  --border: rgba(255, 255, 255, .9);
+  --border-strong: rgba(255, 255, 255, .6);
+  --border-w: 1px;
+
+  --text: #2a3555;
+  --text-muted: #6b7793;
+  --text-soft: #9aa5bd;
+
+  --accent: #6d8bff;
+  --accent-hover: #5a7bff;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e2e9ff;
+  --accent-ring: rgba(109, 139, 255, .25);
+
+  --radius: 28px;
+  --radius-sm: 22px;
+  --radius-xs: 16px;
+
+  /* 凸起（raised）*/
+  --shadow:
+    14px 14px 30px rgba(163, 177, 198, .55),
+    -12px -12px 26px rgba(255, 255, 255, .95),
+    inset 0 1px 0 rgba(255, 255, 255, .85);
+  --shadow-sm:
+    6px 6px 14px rgba(163, 177, 198, .5),
+    -5px -5px 12px rgba(255, 255, 255, .92),
+    inset 0 1px 0 rgba(255, 255, 255, .8);
+  --shadow-hover:
+    18px 18px 36px rgba(163, 177, 198, .6),
+    -14px -14px 30px rgba(255, 255, 255, .98),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+
+  /* 凹陷（pressed）*/
+  --shadow-inset:
+    inset 5px 5px 12px rgba(163, 177, 198, .55),
+    inset -4px -4px 10px rgba(255, 255, 255, .92);
+
+  /* 课程色块 */
+  --slot-s: 88%;
+  --slot-l: 94%;
+  --slot-s2: 80%;
+  --slot-l2: 86%;
+  --slot-bs: 55%;
+  --slot-bl: 88%;
+  --slot-ts: 55%;
+  --slot-tl: 32%;
+  --slot-bw: 1px;
+  --slot-radius: 18px;
+
+  --header-bg: rgba(238, 241, 251, .85);
+  --header-blur: saturate(180%) blur(16px);
+  --card-blur: none;
+
+  --lift: -2px;
+  --ease: cubic-bezier(.34, 1.4, .64, 1);
+  --dur: .3s;
+}
+
+[data-theme="dark"][data-style="clay"] {
+  color-scheme: dark;
+
+  --bg: #10131e;
+  --bg-image:
+    radial-gradient(1200px 800px at 8% -4%, #1a2035 0%, transparent 58%),
+    radial-gradient(1000px 700px at 98% 6%, #1e1830 0%, transparent 55%),
+    radial-gradient(900px 700px at 50% 108%, #14202e 0%, transparent 60%);
+
+  --surface: #181c2a;
+  --surface-2: #1d2233;
+  --surface-3: #232940;
+  --surface-glass: #181c2a;
+
+  --border: rgba(255, 255, 255, .07);
+  --border-strong: rgba(255, 255, 255, .05);
+
+  --text: #e4e9f6;
+  --text-muted: #8d99b5;
+  --text-soft: #626e88;
+
+  --accent: #7b98ff;
+  --accent-hover: #90a8ff;
+  --accent-contrast: #0b0f1c;
+  --accent-soft: #1d2542;
+  --accent-ring: rgba(123, 152, 255, .3);
+
+  --shadow:
+    14px 14px 30px rgba(0, 0, 0, .6),
+    -12px -12px 26px rgba(255, 255, 255, .028),
+    inset 0 1px 0 rgba(255, 255, 255, .06);
+  --shadow-sm:
+    6px 6px 14px rgba(0, 0, 0, .55),
+    -5px -5px 12px rgba(255, 255, 255, .022),
+    inset 0 1px 0 rgba(255, 255, 255, .05);
+  --shadow-hover:
+    18px 18px 36px rgba(0, 0, 0, .65),
+    -14px -14px 30px rgba(255, 255, 255, .035),
+    inset 0 1px 0 rgba(255, 255, 255, .07);
+
+  --shadow-inset:
+    inset 5px 5px 12px rgba(0, 0, 0, .6),
+    inset -4px -4px 10px rgba(255, 255, 255, .03);
+
+  --slot-s: 32%;
+  --slot-l: 22%;
+  --slot-s2: 28%;
+  --slot-l2: 26%;
+  --slot-bs: 22%;
+  --slot-bl: 34%;
+  --slot-ts: 72%;
+  --slot-tl: 84%;
+
+  --header-bg: rgba(24, 28, 42, .85);
+}

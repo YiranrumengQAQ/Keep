@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════════════
+   01. 风格一 —— 现代化扁平卡片（Flat）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 极简几何、克制的阴影层次
+     · 1px 精细描边 + 超大圆角
+     · 悬停微抬升，克制的强调色点缀
+     · 干净通透，信息优先
+   ═══════════════════════════════════════════════════════════════ */
+:root,
+[data-style="flat"] {
+  color-scheme: light;
+
+  --bg: #f4f6fb;
+  --bg-image: none;
+
+  --surface: #ffffff;
+  --surface-2: #f5f7fb;
+  --surface-3: #eef2f9;
+  --surface-glass: #ffffff;
+
+  --border: #e4e9f2;
+  --border-strong: #d3dbe8;
+  --border-w: 1px;
+
+  --text: #0f172a;
+  --text-muted: #6b7a90;
+  --text-soft: #94a3b8;
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e8f0fe;
+  --accent-ring: rgba(37, 99, 235, .18);
+
+  --radius: 18px;
+  --radius-sm: 13px;
+  --radius-xs: 9px;
+
+  --shadow:
+    0 1px 2px rgba(15, 23, 42, .04),
+    0 4px 12px -4px rgba(15, 23, 42, .08),
+    0 16px 32px -20px rgba(15, 23, 42, .16);
+  --shadow-sm:
+    0 1px 2px rgba(15, 23, 42, .05),
+    0 2px 6px -2px rgba(15, 23, 42, .06);
+  --shadow-hover:
+    0 2px 4px rgba(15, 23, 42, .05),
+    0 8px 20px -6px rgba(15, 23, 42, .12),
+    0 22px 44px -26px rgba(15, 23, 42, .22);
+
+  /* 课程色块 */
+  --slot-s: 82%;
+  --slot-l: 96%;
+  --slot-s2: 70%;
+  --slot-l2: 87%;
+  --slot-bs: 68%;
+  --slot-bl: 88%;
+  --slot-ts: 62%;
+  --slot-tl: 26%;
+  --slot-bw: 1px;
+  --slot-radius: 11px;
+
+  --header-bg: rgba(255, 255, 255, .82);
+  --header-blur: saturate(180%) blur(18px);
+  --card-blur: none;
+
+  --lift: -1px;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur: .24s;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0f1a;
+  --surface: #131a28;
+  --surface-2: #182130;
+  --surface-3: #1e283a;
+  --surface-glass: #131a28;
+
+  --border: #23304a;
+  --border-strong: #2e3d5c;
+
+  --text: #e6edf7;
+  --text-muted: #8b9bb4;
+  --text-soft: #64748b;
+
+  --accent: #4f8ef7;
+  --accent-hover: #6ba1ff;
+  --accent-contrast: #06101f;
+  --accent-soft: #16233c;
+  --accent-ring: rgba(79, 142, 247, .22);
+
+  --shadow:
+    0 1px 2px rgba(0, 0, 0, .4),
+    0 4px 12px -4px rgba(0, 0, 0, .5),
+    0 16px 32px -20px rgba(0, 0, 0, .7);
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, .45),
+    0 2px 6px -2px rgba(0, 0, 0, .5);
+  --shadow-hover:
+    0 2px 4px rgba(0, 0, 0, .45),
+    0 8px 20px -6px rgba(0, 0, 0, .6),
+    0 22px 44px -26px rgba(0, 0, 0, .8);
+
+  --slot-s: 42%;
+  --slot-l: 16%;
+  --slot-s2: 40%;
+  --slot-l2: 20%;
+  --slot-bs: 38%;
+  --slot-bl: 28%;
+  --slot-ts: 82%;
+  --slot-tl: 80%;
+
+  --header-bg: rgba(19, 26, 40, .82);
+}

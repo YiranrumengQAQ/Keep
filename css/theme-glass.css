@@ -1,0 +1,131 @@
+/* ═══════════════════════════════════════════════════════════════
+   04. 风格四 —— 玻璃拟态（Glassmorphism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 强 backdrop-filter 毛玻璃 + 高饱和背景光晕
+     · 半透明白边框 + 顶部内高光，模拟玻璃厚度
+     · 卡片边缘细腻的"折射感"光带
+     · 柔和多层投影，营造悬浮深度
+     · 悬停时高光扫过（sheen）
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="glass"] {
+  color-scheme: light;
+
+  --bg: #dbe6ff;
+  --bg-image:
+    radial-gradient(1000px 700px at 10% -6%, #9db8ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 92% 2%, #f7c4ee 0%, transparent 52%),
+    radial-gradient(900px 800px at 78% 96%, #a8f0e2 0%, transparent 55%),
+    radial-gradient(900px 800px at 4% 92%, #c9b3ff 0%, transparent 54%);
+
+  --surface: rgba(255, 255, 255, .52);
+  --surface-2: rgba(255, 255, 255, .38);
+  --surface-3: rgba(255, 255, 255, .26);
+  --surface-glass: rgba(255, 255, 255, .45);
+
+  --border: rgba(255, 255, 255, .7);
+  --border-strong: rgba(255, 255, 255, .9);
+  --border-w: 1px;
+
+  --text: #141d38;
+  --text-muted: #47557a;
+  --text-soft: #6b7a9e;
+
+  --accent: #3b5bdb;
+  --accent-hover: #2f4bc4;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(255, 255, 255, .58);
+  --accent-ring: rgba(59, 91, 219, .3);
+
+  --radius: 22px;
+  --radius-sm: 16px;
+  --radius-xs: 11px;
+
+  --shadow:
+    0 4px 16px rgba(31, 38, 135, .1),
+    0 12px 40px -12px rgba(31, 38, 135, .22),
+    inset 0 1px 0 rgba(255, 255, 255, .85),
+    inset 0 -1px 0 rgba(255, 255, 255, .25);
+  --shadow-sm:
+    0 2px 8px rgba(31, 38, 135, .09),
+    inset 0 1px 0 rgba(255, 255, 255, .7);
+  --shadow-hover:
+    0 6px 22px rgba(31, 38, 135, .14),
+    0 18px 52px -14px rgba(31, 38, 135, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .95),
+    inset 0 -1px 0 rgba(255, 255, 255, .3);
+
+  /* 课程色块 */
+  --slot-s: 92%;
+  --slot-l: 86%;
+  --slot-s2: 88%;
+  --slot-l2: 78%;
+  --slot-bs: 90%;
+  --slot-bl: 92%;
+  --slot-ts: 60%;
+  --slot-tl: 26%;
+  --slot-bw: 1px;
+  --slot-radius: 14px;
+
+  --header-bg: rgba(255, 255, 255, .42);
+  --header-blur: saturate(200%) blur(22px);
+  --card-blur: saturate(190%) blur(22px);
+
+  --lift: -2px;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur: .3s;
+}
+
+[data-theme="dark"][data-style="glass"] {
+  color-scheme: dark;
+
+  --bg: #070b18;
+  --bg-image:
+    radial-gradient(1000px 700px at 10% -6%, #1e2f7a 0%, transparent 55%),
+    radial-gradient(900px 700px at 92% 2%, #5c1f57 0%, transparent 52%),
+    radial-gradient(900px 800px at 78% 96%, #0b3f3c 0%, transparent 55%),
+    radial-gradient(900px 800px at 4% 92%, #2c1f5e 0%, transparent 54%);
+
+  --surface: rgba(28, 38, 62, .48);
+  --surface-2: rgba(38, 50, 80, .36);
+  --surface-3: rgba(46, 60, 94, .26);
+  --surface-glass: rgba(28, 38, 62, .42);
+
+  --border: rgba(255, 255, 255, .13);
+  --border-strong: rgba(255, 255, 255, .22);
+
+  --text: #eaf0ff;
+  --text-muted: #9aa8c8;
+  --text-soft: #6b7a9c;
+
+  --accent: #7d9bff;
+  --accent-hover: #96b0ff;
+  --accent-contrast: #070b18;
+  --accent-soft: rgba(125, 155, 255, .16);
+  --accent-ring: rgba(125, 155, 255, .35);
+
+  --shadow:
+    0 4px 16px rgba(0, 0, 0, .35),
+    0 12px 40px -12px rgba(0, 0, 0, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    inset 0 -1px 0 rgba(255, 255, 255, .03);
+  --shadow-sm:
+    0 2px 8px rgba(0, 0, 0, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+  --shadow-hover:
+    0 6px 22px rgba(0, 0, 0, .4),
+    0 18px 52px -14px rgba(0, 0, 0, .7),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -1px 0 rgba(255, 255, 255, .04);
+
+  --slot-s: 40%;
+  --slot-l: 22%;
+  --slot-s2: 36%;
+  --slot-l2: 30%;
+  --slot-bs: 40%;
+  --slot-bl: 40%;
+  --slot-ts: 80%;
+  --slot-tl: 84%;
+
+  --header-bg: rgba(20, 28, 48, .42);
+}
