@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePrefs, useOnboarded } from './store/prefs.js';
 import { sanitizeCss } from './utils/sanitizeCss.js';
 import { META_COLORS, WEEKS } from './data/schedule.js';
-import { todayInfo, pickInitialWeek } from './utils/date.js';
+import useToday from './hooks/useToday.js';
 import useRescue from './hooks/useRescue.js';
 
 import Header from './components/Header.jsx';
@@ -35,9 +35,11 @@ export default function App() {
   const prefs = usePrefs();
   const onboarded = useOnboarded();
   const systemDark = useSystemDark();
+  const today = useToday();
+  const todayInfo = today.info;
 
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [activeWeek, setActiveWeek] = useState(pickInitialWeek);
+  const [activeWeek, setActiveWeek] = useState(() => (todayInfo ? todayInfo.wi : 0));
   const gridRef = useRef(null);
 
   /* 十连击救援常驻 */
@@ -72,12 +74,12 @@ export default function App() {
     el.textContent = sanitizeCss(prefs.customCSS);
   }, [prefs.customCSS]);
 
-  /* 仅今天时锁定到今天所在周 */
+  /* 仅今天时锁定到今天所在周（today 跨午夜变化后同步跟进） */
   useEffect(() => {
     if (prefs.range === 'today' && todayInfo) {
       setActiveWeek(todayInfo.wi);
     }
-  }, [prefs.range]);
+  }, [prefs.range, todayInfo]);
 
   const selectWeek = useCallback((index, scrollToday = false) => {
     setActiveWeek(Math.max(0, Math.min(index, WEEKS.length - 1)));
@@ -92,16 +94,26 @@ export default function App() {
   const jumpToday = useCallback(() => {
     if (!todayInfo) return;
     if (prefs.range === 'all') selectWeek(todayInfo.wi, true);
-  }, [prefs.range, selectWeek]);
+  }, [prefs.range, todayInfo, selectWeek]);
+
+  const activeWeekMeta = WEEKS[activeWeek];
 
   return (
     <>
       <Header onOpenSettings={() => setSettingsOpen(true)} />
 
       <main>
-        <TodayPanel onJumpToday={jumpToday} />
+        {/* 打印抬头（屏幕上隐藏，打印时显示班级 / 学期 / 周次） */}
+        <p className="print-title">
+          2025级医学检验技术专业（1）班 · 2026 年秋季学期课表
+          {prefs.range === 'all' && activeWeekMeta
+            ? `（${activeWeekMeta.label} ${activeWeekMeta.range}）`
+            : ''}
+        </p>
+
+        <TodayPanel today={today} onJumpToday={jumpToday} />
         <WeekTabs activeWeek={activeWeek} onSelect={(i) => selectWeek(i)} />
-        <WeekGrid activeWeek={activeWeek} gridRef={gridRef} />
+        <WeekGrid activeWeek={activeWeek} today={today} gridRef={gridRef} />
         <Teachers />
         <p className="footnote">
           数据来源：2025级医学检验技术专业（1）班课程表（2026 年秋季学期）

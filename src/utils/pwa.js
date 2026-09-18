@@ -1,18 +1,18 @@
 /* ═══════════════════════════════════════════════════════════
-   PWA：apple-touch-icon 注入 + Service Worker（存在则注册，失败静默）
+   PWA：注册 Service Worker（应用壳预缓存，离线可用）
+   apple-touch-icon 已改为 index.html 里的静态声明（iOS 不支持
+   SVG 触屏图标，改用 PNG），无需再运行时注入。
    ═══════════════════════════════════════════════════════════ */
 export function initPwa() {
-  try {
-    const link = document.createElement('link');
-    link.rel = 'apple-touch-icon';
-    link.href = './icon.svg';
-    document.head.appendChild(link);
-  } catch (e) { /* 忽略 */ }
+  if (!('serviceWorker' in navigator)) return;
 
-  if ('serviceWorker' in navigator &&
-      (location.protocol === 'http:' || location.protocol === 'https:')) {
-    navigator.serviceWorker.register('sw.js').catch(() => {
-      /* 未部署 sw.js 时静默忽略，不影响页面功能 */
+  /* Service Worker 仅在安全上下文（HTTPS 或本机调试）可用 */
+  const isLocal = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (location.protocol !== 'https:' && !isLocal) return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {
+      /* 静态托管未带上 sw.js 时静默降级，不影响页面功能 */
     });
-  }
+  });
 }

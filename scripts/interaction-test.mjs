@@ -64,6 +64,8 @@ fire(win, doc.querySelector('.icon-btn'));
 await sleep(250);
 const editor = doc.querySelector('.css-editor');
 check('CSS 编辑器存在', !!editor);
+check('设置打开时锁定背景滚动（body.modal-open）', doc.body.classList.contains('modal-open'));
+check('设置打开时背景 inert 隔离', !!doc.querySelector('main') && doc.querySelector('main').inert === true);
 const setter = Object.getOwnPropertyDescriptor(win.HTMLTextAreaElement.prototype, 'value').set;
 setter.call(editor, '.day-card { border-width: 9px; } @import url(evil); <script>alert(1)</' + 'script>');
 editor.dispatchEvent(new win.Event('input', { bubbles: true }));
@@ -112,10 +114,28 @@ check('重置后回到保存的默认（flat）', doc.documentElement.dataset.st
 /* ── 周标签切换 ── */
 const weekTabs = doc.querySelectorAll('.week-tab');
 check('周标签 6 个', weekTabs.length === 6);
+check('周标签含完整 tab 语义',
+  doc.querySelectorAll('.week-tab[role="tab"][aria-controls="weekGrid"]').length === 6);
+check('课表容器为 tabpanel', !!doc.querySelector('#weekGrid[role="tabpanel"]'));
+
 fire(win, weekTabs[3]);
 await sleep(150);
 check('切到第4周', doc.querySelectorAll('.week-tab')[3].classList.contains('is-active'));
 check('第4周含中秋放假', doc.body.textContent.includes('中秋节放假'));
+
+/* 第3周：周末补课应有徽章标注 */
+fire(win, doc.querySelectorAll('.week-tab')[2]);
+await sleep(150);
+check('第3周周日补课有徽章', !!doc.querySelector('.day-card .makeup-badge'));
+
+/* 方向键切换周次（roving tabindex + ← →） */
+const activeTab = [...doc.querySelectorAll('.week-tab')]
+  .find((t) => t.getAttribute('aria-selected') === 'true');
+activeTab.dispatchEvent(new win.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+await sleep(150);
+check('方向键切到下一周',
+  [...doc.querySelectorAll('.week-tab')].find((t) => t.classList.contains('is-active'))
+    ?.textContent.includes('第4周'));
 
 /* ── 仅今天模式 ── */
 const rangeTodayBtn = [...doc.querySelectorAll('.modal .seg-btn')].find((b) => b.textContent.includes('仅今天'));

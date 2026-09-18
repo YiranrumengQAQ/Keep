@@ -30,16 +30,22 @@ export default function SettingsModal({ open, onClose, onReopenOnboarding }) {
   const modalRef = useRef(null);
   const lastFocusedRef = useRef(null);
 
-  /* 开关生命周期：焦点管理 + 背景滚动锁定 */
+  /* 开关生命周期：焦点管理 + 背景滚动锁定 + 背景 inert 隔离 */
   useEffect(() => {
     if (!open) return;
     lastFocusedRef.current = document.activeElement;
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    const background = [
+      document.querySelector('header.app-header'),
+      document.querySelector('main')
+    ];
+    background.forEach((el) => { if (el) el.inert = true; });
     const closeBtn = modalRef.current?.querySelector('.modal-close');
     closeBtn?.focus();
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
+      background.forEach((el) => { if (el) el.inert = false; });
       const prev = lastFocusedRef.current;
       if (prev && typeof prev.focus === 'function') prev.focus();
     };

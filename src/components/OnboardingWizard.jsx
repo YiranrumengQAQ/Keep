@@ -25,10 +25,18 @@ export default function OnboardingWizard() {
   const bodyRef = useRef(null);
   const TOTAL = 5;
 
-  /* 引导期间锁定背景滚动 */
+  /* 引导期间锁定背景滚动，并把背景从可访问树隔离 */
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
+    document.body.classList.add('modal-open');
+    const background = [
+      document.querySelector('header.app-header'),
+      document.querySelector('main')
+    ];
+    background.forEach((el) => { if (el) el.inert = true; });
+    return () => {
+      document.body.classList.remove('modal-open');
+      background.forEach((el) => { if (el) el.inert = false; });
+    };
   }, []);
 
   /* 每步切换时内容滚回顶部，并聚焦当前步骤 */

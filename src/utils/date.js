@@ -1,9 +1,13 @@
 /* ═══════════════════════════════════════════════════════════
-   日期工具
+   日期工具（纯函数 + 「今天」的动态计算）
+   ─────────────────────────────────────────────────────────
+   「今天」不再是一次性读取的模块常量：computeToday() 可随时重算，
+   配合 useToday() Hook 在跨午夜 / 页面恢复可见时自动刷新，
+   长时间挂着的页面或已安装的 PWA 也能正确翻到新的一天。
    ═══════════════════════════════════════════════════════════ */
 import { WEEKS } from '../data/schedule.js';
 
-export const WEEKDAY_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+export { WEEKDAY_CN } from '../data/schedule.js';
 
 export function toISO(date) {
   const y = date.getFullYear();
@@ -17,22 +21,25 @@ export function fmtDate(iso) {
   return `${Number(parts[1])}月${Number(parts[2])}日`;
 }
 
-export const now = new Date();
-export const todayISO = toISO(now);
-
-export function findToday() {
+function findDay(iso) {
   for (let wi = 0; wi < WEEKS.length; wi++) {
     const days = WEEKS[wi].days;
     for (let di = 0; di < days.length; di++) {
-      if (days[di].d === todayISO) return { wi, di };
+      if (days[di].d === iso) return { wi, di };
     }
   }
   return null;
 }
 
-export const todayInfo = findToday();
+/* 某个时刻的「今天」快照：now / iso / info（学期内的周与天下标） */
+export function computeToday(now = new Date()) {
+  const iso = toISO(now);
+  return { now, iso, info: findDay(iso) };
+}
 
-export function pickInitialWeek() {
-  if (todayInfo) return todayInfo.wi;
-  return 0;
+/* 距下一个零点的毫秒数（加 5 秒缓冲，避开零点边界的定时抖动） */
+export function msUntilNextMidnight() {
+  const now = new Date();
+  const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+  return Math.max(1000, next - now);
 }

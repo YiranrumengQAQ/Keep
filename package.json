@@ -1,19 +1,21 @@
 {
   "name": "keep-schedule",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "2025级医学检验技术专业（1）班 2026 年秋季学期课程表",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "icons": "node scripts/gen-icons.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@vitejs/plugin-react": "^5.0.0",
     "jsdom": "^30.1.0",
     "vite": "^7.0.0"

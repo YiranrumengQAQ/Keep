@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════════
-   今日课程面板
+   今日课程面板（today 由 useToday() 提供，跨午夜自动刷新）
    ═══════════════════════════════════════════════════════════ */
-import { WEEKS, SPECIAL, HUES, PERIOD_TIMES } from '../data/schedule.js';
-import { now, todayInfo, WEEKDAY_CN } from '../utils/date.js';
+import { WEEKS, COURSES, PERIOD_TIMES, TERM_RANGE, WEEKDAY_CN } from '../data/schedule.js';
 
 export function SlotChip({ item, className }) {
-  const special = SPECIAL.has(item.c);
-  const hue = HUES[item.c];
-  const style = !special && hue !== undefined ? { ['--h']: hue } : undefined;
+  const course = COURSES[item.c];
+  const special = !!course?.special;
+  const hue = special ? undefined : course?.hue;
+  const style = hue !== undefined ? { ['--h']: hue } : undefined;
   const time = PERIOD_TIMES[item.p];
   const isList = className === 'slot';
   const Tag = isList ? 'li' : 'div';
@@ -19,13 +19,14 @@ export function SlotChip({ item, className }) {
       </span>
       {time && <span className="slot-time">{time}</span>}
       <span className={isList ? 'slot-course' : 'ts-course'}>
-        {item.c}
+        {course ? course.name : item.c}
       </span>
     </Tag>
   );
 }
 
-export default function TodayPanel({ onJumpToday }) {
+export default function TodayPanel({ today, onJumpToday }) {
+  const { now, info: todayInfo } = today;
   const dateText = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${WEEKDAY_CN[now.getDay()]}`;
 
   return (
@@ -58,7 +59,7 @@ export default function TodayPanel({ onJumpToday }) {
           </div>
         ) : (
           <p className="today-note">
-            当前日期不在本学期教学周内（2026.8.31 - 10.11），下方展示第 1 周课表。
+            当前日期不在本学期教学周内（{TERM_RANGE}），下方展示第 1 周课表。
           </p>
         )}
       </div>
