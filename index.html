@@ -1,0 +1,3564 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-style="flat" data-range="all">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f6fb">
+<meta name="description" content="2025级医学检验技术专业（1）班 2026年秋季学期课程表">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="课程表">
+<meta name="format-detection" content="telephone=no">
+<title>课程表 · 2025级医学检验技术专业（1）班</title>
+
+<script>
+  /* ============================================================
+     首屏前置：读取偏好，锁定主题与风格，避免闪烁
+     ============================================================ */
+  (function () {
+    var KEY = 'med-lab-ct-prefs-v3';
+    var prefs = { theme: 'system', style: 'flat', range: 'all' };
+
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === 'object') {
+          if (p.theme === 'light' || p.theme === 'dark' || p.theme === 'system') prefs.theme = p.theme;
+          if (p.style === 'flat' || p.style === 'clay' || p.style === 'neobrutal' || p.style === 'glass') prefs.style = p.style;
+          if (p.range === 'all' || p.range === 'today') prefs.range = p.range;
+        }
+      }
+    } catch (e) { /* 隐私模式忽略 */ }
+
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var dark = prefs.theme === 'dark' || (prefs.theme === 'system' && mq && mq.matches);
+
+    var root = document.documentElement;
+    root.dataset.theme = dark ? 'dark' : 'light';
+    root.dataset.style = prefs.style;
+    root.dataset.range = prefs.range;
+  })();
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   00. 基础重置
+   ═══════════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: var(--bg-image);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+  transition:
+    background-color .45s cubic-bezier(.4, 0, .2, 1),
+    color .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* 通用图标按钮 */
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .16s cubic-bezier(.4, 0, .2, 1);
+}
+
+.icon-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.icon-btn svg { width: 18px; height: 18px; display: block; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   01. 风格一 —— 现代化扁平卡片（Flat）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 极简几何、克制的阴影层次
+     · 1px 精细描边 + 超大圆角
+     · 悬停微抬升，克制的强调色点缀
+     · 干净通透，信息优先
+   ═══════════════════════════════════════════════════════════════ */
+:root,
+[data-style="flat"] {
+  color-scheme: light;
+
+  --bg: #f4f6fb;
+  --bg-image: none;
+
+  --surface: #ffffff;
+  --surface-2: #f5f7fb;
+  --surface-3: #eef2f9;
+  --surface-glass: #ffffff;
+
+  --border: #e4e9f2;
+  --border-strong: #d3dbe8;
+  --border-w: 1px;
+
+  --text: #0f172a;
+  --text-muted: #6b7a90;
+  --text-soft: #94a3b8;
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e8f0fe;
+  --accent-ring: rgba(37, 99, 235, .18);
+
+  --radius: 18px;
+  --radius-sm: 13px;
+  --radius-xs: 9px;
+
+  --shadow:
+    0 1px 2px rgba(15, 23, 42, .04),
+    0 4px 12px -4px rgba(15, 23, 42, .08),
+    0 16px 32px -20px rgba(15, 23, 42, .16);
+  --shadow-sm:
+    0 1px 2px rgba(15, 23, 42, .05),
+    0 2px 6px -2px rgba(15, 23, 42, .06);
+  --shadow-hover:
+    0 2px 4px rgba(15, 23, 42, .05),
+    0 8px 20px -6px rgba(15, 23, 42, .12),
+    0 22px 44px -26px rgba(15, 23, 42, .22);
+
+  /* 课程色块 */
+  --slot-s: 82%;
+  --slot-l: 96%;
+  --slot-s2: 70%;
+  --slot-l2: 87%;
+  --slot-bs: 68%;
+  --slot-bl: 88%;
+  --slot-ts: 62%;
+  --slot-tl: 26%;
+  --slot-bw: 1px;
+  --slot-radius: 11px;
+
+  --header-bg: rgba(255, 255, 255, .82);
+  --header-blur: saturate(180%) blur(18px);
+  --card-blur: none;
+
+  --lift: -1px;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur: .24s;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0f1a;
+  --surface: #131a28;
+  --surface-2: #182130;
+  --surface-3: #1e283a;
+  --surface-glass: #131a28;
+
+  --border: #23304a;
+  --border-strong: #2e3d5c;
+
+  --text: #e6edf7;
+  --text-muted: #8b9bb4;
+  --text-soft: #64748b;
+
+  --accent: #4f8ef7;
+  --accent-hover: #6ba1ff;
+  --accent-contrast: #06101f;
+  --accent-soft: #16233c;
+  --accent-ring: rgba(79, 142, 247, .22);
+
+  --shadow:
+    0 1px 2px rgba(0, 0, 0, .4),
+    0 4px 12px -4px rgba(0, 0, 0, .5),
+    0 16px 32px -20px rgba(0, 0, 0, .7);
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, .45),
+    0 2px 6px -2px rgba(0, 0, 0, .5);
+  --shadow-hover:
+    0 2px 4px rgba(0, 0, 0, .45),
+    0 8px 20px -6px rgba(0, 0, 0, .6),
+    0 22px 44px -26px rgba(0, 0, 0, .8);
+
+  --slot-s: 42%;
+  --slot-l: 16%;
+  --slot-s2: 40%;
+  --slot-l2: 20%;
+  --slot-bs: 38%;
+  --slot-bl: 28%;
+  --slot-ts: 82%;
+  --slot-tl: 80%;
+
+  --header-bg: rgba(19, 26, 40, .82);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   02. 风格二 —— 粘土拟物（Claymorphism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 双向柔光阴影（左上高光 / 右下投影），塑造挤压黏土的体积感
+     · 超柔圆角（20-28px），所有元素"肉感"饱满
+     · 内嵌高光 + 内阴影，营造可捏压的柔软错觉
+     · 粉彩渐变表面，低饱和高亮度
+     · 按压时内凹（inset shadow），回弹有弹性缓动
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="clay"] {
+  color-scheme: light;
+
+  --bg: #eef1fa;
+  --bg-image:
+    radial-gradient(1200px 800px at 8% -4%, #e3ebff 0%, transparent 58%),
+    radial-gradient(1000px 700px at 98% 6%, #f6e6ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 50% 108%, #e0f5ff 0%, transparent 60%);
+
+  --surface: #eef1fb;
+  --surface-2: #e7ebf8;
+  --surface-3: #dfe4f4;
+  --surface-glass: #eef1fb;
+
+  --border: rgba(255, 255, 255, .9);
+  --border-strong: rgba(255, 255, 255, .6);
+  --border-w: 1px;
+
+  --text: #2a3555;
+  --text-muted: #6b7793;
+  --text-soft: #9aa5bd;
+
+  --accent: #6d8bff;
+  --accent-hover: #5a7bff;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e2e9ff;
+  --accent-ring: rgba(109, 139, 255, .25);
+
+  --radius: 28px;
+  --radius-sm: 22px;
+  --radius-xs: 16px;
+
+  /* 凸起（raised）*/
+  --shadow:
+    14px 14px 30px rgba(163, 177, 198, .55),
+    -12px -12px 26px rgba(255, 255, 255, .95),
+    inset 0 1px 0 rgba(255, 255, 255, .85);
+  --shadow-sm:
+    6px 6px 14px rgba(163, 177, 198, .5),
+    -5px -5px 12px rgba(255, 255, 255, .92),
+    inset 0 1px 0 rgba(255, 255, 255, .8);
+  --shadow-hover:
+    18px 18px 36px rgba(163, 177, 198, .6),
+    -14px -14px 30px rgba(255, 255, 255, .98),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+
+  /* 凹陷（pressed）*/
+  --shadow-inset:
+    inset 5px 5px 12px rgba(163, 177, 198, .55),
+    inset -4px -4px 10px rgba(255, 255, 255, .92);
+
+  /* 课程色块 */
+  --slot-s: 88%;
+  --slot-l: 94%;
+  --slot-s2: 80%;
+  --slot-l2: 86%;
+  --slot-bs: 55%;
+  --slot-bl: 88%;
+  --slot-ts: 55%;
+  --slot-tl: 32%;
+  --slot-bw: 1px;
+  --slot-radius: 18px;
+
+  --header-bg: rgba(238, 241, 251, .85);
+  --header-blur: saturate(180%) blur(16px);
+  --card-blur: none;
+
+  --lift: -2px;
+  --ease: cubic-bezier(.34, 1.4, .64, 1);
+  --dur: .3s;
+}
+
+[data-theme="dark"][data-style="clay"] {
+  color-scheme: dark;
+
+  --bg: #10131e;
+  --bg-image:
+    radial-gradient(1200px 800px at 8% -4%, #1a2035 0%, transparent 58%),
+    radial-gradient(1000px 700px at 98% 6%, #1e1830 0%, transparent 55%),
+    radial-gradient(900px 700px at 50% 108%, #14202e 0%, transparent 60%);
+
+  --surface: #181c2a;
+  --surface-2: #1d2233;
+  --surface-3: #232940;
+  --surface-glass: #181c2a;
+
+  --border: rgba(255, 255, 255, .07);
+  --border-strong: rgba(255, 255, 255, .05);
+
+  --text: #e4e9f6;
+  --text-muted: #8d99b5;
+  --text-soft: #626e88;
+
+  --accent: #7b98ff;
+  --accent-hover: #90a8ff;
+  --accent-contrast: #0b0f1c;
+  --accent-soft: #1d2542;
+  --accent-ring: rgba(123, 152, 255, .3);
+
+  --shadow:
+    14px 14px 30px rgba(0, 0, 0, .6),
+    -12px -12px 26px rgba(255, 255, 255, .028),
+    inset 0 1px 0 rgba(255, 255, 255, .06);
+  --shadow-sm:
+    6px 6px 14px rgba(0, 0, 0, .55),
+    -5px -5px 12px rgba(255, 255, 255, .022),
+    inset 0 1px 0 rgba(255, 255, 255, .05);
+  --shadow-hover:
+    18px 18px 36px rgba(0, 0, 0, .65),
+    -14px -14px 30px rgba(255, 255, 255, .035),
+    inset 0 1px 0 rgba(255, 255, 255, .07);
+
+  --shadow-inset:
+    inset 5px 5px 12px rgba(0, 0, 0, .6),
+    inset -4px -4px 10px rgba(255, 255, 255, .03);
+
+  --slot-s: 32%;
+  --slot-l: 22%;
+  --slot-s2: 28%;
+  --slot-l2: 26%;
+  --slot-bs: 22%;
+  --slot-bl: 34%;
+  --slot-ts: 72%;
+  --slot-tl: 84%;
+
+  --header-bg: rgba(24, 28, 42, .85);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   03. 风格三 —— 新野兽派（Neobrutalism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 极粗实心描边（2-3px 纯黑），零模糊硬投影
+     · 高饱和撞色 + 绝对黑白的强对比
+     · 方角微圆（4-6px），拒绝柔和
+     · 交互位移：按下 → 实体"拍进"阴影
+     · 粗重字体、无渐变、无透明度渐变
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="neobrutal"] {
+  color-scheme: light;
+
+  --bg: #fdf6e3;
+  --bg-image:
+    linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),
+    linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px);
+  --bg-size: 22px 22px;
+
+  --surface: #ffffff;
+  --surface-2: #fff2c4;
+  --surface-3: #ffe9a8;
+  --surface-glass: #ffffff;
+
+  --border: #111111;
+  --border-strong: #111111;
+  --border-w: 3px;
+
+  --text: #111111;
+  --text-muted: #3d3d3d;
+  --text-soft: #6b6b6b;
+
+  --accent: #ff5c00;
+  --accent-hover: #ff7a2f;
+  --accent-contrast: #ffffff;
+  --accent-soft: #ffe0cc;
+  --accent-ring: rgba(255, 92, 0, .35);
+
+  --radius: 6px;
+  --radius-sm: 5px;
+  --radius-xs: 4px;
+
+  --shadow: 6px 6px 0 #111111;
+  --shadow-sm: 4px 4px 0 #111111;
+  --shadow-hover: 8px 8px 0 #111111;
+
+  /* 课程色块 */
+  --slot-s: 94%;
+  --slot-l: 80%;
+  --slot-s2: 90%;
+  --slot-l2: 74%;
+  --slot-bs: 0%;
+  --slot-bl: 0%;
+  --slot-ts: 0%;
+  --slot-tl: 8%;
+  --slot-bw: 3px;
+  --slot-radius: 5px;
+
+  --header-bg: #ffffff;
+  --header-blur: none;
+  --card-blur: none;
+
+  --lift: 0;
+  --ease: cubic-bezier(.2, .9, .3, 1);
+  --dur: .14s;
+}
+
+[data-theme="dark"][data-style="neobrutal"] {
+  color-scheme: dark;
+
+  --bg: #16161a;
+  --bg-image:
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  --bg-size: 22px 22px;
+
+  --surface: #22222a;
+  --surface-2: #2b2b36;
+  --surface-3: #343442;
+  --surface-glass: #22222a;
+
+  --border: #f2f2f2;
+  --border-strong: #f2f2f2;
+
+  --text: #f5f5f5;
+  --text-muted: #b8b8c4;
+  --text-soft: #8a8a98;
+
+  --accent: #ff7a2f;
+  --accent-hover: #ff914d;
+  --accent-contrast: #16161a;
+  --accent-soft: #3a2418;
+  --accent-ring: rgba(255, 122, 47, .45);
+
+  --shadow: 6px 6px 0 #f2f2f2;
+  --shadow-sm: 4px 4px 0 #f2f2f2;
+  --shadow-hover: 8px 8px 0 #f2f2f2;
+
+  --slot-s: 88%;
+  --slot-l: 78%;
+  --slot-s2: 84%;
+  --slot-l2: 72%;
+  --slot-bs: 0%;
+  --slot-bl: 0%;
+  --slot-ts: 0%;
+  --slot-tl: 8%;
+
+  --header-bg: #22222a;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   04. 风格四 —— 玻璃拟态（Glassmorphism）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 强 backdrop-filter 毛玻璃 + 高饱和背景光晕
+     · 半透明白边框 + 顶部内高光，模拟玻璃厚度
+     · 卡片边缘细腻的"折射感"光带
+     · 柔和多层投影，营造悬浮深度
+     · 悬停时高光扫过（sheen）
+   ═══════════════════════════════════════════════════════════════ */
+[data-style="glass"] {
+  color-scheme: light;
+
+  --bg: #dbe6ff;
+  --bg-image:
+    radial-gradient(1000px 700px at 10% -6%, #9db8ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 92% 2%, #f7c4ee 0%, transparent 52%),
+    radial-gradient(900px 800px at 78% 96%, #a8f0e2 0%, transparent 55%),
+    radial-gradient(900px 800px at 4% 92%, #c9b3ff 0%, transparent 54%);
+
+  --surface: rgba(255, 255, 255, .52);
+  --surface-2: rgba(255, 255, 255, .38);
+  --surface-3: rgba(255, 255, 255, .26);
+  --surface-glass: rgba(255, 255, 255, .45);
+
+  --border: rgba(255, 255, 255, .7);
+  --border-strong: rgba(255, 255, 255, .9);
+  --border-w: 1px;
+
+  --text: #141d38;
+  --text-muted: #47557a;
+  --text-soft: #6b7a9e;
+
+  --accent: #3b5bdb;
+  --accent-hover: #2f4bc4;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(255, 255, 255, .58);
+  --accent-ring: rgba(59, 91, 219, .3);
+
+  --radius: 22px;
+  --radius-sm: 16px;
+  --radius-xs: 11px;
+
+  --shadow:
+    0 4px 16px rgba(31, 38, 135, .1),
+    0 12px 40px -12px rgba(31, 38, 135, .22),
+    inset 0 1px 0 rgba(255, 255, 255, .85),
+    inset 0 -1px 0 rgba(255, 255, 255, .25);
+  --shadow-sm:
+    0 2px 8px rgba(31, 38, 135, .09),
+    inset 0 1px 0 rgba(255, 255, 255, .7);
+  --shadow-hover:
+    0 6px 22px rgba(31, 38, 135, .14),
+    0 18px 52px -14px rgba(31, 38, 135, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .95),
+    inset 0 -1px 0 rgba(255, 255, 255, .3);
+
+  /* 课程色块 */
+  --slot-s: 92%;
+  --slot-l: 86%;
+  --slot-s2: 88%;
+  --slot-l2: 78%;
+  --slot-bs: 90%;
+  --slot-bl: 92%;
+  --slot-ts: 60%;
+  --slot-tl: 26%;
+  --slot-bw: 1px;
+  --slot-radius: 14px;
+
+  --header-bg: rgba(255, 255, 255, .42);
+  --header-blur: saturate(200%) blur(22px);
+  --card-blur: saturate(190%) blur(22px);
+
+  --lift: -2px;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur: .3s;
+}
+
+[data-theme="dark"][data-style="glass"] {
+  color-scheme: dark;
+
+  --bg: #070b18;
+  --bg-image:
+    radial-gradient(1000px 700px at 10% -6%, #1e2f7a 0%, transparent 55%),
+    radial-gradient(900px 700px at 92% 2%, #5c1f57 0%, transparent 52%),
+    radial-gradient(900px 800px at 78% 96%, #0b3f3c 0%, transparent 55%),
+    radial-gradient(900px 800px at 4% 92%, #2c1f5e 0%, transparent 54%);
+
+  --surface: rgba(28, 38, 62, .48);
+  --surface-2: rgba(38, 50, 80, .36);
+  --surface-3: rgba(46, 60, 94, .26);
+  --surface-glass: rgba(28, 38, 62, .42);
+
+  --border: rgba(255, 255, 255, .13);
+  --border-strong: rgba(255, 255, 255, .22);
+
+  --text: #eaf0ff;
+  --text-muted: #9aa8c8;
+  --text-soft: #6b7a9c;
+
+  --accent: #7d9bff;
+  --accent-hover: #96b0ff;
+  --accent-contrast: #070b18;
+  --accent-soft: rgba(125, 155, 255, .16);
+  --accent-ring: rgba(125, 155, 255, .35);
+
+  --shadow:
+    0 4px 16px rgba(0, 0, 0, .35),
+    0 12px 40px -12px rgba(0, 0, 0, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    inset 0 -1px 0 rgba(255, 255, 255, .03);
+  --shadow-sm:
+    0 2px 8px rgba(0, 0, 0, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+  --shadow-hover:
+    0 6px 22px rgba(0, 0, 0, .4),
+    0 18px 52px -14px rgba(0, 0, 0, .7),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -1px 0 rgba(255, 255, 255, .04);
+
+  --slot-s: 40%;
+  --slot-l: 22%;
+  --slot-s2: 36%;
+  --slot-l2: 30%;
+  --slot-bs: 40%;
+  --slot-bl: 40%;
+  --slot-ts: 80%;
+  --slot-tl: 84%;
+
+  --header-bg: rgba(20, 28, 48, .42);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   05. 顶部栏
+   ═══════════════════════════════════════════════════════════════ */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: var(--header-blur);
+  backdrop-filter: var(--header-blur);
+  border-bottom: var(--border-w) solid var(--border);
+  transition:
+    background-color .45s var(--ease),
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease);
+}
+
+.app-header.is-scrolled {
+  box-shadow: 0 6px 24px -14px rgba(15, 23, 42, .3);
+}
+
+[data-theme="dark"] .app-header.is-scrolled {
+  box-shadow: 0 6px 24px -14px rgba(0, 0, 0, .8);
+}
+
+/* 新野兽派：底部 4px 黑边 */
+[data-style="neobrutal"] .app-header {
+  border-bottom-width: 4px;
+  border-bottom-color: var(--border);
+}
+
+[data-style="neobrutal"] .app-header.is-scrolled {
+  box-shadow: 0 5px 0 var(--border);
+}
+
+[data-style="clay"] .app-header {
+  border-bottom: none;
+  box-shadow:
+    0 8px 20px -12px rgba(163, 177, 198, .7),
+    inset 0 -1px 0 rgba(255, 255, 255, .7);
+}
+
+[data-theme="dark"][data-style="clay"] .app-header {
+  box-shadow:
+    0 8px 20px -12px rgba(0, 0, 0, .8),
+    inset 0 -1px 0 rgba(255, 255, 255, .05);
+}
+
+[data-style="glass"] .app-header {
+  border-bottom-color: rgba(255, 255, 255, .28);
+}
+
+[data-theme="dark"][data-style="glass"] .app-header {
+  border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+.header-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  color: var(--accent);
+  transition: transform .3s var(--ease);
+}
+
+[data-style="clay"] .brand-icon {
+  padding: 6px;
+  border-radius: 13px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  width: 44px;
+  height: 44px;
+}
+
+[data-style="neobrutal"] .brand-icon {
+  padding: 5px;
+  border: 3px solid var(--border);
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  width: 42px;
+  height: 42px;
+  box-shadow: 3px 3px 0 var(--border);
+}
+
+[data-style="glass"] .brand-icon {
+  padding: 6px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .4);
+  border: 1px solid rgba(255, 255, 255, .7);
+  width: 44px;
+  height: 44px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 4px 12px -4px rgba(31,38,135,.2);
+}
+
+[data-theme="dark"][data-style="glass"] .brand-icon {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 4px 12px -4px rgba(0,0,0,.5);
+}
+
+.brand-text { min-width: 0; }
+
+.brand-text h1 {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: .1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-style="neobrutal"] .brand-text h1 {
+  font-weight: 800;
+  letter-spacing: -.2px;
+  text-transform: none;
+}
+
+.brand-text p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   06. 分段控件（主题切换）
+   ═══════════════════════════════════════════════════════════════ */
+.segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface-2);
+  border: var(--border-w) solid var(--border);
+  border-radius: 999px;
+  flex: none;
+  transition: background-color .3s var(--ease), border-color .3s var(--ease);
+}
+
+.seg-btn {
+  min-width: 36px;
+  height: 30px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color .2s var(--ease),
+    color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .14s var(--ease);
+}
+
+.seg-btn svg { width: 16px; height: 16px; display: block; }
+
+.seg-btn:hover { color: var(--text); }
+
+.seg-btn.is-active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 粘土 */
+[data-style="clay"] .segmented {
+  background: var(--surface-2);
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-inset);
+  padding: 4px;
+}
+
+[data-style="clay"] .seg-btn.is-active {
+  background: var(--surface);
+  box-shadow:
+    4px 4px 10px rgba(163, 177, 198, .5),
+    -3px -3px 8px rgba(255, 255, 255, .95);
+}
+
+[data-theme="dark"][data-style="clay"] .seg-btn.is-active {
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, .55),
+    -3px -3px 8px rgba(255, 255, 255, .03);
+}
+
+/* 新野兽派 */
+[data-style="neobrutal"] .segmented {
+  background: var(--surface);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--border);
+  padding: 3px;
+  gap: 3px;
+}
+
+[data-style="neobrutal"] .seg-btn {
+  border-radius: 2px;
+  color: var(--text);
+}
+
+[data-style="neobrutal"] .seg-btn.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: none;
+  outline: 2px solid var(--border);
+  outline-offset: -2px;
+}
+
+/* 玻璃 */
+[data-style="glass"] .segmented {
+  background: rgba(255, 255, 255, .3);
+  border-color: rgba(255, 255, 255, .6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 4px 14px -6px rgba(31,38,135,.2);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+
+[data-theme="dark"][data-style="glass"] .segmented {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 4px 14px -6px rgba(0,0,0,.5);
+}
+
+[data-style="glass"] .seg-btn.is-active {
+  background: rgba(255, 255, 255, .6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 2px 6px -2px rgba(31,38,135,.2);
+}
+
+[data-theme="dark"][data-style="glass"] .seg-btn.is-active {
+  background: rgba(255, 255, 255, .13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+/* 宽版分段 */
+.segmented.seg-wide {
+  width: 100%;
+  padding: 4px;
+}
+
+.segmented.seg-wide .seg-btn {
+  flex: 1;
+  height: 36px;
+  border-radius: 999px;
+}
+
+[data-style="neobrutal"] .segmented.seg-wide .seg-btn { border-radius: 2px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   07. 主区域
+   ═══════════════════════════════════════════════════════════════ */
+main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px 20px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   08. 今日卡片
+   ═══════════════════════════════════════════════════════════════ */
+.today-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  -webkit-backdrop-filter: var(--card-blur);
+  backdrop-filter: var(--card-blur);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px 18px 24px;
+  transition:
+    background-color .45s var(--ease),
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease);
+}
+
+/* 左侧强调条 */
+.today-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), #7c3aed);
+}
+
+/* 粘土：左侧圆润色条 */
+[data-style="clay"] .today-card::before {
+  width: 6px;
+  left: 3px;
+  top: 10px;
+  bottom: 10px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), #9d7cff);
+  box-shadow:
+    0 2px 6px rgba(109, 139, 255, .5),
+    inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+/* 新野兽派：8px 实心色条 */
+[data-style="neobrutal"] .today-card::before {
+  width: 10px;
+  background: var(--accent);
+  border-right: 3px solid var(--border);
+}
+
+/* 玻璃：柔和光带 */
+[data-style="glass"] .today-card::before {
+  width: 5px;
+  background: linear-gradient(180deg, var(--accent), #a78bfa, #22d3ee);
+  border-radius: 999px;
+  top: 12px;
+  bottom: 12px;
+  left: 2px;
+  filter: blur(.3px);
+  opacity: .85;
+}
+
+/* 玻璃卡片顶部高光 */
+[data-style="glass"] .today-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .35) 0%,
+    rgba(255, 255, 255, .04) 32%,
+    transparent 60%
+  );
+}
+
+[data-theme="dark"][data-style="glass"] .today-card::after {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .09) 0%,
+    rgba(255, 255, 255, .02) 32%,
+    transparent 60%
+  );
+}
+
+.today-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.today-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+[data-style="clay"] .today-label {
+  border-radius: 999px;
+  padding: 4px 12px;
+  box-shadow:
+    0 3px 8px rgba(109, 139, 255, .45),
+    inset 0 1px 0 rgba(255, 255, 255, .45);
+}
+
+[data-style="neobrutal"] .today-label {
+  border: 3px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 3px 3px 0 var(--border);
+  padding: 3px 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+[data-style="glass"] .today-label {
+  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  border-radius: 999px;
+  padding: 4px 12px;
+  box-shadow:
+    0 4px 14px -4px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.today-date {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+[data-style="neobrutal"] .today-date { font-weight: 800; }
+
+.today-week {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: var(--border-w) solid var(--border);
+}
+
+[data-style="neobrutal"] .today-week {
+  border-radius: 3px;
+  border-width: 2px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+[data-style="clay"] .today-week {
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-inset);
+  padding: 4px 12px;
+}
+
+[data-style="glass"] .today-week {
+  background: rgba(255, 255, 255, .35);
+  border-color: rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"][data-style="glass"] .today-week {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+/* 幽灵按钮 */
+.ghost-btn {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9px;
+  border: var(--border-w) solid var(--border);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition:
+    background-color .2s var(--ease),
+    border-color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .14s var(--ease);
+}
+
+.ghost-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+[data-style="clay"] .ghost-btn {
+  border-radius: 999px;
+  background: var(--surface);
+  border-color: rgba(255, 255, 255, .8);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-style="clay"] .ghost-btn:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+[data-style="clay"] .ghost-btn:active {
+  box-shadow: var(--shadow-inset);
+  transform: translateY(0);
+}
+
+[data-style="neobrutal"] .ghost-btn {
+  border-radius: 3px;
+  border-width: 3px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 3px 3px 0 var(--border);
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .ghost-btn:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+[data-style="neobrutal"] .ghost-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border);
+}
+
+[data-style="glass"] .ghost-btn {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .4);
+  border-color: rgba(255, 255, 255, .7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 10px -4px rgba(31,38,135,.2);
+}
+
+[data-theme="dark"][data-style="glass"] .ghost-btn {
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(255, 255, 255, .15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 3px 10px -4px rgba(0,0,0,.5);
+}
+
+[data-style="glass"] .ghost-btn:hover {
+  background: rgba(255, 255, 255, .6);
+}
+
+[data-theme="dark"][data-style="glass"] .ghost-btn:hover {
+  background: rgba(255, 255, 255, .16);
+}
+
+.today-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 今日课程胶囊 */
+.today-slot {
+  --h: 220;
+  position: relative;
+  flex: 1 1 165px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px 14px;
+  border-radius: var(--slot-radius);
+  background: hsl(var(--h) var(--slot-s) var(--slot-l));
+  border: var(--slot-bw) solid hsl(var(--h) var(--slot-bs) var(--slot-bl));
+  color: hsl(var(--h) var(--slot-ts) var(--slot-tl));
+  overflow: hidden;
+  transition:
+    transform .25s var(--ease),
+    box-shadow .25s var(--ease),
+    background-color .3s var(--ease);
+}
+
+[data-style="flat"] .today-slot {
+  box-shadow: 0 1px 2px hsl(var(--h) 40% 50% / .07);
+}
+
+[data-style="flat"] .today-slot:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -4px hsl(var(--h) 40% 40% / .22);
+}
+
+[data-style="clay"] .today-slot {
+  background: linear-gradient(
+    145deg,
+    hsl(var(--h) 90% calc(var(--slot-l) + 2%)),
+    hsl(var(--h) var(--slot-s) calc(var(--slot-l) - 4%))
+  );
+  box-shadow:
+    4px 4px 10px hsl(var(--h) 35% 72% / .5),
+    -3px -3px 8px hsl(var(--h) 100% 99% / .9),
+    inset 0 1px 0 hsl(var(--h) 100% 99% / .75);
+}
+
+[data-theme="dark"][data-style="clay"] .today-slot {
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, .5),
+    -3px -3px 8px rgba(255, 255, 255, .03),
+    inset 0 1px 0 rgba(255, 255, 255, .07);
+}
+
+[data-style="neobrutal"] .today-slot {
+  box-shadow: 4px 4px 0 var(--border);
+  border-width: 3px;
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .today-slot:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--border);
+}
+
+[data-style="glass"] .today-slot {
+  background: hsl(var(--h) var(--slot-s) var(--slot-l) / .5);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border-color: hsl(var(--h) 95% 96% / .65);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 100% 100% / .75),
+    0 4px 14px -6px hsl(var(--h) 55% 45% / .22);
+}
+
+[data-theme="dark"][data-style="glass"] .today-slot {
+  border-color: hsl(var(--h) 55% 70% / .28);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 80% 90% / .16),
+    0 4px 14px -6px rgba(0, 0, 0, .55);
+}
+
+.today-slot.is-special {
+  background: var(--surface-2);
+  border-color: var(--border);
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+[data-style="neobrutal"] .today-slot.is-special {
+  border-style: solid;
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+[data-style="clay"] .today-slot.is-special {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-style="glass"] .today-slot.is-special {
+  background: rgba(255, 255, 255, .28);
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .5);
+}
+
+[data-theme="dark"][data-style="glass"] .today-slot.is-special {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.ts-period {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: .78;
+  letter-spacing: .02em;
+}
+
+.ts-course {
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+[data-style="neobrutal"] .ts-course { font-weight: 800; }
+
+.today-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   09. 周切换标签
+   ═══════════════════════════════════════════════════════════════ */
+.week-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x proximity;
+}
+
+.week-tabs::-webkit-scrollbar { display: none; }
+.week-tabs[hidden] { display: none; }
+
+[data-style="neobrutal"] .week-tabs { padding: 4px 2px 14px; }
+
+.week-tab {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition:
+    background-color .2s var(--ease),
+    border-color .2s var(--ease),
+    color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .16s var(--ease);
+}
+
+.week-tab:hover { border-color: var(--accent); }
+
+.week-tab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+[data-style="clay"] .week-tab {
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-sm);
+  padding: 10px 18px;
+}
+
+[data-style="clay"] .week-tab:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+[data-style="clay"] .week-tab.is-active {
+  box-shadow:
+    6px 6px 14px rgba(109, 139, 255, .4),
+    -4px -4px 10px rgba(255, 255, 255, .9);
+}
+
+[data-theme="dark"][data-style="clay"] .week-tab.is-active {
+  box-shadow:
+    6px 6px 14px rgba(0, 0, 0, .55),
+    -4px -4px 10px rgba(255, 255, 255, .03);
+}
+
+[data-style="neobrutal"] .week-tab {
+  border-width: 3px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--border);
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .week-tab.is-active {
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+[data-style="neobrutal"] .week-tab:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--border);
+}
+
+[data-style="neobrutal"] .week-tab:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--border);
+}
+
+[data-style="glass"] .week-tab {
+  background: rgba(255, 255, 255, .35);
+  border-color: rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 12px -6px rgba(31,38,135,.18);
+}
+
+[data-theme="dark"][data-style="glass"] .week-tab {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 3px 12px -6px rgba(0,0,0,.5);
+}
+
+[data-style="glass"] .week-tab.is-active {
+  background: linear-gradient(135deg, var(--accent), #6d5bff);
+  border-color: rgba(255, 255, 255, .5);
+  box-shadow:
+    0 6px 20px -6px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+
+.wt-label { font-size: 13.5px; font-weight: 650; }
+.wt-range { font-size: 11px; opacity: .72; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   10. 周课表网格
+   ═══════════════════════════════════════════════════════════════ */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+[data-style="neobrutal"] .week-grid { gap: 18px; }
+
+.week-grid.single {
+  grid-template-columns: minmax(0, 460px);
+  justify-content: center;
+}
+
+.day-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: var(--surface);
+  -webkit-backdrop-filter: var(--card-blur);
+  backdrop-filter: var(--card-blur);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition:
+    border-color .25s var(--ease),
+    box-shadow .25s var(--ease),
+    background-color .45s var(--ease),
+    transform .25s var(--ease);
+}
+
+[data-style="flat"] .day-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 玻璃：高光扫过 */
+[data-style="glass"] .day-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, .4) 0%,
+    rgba(255, 255, 255, .05) 30%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity .4s var(--ease);
+}
+
+[data-style="glass"] .day-card:hover::after { opacity: 1; }
+
+[data-theme="dark"][data-style="glass"] .day-card::after {
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, .1) 0%,
+    rgba(255, 255, 255, .02) 30%,
+    transparent 55%
+  );
+}
+
+/* 今天卡片 */
+.day-card.is-today {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px var(--accent-soft),
+    var(--shadow);
+}
+
+[data-style="clay"] .day-card.is-today {
+  border-color: rgba(109, 139, 255, .4);
+  box-shadow:
+    0 0 0 3px rgba(109, 139, 255, .18),
+    14px 14px 30px rgba(109, 139, 255, .25),
+    -12px -12px 26px rgba(255, 255, 255, .95);
+}
+
+[data-theme="dark"][data-style="clay"] .day-card.is-today {
+  box-shadow:
+    0 0 0 3px rgba(123, 152, 255, .18),
+    14px 14px 30px rgba(0, 0, 0, .6),
+    -12px -12px 26px rgba(255, 255, 255, .03);
+}
+
+[data-style="neobrutal"] .day-card.is-today {
+  box-shadow: 6px 6px 0 var(--accent);
+  border-color: var(--border);
+  background: var(--surface-3);
+}
+
+[data-theme="dark"][data-style="neobrutal"] .day-card.is-today {
+  box-shadow: 6px 6px 0 var(--accent);
+}
+
+[data-style="glass"] .day-card.is-today {
+  border-color: rgba(255, 255, 255, .85);
+  box-shadow:
+    0 0 0 3px var(--accent-ring),
+    0 8px 28px -8px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+[data-theme="dark"][data-style="glass"] .day-card.is-today {
+  border-color: rgba(255, 255, 255, .25);
+  box-shadow:
+    0 0 0 3px var(--accent-ring),
+    0 8px 28px -8px rgba(0, 0, 0, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .14);
+}
+
+.day-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+}
+
+[data-style="neobrutal"] .day-head {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: var(--border);
+}
+
+[data-style="clay"] .day-head {
+  border-bottom-style: solid;
+  border-bottom-color: rgba(255, 255, 255, .7);
+}
+
+[data-style="glass"] .day-head {
+  border-bottom-color: rgba(255, 255, 255, .4);
+}
+
+[data-theme="dark"][data-style="glass"] .day-head {
+  border-bottom-color: rgba(255, 255, 255, .1);
+}
+
+.day-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .day-name { font-weight: 800; letter-spacing: -.1px; }
+
+.day-date {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.today-badge {
+  margin-left: auto;
+  align-self: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+[data-style="clay"] .today-badge {
+  border-radius: 999px;
+  padding: 3px 10px;
+  box-shadow:
+    0 3px 8px rgba(109, 139, 255, .45),
+    inset 0 1px 0 rgba(255, 255, 255, .45);
+}
+
+[data-style="neobrutal"] .today-badge {
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 var(--border);
+}
+
+[data-style="glass"] .today-badge {
+  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  border-radius: 999px;
+  padding: 3px 10px;
+  box-shadow:
+    0 3px 10px -3px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.slot-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* 课程小卡 */
+.slot {
+  --h: 220;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 12px;
+  border-radius: var(--slot-radius);
+  background: hsl(var(--h) var(--slot-s) var(--slot-l));
+  border: var(--slot-bw) solid hsl(var(--h) var(--slot-bs) var(--slot-bl));
+  color: hsl(var(--h) var(--slot-ts) var(--slot-tl));
+  overflow: hidden;
+  transition:
+    transform .22s var(--ease),
+    box-shadow .22s var(--ease),
+    background-color .3s var(--ease);
+}
+
+[data-style="flat"] .slot {
+  box-shadow: 0 1px 1px hsl(var(--h) 40% 50% / .06);
+}
+
+[data-style="flat"] .slot:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px -3px hsl(var(--h) 45% 40% / .22);
+}
+
+[data-style="clay"] .slot {
+  background: linear-gradient(
+    145deg,
+    hsl(var(--h) 90% calc(var(--slot-l) + 2%)),
+    hsl(var(--h) var(--slot-s) calc(var(--slot-l) - 4%))
+  );
+  box-shadow:
+    4px 4px 9px hsl(var(--h) 35% 72% / .5),
+    -3px -3px 7px hsl(var(--h) 100% 99% / .9),
+    inset 0 1px 0 hsl(var(--h) 100% 99% / .75);
+  border-color: hsl(var(--h) 80% 96% / .8);
+}
+
+[data-theme="dark"][data-style="clay"] .slot {
+  box-shadow:
+    4px 4px 9px rgba(0, 0, 0, .5),
+    -3px -3px 7px rgba(255, 255, 255, .03),
+    inset 0 1px 0 rgba(255, 255, 255, .07);
+  border-color: hsl(var(--h) 40% 30% / .6);
+}
+
+[data-style="clay"] .slot:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    6px 6px 14px hsl(var(--h) 35% 70% / .55),
+    -4px -4px 10px hsl(var(--h) 100% 99% / .95),
+    inset 0 1px 0 hsl(var(--h) 100% 99% / .8);
+}
+
+[data-theme="dark"][data-style="clay"] .slot:hover {
+  box-shadow:
+    6px 6px 14px rgba(0, 0, 0, .6),
+    -4px -4px 10px rgba(255, 255, 255, .04),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+[data-style="neobrutal"] .slot {
+  background: hsl(var(--h) var(--slot-s) var(--slot-l));
+  border-color: var(--border);
+  border-width: 3px;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--border);
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .slot:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+[data-style="glass"] .slot {
+  background: hsl(var(--h) var(--slot-s) var(--slot-l) / .52);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border-color: hsl(var(--h) 95% 97% / .7);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 100% 100% / .8),
+    0 4px 12px -6px hsl(var(--h) 55% 45% / .2);
+}
+
+[data-theme="dark"][data-style="glass"] .slot {
+  border-color: hsl(var(--h) 55% 70% / .3);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 80% 90% / .18),
+    0 4px 12px -6px rgba(0, 0, 0, .55);
+}
+
+[data-style="glass"] .slot:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 100% 100% / .9),
+    0 8px 20px -8px hsl(var(--h) 55% 45% / .32);
+}
+
+.slot.is-special {
+  background: var(--surface-2);
+  border-color: var(--border);
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+[data-style="neobrutal"] .slot.is-special {
+  border-style: solid;
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: 3px 3px 0 var(--border);
+}
+
+[data-style="clay"] .slot.is-special {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-inset);
+  color: var(--text-muted);
+}
+
+[data-theme="dark"][data-style="clay"] .slot.is-special {
+  border-color: rgba(255, 255, 255, .06);
+}
+
+[data-style="glass"] .slot.is-special {
+  background: rgba(255, 255, 255, .28);
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .5);
+}
+
+[data-theme="dark"][data-style="glass"] .slot.is-special {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.slot-period {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: .8;
+  letter-spacing: .02em;
+}
+
+.slot-course {
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+[data-style="neobrutal"] .slot-course { font-weight: 800; }
+
+.slot-empty {
+  padding: 18px 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--slot-radius);
+}
+
+[data-style="neobrutal"] .slot-empty {
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 4px;
+}
+
+[data-style="clay"] .slot-empty {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .7);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-style="glass"] .slot-empty {
+  background: rgba(255, 255, 255, .22);
+  border-color: rgba(255, 255, 255, .45);
+}
+
+[data-theme="dark"][data-style="glass"] .slot-empty {
+  background: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+/* 空状态 */
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 52px 20px;
+  background: var(--surface);
+  border: var(--border-w) dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+[data-style="neobrutal"] .empty-state {
+  border-style: solid;
+  border-width: 3px;
+  box-shadow: var(--shadow);
+}
+
+[data-style="clay"] .empty-state {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow);
+}
+
+[data-style="glass"] .empty-state {
+  background: rgba(255, 255, 255, .28);
+  border-color: rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+[data-theme="dark"][data-style="glass"] .empty-state {
+  background: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.empty-state svg { width: 42px; height: 42px; opacity: .55; }
+.empty-state p { margin: 0; font-size: 13.5px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   11. 教师信息
+   ═══════════════════════════════════════════════════════════════ */
+.teachers {
+  background: var(--surface);
+  -webkit-backdrop-filter: var(--card-blur);
+  backdrop-filter: var(--card-blur);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px 20px;
+  transition:
+    background-color .45s var(--ease),
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease);
+}
+
+.teachers-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+[data-style="neobrutal"] .teachers-title { font-weight: 800; }
+
+.teachers-title svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent);
+  flex: none;
+}
+
+[data-style="neobrutal"] .teachers-title svg {
+  stroke-width: 2.5;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 9px;
+}
+
+[data-style="neobrutal"] .teacher-grid { gap: 12px; }
+
+.teacher-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  background: var(--surface-2);
+  border: var(--border-w) solid transparent;
+  font-size: 13px;
+  transition: background-color .25s var(--ease), border-color .25s var(--ease);
+}
+
+[data-style="neobrutal"] .teacher-item {
+  border-color: var(--border);
+  border-width: 2px;
+  border-radius: 4px;
+}
+
+[data-style="clay"] .teacher-item {
+  border-color: rgba(255, 255, 255, .7);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface-2);
+}
+
+[data-theme="dark"][data-style="clay"] .teacher-item {
+  border-color: rgba(255, 255, 255, .05);
+}
+
+[data-style="glass"] .teacher-item {
+  background: rgba(255, 255, 255, .3);
+  border-color: rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"][data-style="glass"] .teacher-item {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.t-name {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.t-person { font-weight: 650; flex: none; }
+[data-style="neobrutal"] .t-person { font-weight: 800; }
+
+.footnote {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   12. 设置面板
+   ═══════════════════════════════════════════════════════════════ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, .45);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity .26s var(--ease),
+    visibility .26s var(--ease);
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-style="glass"] .modal-backdrop {
+  background: rgba(10, 15, 30, .35);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+.modal {
+  width: min(560px, 100%);
+  max-height: min(88vh, 800px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px -24px rgba(2, 8, 23, .55);
+  overflow: hidden;
+  transform: translateY(18px) scale(.965);
+  transition: transform .3s cubic-bezier(.34, 1.3, .64, 1);
+}
+
+.modal-backdrop.is-open .modal { transform: none; }
+
+[data-style="neobrutal"] .modal {
+  border-width: 4px;
+  border-radius: 6px;
+  box-shadow: 10px 10px 0 var(--border);
+  background: var(--surface);
+}
+
+[data-style="clay"] .modal {
+  box-shadow:
+    20px 20px 44px rgba(163, 177, 198, .6),
+    -14px -14px 32px rgba(255, 255, 255, .95),
+    inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+[data-theme="dark"][data-style="clay"] .modal {
+  box-shadow:
+    20px 20px 44px rgba(0, 0, 0, .7),
+    -14px -14px 32px rgba(255, 255, 255, .03),
+    inset 0 1px 0 rgba(255, 255, 255, .07);
+}
+
+[data-style="glass"] .modal {
+  background: rgba(255, 255, 255, .58);
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow:
+    0 30px 80px -24px rgba(2, 8, 23, .4),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+[data-theme="dark"][data-style="glass"] .modal {
+  background: rgba(22, 30, 50, .72);
+  border-color: rgba(255, 255, 255, .16);
+  box-shadow:
+    0 30px 80px -24px rgba(0, 0, 0, .85),
+    inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: var(--border-w) solid var(--border);
+  flex: none;
+}
+
+[data-style="neobrutal"] .modal-head {
+  border-bottom-width: 4px;
+  border-bottom-color: var(--border);
+}
+
+[data-style="glass"] .modal-head {
+  border-bottom-color: rgba(255, 255, 255, .5);
+}
+
+[data-theme="dark"][data-style="glass"] .modal-head {
+  border-bottom-color: rgba(255, 255, 255, .1);
+}
+
+.modal-head h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+[data-style="neobrutal"] .modal-head h2 { font-weight: 800; }
+
+.modal-head h2 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.modal-body {
+  padding: 20px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setting-group h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+[data-style="neobrutal"] .setting-group h3 {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.setting-hint {
+  margin: -4px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* 风格选择 */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+[data-style="neobrutal"] .style-grid { gap: 14px; }
+
+.style-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 11px;
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 650;
+  text-align: left;
+  transition:
+    border-color .2s var(--ease),
+    box-shadow .2s var(--ease),
+    transform .16s var(--ease);
+}
+
+.style-btn:hover { border-color: var(--accent); }
+
+.style-btn[aria-checked="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+[data-style="neobrutal"] .style-btn {
+  border-radius: 4px;
+  border-width: 3px;
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+[data-style="neobrutal"] .style-btn[aria-checked="true"] {
+  box-shadow: 4px 4px 0 var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-style="neobrutal"] .style-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--border);
+}
+
+[data-style="clay"] .style-btn {
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-style="clay"] .style-btn[aria-checked="true"] {
+  box-shadow:
+    0 0 0 3px rgba(109, 139, 255, .22),
+    6px 6px 14px rgba(163, 177, 198, .5),
+    -4px -4px 10px rgba(255, 255, 255, .95);
+}
+
+[data-theme="dark"][data-style="clay"] .style-btn[aria-checked="true"] {
+  box-shadow:
+    0 0 0 3px rgba(123, 152, 255, .22),
+    6px 6px 14px rgba(0, 0, 0, .55),
+    -4px -4px 10px rgba(255, 255, 255, .03);
+}
+
+[data-style="glass"] .style-btn {
+  background: rgba(255, 255, 255, .32);
+  border-color: rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+[data-theme="dark"][data-style="glass"] .style-btn {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+[data-style="glass"] .style-btn[aria-checked="true"] {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px var(--accent-ring),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+/* 风格预览色块 */
+.style-swatch {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 52px;
+  border-radius: 13px;
+  overflow: hidden;
+  transition: transform .25s var(--ease);
+}
+
+.style-btn:hover .style-swatch { transform: scale(1.015); }
+
+/* 扁平预览 */
+.style-swatch[data-swatch="flat"] {
+  background: #f4f6fb;
+  border: 1px solid #e4e9f2;
+}
+.style-swatch[data-swatch="flat"]::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 5px 12px -6px rgba(15,23,42,.18);
+}
+.style-swatch[data-swatch="flat"]::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 8px;
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+}
+
+/* 粘土预览 */
+.style-swatch[data-swatch="clay"] {
+  background: linear-gradient(145deg, #eef1fb, #e2e7f6);
+  border: 1px solid rgba(255, 255, 255, .8);
+}
+.style-swatch[data-swatch="clay"]::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #f3f6ff, #e2e8fa);
+  box-shadow:
+    4px 4px 8px rgba(163,177,198,.6),
+    -3px -3px 7px rgba(255,255,255,.95),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+.style-swatch[data-swatch="clay"]::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #b8c8ff, #93a9ff);
+  box-shadow:
+    4px 4px 8px rgba(140,160,220,.55),
+    -3px -3px 7px rgba(255,255,255,.9),
+    inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+/* 新野兽派预览 */
+.style-swatch[data-swatch="neobrutal"] {
+  background: #fdf6e3;
+  border: 2px solid #111111;
+}
+.style-swatch[data-swatch="neobrutal"]::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 34%;
+  height: 30px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 2px solid #111111;
+  box-shadow: 3px 3px 0 #111111;
+}
+.style-swatch[data-swatch="neobrutal"]::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 10px;
+  width: 34%;
+  height: 30px;
+  border-radius: 4px;
+  background: #ff5c00;
+  border: 2px solid #111111;
+  box-shadow: 3px 3px 0 #111111;
+}
+
+/* 玻璃拟态预览 */
+.style-swatch[data-swatch="glass"] {
+  background:
+    radial-gradient(circle at 18% 22%, #9db8ff 0%, transparent 62%),
+    radial-gradient(circle at 82% 78%, #f7c4ee 0%, transparent 60%),
+    linear-gradient(135deg, #dbe6ff, #c9e9ff);
+  border: 1px solid rgba(255,255,255,.8);
+}
+.style-swatch[data-swatch="glass"]::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 4px 12px -4px rgba(31,38,135,.3);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.style-swatch[data-swatch="glass"]::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 11px;
+  width: 34%;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(59,91,219,.85), rgba(124,58,237,.85));
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 4px 12px -4px rgba(59,91,219,.5);
+}
+
+.style-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.25;
+}
+
+[data-style="neobrutal"] .style-name { font-weight: 800; }
+
+.style-check {
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  color: var(--accent);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+  flex: none;
+}
+
+.style-btn[aria-checked="true"] .style-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-style="neobrutal"] .style-check { stroke-width: 4; }
+
+/* 说明条 */
+.info-strip {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 14px;
+  border-radius: var(--radius-xs);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+[data-style="neobrutal"] .info-strip {
+  border: 3px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-2);
+  box-shadow: 3px 3px 0 var(--border);
+}
+
+[data-style="clay"] .info-strip {
+  box-shadow: var(--shadow-inset);
+  background: var(--surface-2);
+}
+
+[data-style="glass"] .info-strip {
+  background: rgba(255, 255, 255, .38);
+  border: 1px solid rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"][data-style="glass"] .info-strip {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.info-strip svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   13. 响应式
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 760px) {
+  .header-inner { padding: 11px 14px; gap: 10px; }
+  main { padding: 14px 14px 56px; gap: 14px; }
+  .brand-icon { width: 32px; height: 32px; }
+  [data-style="clay"] .brand-icon,
+  [data-style="glass"] .brand-icon { width: 38px; height: 38px; }
+  [data-style="neobrutal"] .brand-icon { width: 36px; height: 36px; }
+  .brand-text h1 { font-size: 14px; }
+  .brand-text p { font-size: 11.5px; }
+  .today-card { padding: 15px 15px 15px 20px; }
+  .today-date { font-size: 14px; }
+  .ghost-btn { margin-left: 0; }
+  .week-grid { grid-template-columns: 1fr; }
+  .week-grid.single { grid-template-columns: 1fr; }
+  .modal-backdrop { padding: 0; place-items: end center; }
+  .modal {
+    width: 100%;
+    max-height: 93vh;
+    border-radius: var(--radius) var(--radius) 0 0;
+    transform: translateY(100%);
+  }
+  .modal-backdrop.is-open .modal { transform: none; }
+  [data-style="neobrutal"] .modal { border-radius: 8px 8px 0 0; }
+  [data-style="neobrutal"] .style-grid { gap: 12px; }
+}
+
+@media (max-width: 420px) {
+  .style-grid { grid-template-columns: 1fr; }
+  .seg-btn { min-width: 32px; padding: 0 8px; }
+  .style-swatch { height: 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .app-header, .modal-backdrop, .ghost-btn, .week-tabs { display: none !important; }
+  body { background: #fff !important; }
+  .day-card { break-inside: avoid; box-shadow: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ 顶部栏 ══════════════════════════════ -->
+<header class="app-header" id="appHeader">
+  <div class="header-inner">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4.5" width="18" height="17" rx="3.5"/>
+        <path d="M8 2.5v4M16 2.5v4M3 10.5h18"/>
+        <circle cx="8.2" cy="15.4" r="1.15" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="15.4" r="1.15" fill="currentColor" stroke="none"/>
+        <circle cx="15.8" cy="15.4" r="1.15" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="brand-text">
+        <h1>2025级医学检验技术专业（1）班</h1>
+        <p>2026 年秋季学期 · 第 1～6 周</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="segmented" role="radiogroup" aria-label="主题模式">
+        <button type="button" class="seg-btn theme-btn" data-pref="light" role="radio"
+                aria-checked="false" title="浅色" aria-label="浅色模式">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+        </button>
+        <button type="button" class="seg-btn theme-btn" data-pref="dark" role="radio"
+                aria-checked="false" title="深色" aria-label="深色模式">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button type="button" class="seg-btn theme-btn" data-pref="system" role="radio"
+                aria-checked="false" title="跟随系统" aria-label="跟随系统">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3.5" width="20" height="13.5" rx="2.5"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </button>
+      </div>
+
+      <button type="button" class="icon-btn" id="settingsBtn" aria-label="打开设置"
+              aria-haspopup="dialog" aria-controls="settingsModal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════ 主体 ══════════════════════════════ -->
+<main>
+  <section id="todayPanel" aria-label="今日课程"></section>
+
+  <nav class="week-tabs" id="weekTabs" role="tablist" aria-label="周次切换"></nav>
+
+  <section id="weekGrid" class="week-grid" aria-label="课程表"></section>
+
+  <section class="teachers" aria-label="任课教师">
+    <h2 class="teachers-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      任课教师
+    </h2>
+    <div class="teacher-grid" id="teacherGrid"></div>
+  </section>
+
+  <p class="footnote">数据来源：2025级医学检验技术专业（1）班课程表（2026 年秋季学期）</p>
+</main>
+
+<!-- ══════════════════════════════ 设置面板 ══════════════════════════════ -->
+<div class="modal-backdrop" id="settingsModal" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-head">
+      <h2 id="settingsTitle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        设置
+      </h2>
+      <button type="button" class="icon-btn" id="closeSettings" aria-label="关闭设置">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- 主题外观 -->
+      <section class="setting-group">
+        <h3>主题外观</h3>
+        <div class="segmented seg-wide" role="radiogroup" aria-label="主题外观">
+          <button type="button" class="seg-btn theme-btn" data-pref="light" role="radio"
+                  aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            浅色
+          </button>
+          <button type="button" class="seg-btn theme-btn" data-pref="dark" role="radio"
+                  aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            深色
+          </button>
+          <button type="button" class="seg-btn theme-btn" data-pref="system" role="radio"
+                  aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3.5" width="20" height="13.5" rx="2.5"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+            跟随系统
+          </button>
+        </div>
+      </section>
+
+      <!-- 界面风格 -->
+      <section class="setting-group">
+        <h3>界面风格</h3>
+        <div class="style-grid" role="radiogroup" aria-label="界面风格">
+
+          <button type="button" class="style-btn" data-ui="flat" role="radio" aria-checked="false">
+            <span class="style-swatch" data-swatch="flat" aria-hidden="true"></span>
+            <span class="style-name">
+              现代化扁平卡片
+              <svg class="style-check" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </span>
+          </button>
+
+          <button type="button" class="style-btn" data-ui="clay" role="radio" aria-checked="false">
+            <span class="style-swatch" data-swatch="clay" aria-hidden="true"></span>
+            <span class="style-name">
+              粘土拟物
+              <svg class="style-check" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </span>
+          </button>
+
+          <button type="button" class="style-btn" data-ui="neobrutal" role="radio" aria-checked="false">
+            <span class="style-swatch" data-swatch="neobrutal" aria-hidden="true"></span>
+            <span class="style-name">
+              新野兽派
+              <svg class="style-check" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </span>
+          </button>
+
+          <button type="button" class="style-btn" data-ui="glass" role="radio" aria-checked="false">
+            <span class="style-swatch" data-swatch="glass" aria-hidden="true"></span>
+            <span class="style-name">
+              玻璃拟态
+              <svg class="style-check" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </span>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- 显示范围 -->
+      <section class="setting-group">
+        <h3>显示范围</h3>
+        <div class="segmented seg-wide" role="radiogroup" aria-label="显示范围">
+          <button type="button" class="seg-btn range-btn" data-range="all" role="radio"
+                  aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4.5" width="18" height="17" rx="3"/>
+              <path d="M8 2.5v4M16 2.5v4M3 10.5h18"/>
+            </svg>
+            全部天数
+          </button>
+          <button type="button" class="seg-btn range-btn" data-range="today" role="radio"
+                  aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7.5v5l3.2 2"/>
+            </svg>
+            仅今天
+          </button>
+        </div>
+        <p class="setting-hint">
+          选择「仅今天」后，页面只显示当天课程，并自动隐藏周次切换栏。
+        </p>
+      </section>
+
+      <!-- 说明 -->
+      <div class="info-strip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 16v-4.5M12 8.2h.01"/>
+        </svg>
+        <span>所有偏好保存在本机浏览器中，下次打开自动恢复。本页面支持添加到主屏幕，离线也能查看课表。</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════
+     生命周期管理：统一信号源，页面销毁时一次性解绑，防止内存泄漏
+     ═══════════════════════════════════════════════════════════ */
+  var controller = new AbortController();
+  var signal = controller.signal;
+  var rafId = 0;
+
+  function teardown() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+    if (!controller.signal.aborted) controller.abort();
+  }
+
+  window.addEventListener('pagehide', function (e) {
+    /* 进入 bfcache 时保留现场，真正卸载才清理 */
+    if (e.persisted) return;
+    teardown();
+  }, { signal: signal });
+
+  /* ═══════════════════════════════════════════════════════════
+     课程数据
+     ═══════════════════════════════════════════════════════════ */
+  var C = {
+    trad:   '中国传统文化',
+    immu:   '免疫技术与检验',
+    bio:    '生物化学检验',
+    comm:   '人际沟通',
+    micro:  '微生物检验',
+    path:   '病理检验技术',
+    pe:     '体育',
+    midAut: '中秋节放假',
+    natDay: '国庆节放假',
+    sports: '校运动会'
+  };
+
+  var SPECIAL = new Set([C.midAut, C.natDay, C.sports]);
+
+  var HUES = {};
+  HUES[C.trad]  = 268;
+  HUES[C.immu]  = 199;
+  HUES[C.bio]   = 158;
+  HUES[C.comm]  = 33;
+  HUES[C.micro] = 352;
+  HUES[C.path]  = 232;
+  HUES[C.pe]    = 312;
+
+  function P(period, course) { return { p: period, c: course }; }
+
+  var MON_FULL = [P('1-2', C.trad), P('3-4', C.pe), P('5-6', C.immu), P('7-8', C.immu)];
+  var TUE_A    = [P('1-2', C.immu), P('3-4', C.immu)];
+  var TUE_B    = [P('1-2', C.immu), P('3-4', C.immu), P('5-6', C.comm)];
+  var WED_FULL = [P('1-2', C.bio), P('3-4', C.bio), P('5-6', C.micro), P('7-8', C.micro)];
+  var THU_A    = [P('1-2', C.comm), P('3-4', C.pe), P('5-6', C.path), P('7-8', C.path)];
+  var THU_PATH = [P('1-2', C.path), P('3-4', C.path)];
+  var THU_MIC  = [P('1-2', C.micro), P('3-4', C.micro)];
+  var FRI_MIC  = [P('1-2', C.micro), P('3-4', C.micro)];
+  var THU_W6   = [P('1-2', C.micro), P('3-4', C.micro), P('5-6', C.bio), P('7-8', C.bio)];
+  var FRI_W6   = [P('1-2', C.micro), P('3-4', C.micro), P('5-6', C.immu), P('7-8', C.immu)];
+
+  var WEEKS = [
+    {
+      label: '第1周', range: '8.31 - 9.6',
+      days: [
+        { w: '周一', d: '2026-08-31', s: MON_FULL },
+        { w: '周二', d: '2026-09-01', s: TUE_A },
+        { w: '周三', d: '2026-09-02', s: WED_FULL },
+        { w: '周四', d: '2026-09-03', s: THU_A },
+        { w: '周五', d: '2026-09-04', s: FRI_MIC }
+      ]
+    },
+    {
+      label: '第2周', range: '9.7 - 9.13',
+      days: [
+        { w: '周一', d: '2026-09-07', s: MON_FULL },
+        { w: '周二', d: '2026-09-08', s: TUE_A },
+        { w: '周三', d: '2026-09-09', s: WED_FULL },
+        { w: '周四', d: '2026-09-10', s: THU_A },
+        { w: '周五', d: '2026-09-11', s: FRI_MIC }
+      ]
+    },
+    {
+      label: '第3周', range: '9.14 - 9.20',
+      days: [
+        { w: '周一', d: '2026-09-14', s: MON_FULL },
+        { w: '周二', d: '2026-09-15', s: TUE_B },
+        { w: '周三', d: '2026-09-16', s: WED_FULL },
+        { w: '周四', d: '2026-09-17', s: THU_PATH },
+        { w: '周五', d: '2026-09-18', s: FRI_MIC },
+        { w: '周六', d: '2026-09-19', s: [] },
+        { w: '周日', d: '2026-09-20', s: THU_PATH }
+      ]
+    },
+    {
+      label: '第4周', range: '9.21 - 9.27',
+      days: [
+        { w: '周一', d: '2026-09-21', s: MON_FULL },
+        { w: '周二', d: '2026-09-22', s: TUE_B },
+        { w: '周三', d: '2026-09-23', s: WED_FULL },
+        { w: '周四', d: '2026-09-24', s: THU_MIC },
+        { w: '周五', d: '2026-09-25', s: [P('1-2', C.midAut)] }
+      ]
+    },
+    {
+      label: '第5周', range: '9.28 - 10.4',
+      days: [
+        { w: '周一', d: '2026-09-28', s: [P('1-2', C.trad), P('3-4', C.pe), P('5-6', C.comm)] },
+        { w: '周二', d: '2026-09-29', s: [P('1-2', C.sports)] },
+        { w: '周三', d: '2026-09-30', s: [] },
+        { w: '周四', d: '2026-10-01', s: [P('1-2', C.natDay)] },
+        { w: '周五', d: '2026-10-02', s: [] }
+      ]
+    },
+    {
+      label: '第6周', range: '10.5 - 10.11',
+      days: [
+        { w: '周一', d: '2026-10-05', s: [] },
+        { w: '周二', d: '2026-10-06', s: [] },
+        { w: '周三', d: '2026-10-07', s: [] },
+        { w: '周四', d: '2026-10-08', s: THU_W6 },
+        { w: '周五', d: '2026-10-09', s: FRI_W6 },
+        { w: '周六', d: '2026-10-10', s: THU_PATH }
+      ]
+    }
+  ];
+
+  var TEACHERS = [
+    ['形势与政策', '赵桐萱'],
+    ['大学美育', '吴雅莉'],
+    ['体育', '崔丰旭'],
+    ['中国传统文化', '张文君'],
+    ['人际沟通', '张萌'],
+    ['临床检验仪器', '崔妲'],
+    ['分子生物学概要', '陈莹莹'],
+    ['生物化学检验', '林笑宇'],
+    ['微生物学检验', '刘长林'],
+    ['寄生虫学检验', '张雅惠'],
+    ['免疫学技术与检验', '孙荣华'],
+    ['输血检验技术', '崔妲'],
+    ['病理检验技术', '崔妲']
+  ];
+
+  /* ═══════════════════════════════════════════════════════════
+     日期工具
+     ═══════════════════════════════════════════════════════════ */
+  var WEEKDAY_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+  function toISO(date) {
+    var y = date.getFullYear();
+    var m = String(date.getMonth() + 1).padStart(2, '0');
+    var d = String(date.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + d;
+  }
+
+  function fmtDate(iso) {
+    var parts = iso.split('-');
+    return Number(parts[1]) + '月' + Number(parts[2]) + '日';
+  }
+
+  var now = new Date();
+  var todayISO = toISO(now);
+
+  function findToday() {
+    for (var wi = 0; wi < WEEKS.length; wi++) {
+      var days = WEEKS[wi].days;
+      for (var di = 0; di < days.length; di++) {
+        if (days[di].d === todayISO) return { wi: wi, di: di };
+      }
+    }
+    return null;
+  }
+
+  var todayInfo = findToday();
+
+  /* ═══════════════════════════════════════════════════════════
+     偏好设置
+     ═══════════════════════════════════════════════════════════ */
+  var STORAGE_KEY = 'med-lab-ct-prefs-v3';
+  var VALID_THEME = ['light', 'dark', 'system'];
+  var VALID_STYLE = ['flat', 'clay', 'neobrutal', 'glass'];
+  var VALID_RANGE = ['all', 'today'];
+
+  var prefs = { theme: 'system', style: 'flat', range: 'all' };
+
+  (function loadPrefs() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var p = JSON.parse(raw);
+      if (!p || typeof p !== 'object') return;
+      if (VALID_THEME.indexOf(p.theme) >= 0) prefs.theme = p.theme;
+      if (VALID_STYLE.indexOf(p.style) >= 0) prefs.style = p.style;
+      if (VALID_RANGE.indexOf(p.range) >= 0) prefs.range = p.range;
+    } catch (e) { /* 忽略损坏数据 */ }
+  })();
+
+  function savePrefs() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    } catch (e) { /* 存储不可用时静默 */ }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     DOM 引用
+     ═══════════════════════════════════════════════════════════ */
+  var root = document.documentElement;
+  var headerEl = document.getElementById('appHeader');
+  var gridEl = document.getElementById('weekGrid');
+  var tabsEl = document.getElementById('weekTabs');
+  var todayPanelEl = document.getElementById('todayPanel');
+  var teacherGridEl = document.getElementById('teacherGrid');
+  var modalEl = document.getElementById('settingsModal');
+
+  var themeButtons = Array.prototype.slice.call(document.querySelectorAll('.theme-btn'));
+  var styleButtons = Array.prototype.slice.call(document.querySelectorAll('.style-btn'));
+  var rangeButtons = Array.prototype.slice.call(document.querySelectorAll('.range-btn'));
+
+  /* ═══════════════════════════════════════════════════════════
+     主题控制
+     ═══════════════════════════════════════════════════════════ */
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(pref, persist) {
+    if (VALID_THEME.indexOf(pref) < 0) pref = 'system';
+    prefs.theme = pref;
+
+    var resolved = pref === 'system'
+      ? ((mq && mq.matches) ? 'dark' : 'light')
+      : pref;
+
+    root.dataset.theme = resolved;
+
+    for (var i = 0; i < themeButtons.length; i++) {
+      var active = themeButtons[i].dataset.pref === pref;
+      themeButtons[i].classList.toggle('is-active', active);
+      themeButtons[i].setAttribute('aria-checked', active ? 'true' : 'false');
+    }
+
+    if (metaTheme) {
+      metaTheme.setAttribute('content', resolved === 'dark' ? '#0a0f1a' : '#f4f6fb');
+    }
+
+    if (persist !== false) savePrefs();
+  }
+
+  if (mq && typeof mq.addEventListener === 'function') {
+    mq.addEventListener('change', function () {
+      if (prefs.theme === 'system') applyTheme('system', false);
+    }, { signal: signal });
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     界面风格控制
+     ═══════════════════════════════════════════════════════════ */
+  function applyStyle(style, persist) {
+    if (VALID_STYLE.indexOf(style) < 0) style = 'flat';
+    prefs.style = style;
+    root.dataset.style = style;
+
+    for (var i = 0; i < styleButtons.length; i++) {
+      var active = styleButtons[i].dataset.ui === style;
+      styleButtons[i].setAttribute('aria-checked', active ? 'true' : 'false');
+    }
+
+    if (persist !== false) savePrefs();
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     显示范围控制
+     ═══════════════════════════════════════════════════════════ */
+  function applyRange(range, persist) {
+    if (VALID_RANGE.indexOf(range) < 0) range = 'all';
+    prefs.range = range;
+    root.dataset.range = range;
+
+    for (var i = 0; i < rangeButtons.length; i++) {
+      var active = rangeButtons[i].dataset.range === range;
+      rangeButtons[i].classList.toggle('is-active', active);
+      rangeButtons[i].setAttribute('aria-checked', active ? 'true' : 'false');
+    }
+
+    /* 切到「仅今天」时自动跳到今天所在周 */
+    if (range === 'today' && todayInfo) {
+      activeWeek = todayInfo.wi;
+    }
+
+    renderWeekTabs();
+    renderWeekGrid();
+
+    if (persist !== false) savePrefs();
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     渲染：今日面板
+     ═══════════════════════════════════════════════════════════ */
+  function buildChip(item, className) {
+    var el = document.createElement('div');
+    el.className = className;
+
+    if (SPECIAL.has(item.c)) {
+      el.classList.add('is-special');
+    } else if (HUES[item.c] !== undefined) {
+      el.style.setProperty('--h', String(HUES[item.c]));
+    }
+
+    var p = document.createElement('span');
+    p.className = 'ts-period';
+    p.textContent = item.p + '节';
+
+    var c = document.createElement('span');
+    c.className = 'ts-course';
+    c.textContent = item.c;
+
+    el.appendChild(p);
+    el.appendChild(c);
+    return el;
+  }
+
+  function renderTodayPanel() {
+    var card = document.createElement('div');
+    card.className = 'today-card';
+
+    var head = document.createElement('div');
+    head.className = 'today-head';
+
+    var label = document.createElement('span');
+    label.className = 'today-label';
+    label.textContent = '今天';
+
+    var dateEl = document.createElement('span');
+    dateEl.className = 'today-date';
+    dateEl.textContent = now.getFullYear() + '年' + (now.getMonth() + 1) + '月' +
+                         now.getDate() + '日 ' + WEEKDAY_CN[now.getDay()];
+
+    head.appendChild(label);
+    head.appendChild(dateEl);
+
+    if (todayInfo) {
+      var week = WEEKS[todayInfo.wi];
+      var day = week.days[todayInfo.di];
+
+      var wk = document.createElement('span');
+      wk.className = 'today-week';
+      wk.textContent = week.label + ' · ' + day.w;
+      head.appendChild(wk);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ghost-btn';
+      btn.dataset.action = 'jump-today';
+      btn.textContent = '定位到今日';
+      head.appendChild(btn);
+
+      card.appendChild(head);
+
+      var slots = document.createElement('div');
+      slots.className = 'today-slots';
+
+      if (day.s.length === 0) {
+        var note = document.createElement('p');
+        note.className = 'today-note';
+        note.textContent = '今天没有安排课程，可以好好休息。';
+        slots.appendChild(note);
+      } else {
+        for (var i = 0; i < day.s.length; i++) {
+          slots.appendChild(buildChip(day.s[i], 'today-slot'));
+        }
+      }
+
+      card.appendChild(slots);
+    } else {
+      card.appendChild(head);
+
+      var tip = document.createElement('p');
+      tip.className = 'today-note';
+      tip.textContent = '当前日期不在本学期教学周内（2026.8.31 - 11.1），下方展示第 1 周课表。';
+      card.appendChild(tip);
+    }
+
+    todayPanelEl.replaceChildren(card);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     渲染：周次标签
+     ═══════════════════════════════════════════════════════════ */
+  function renderWeekTabs() {
+    tabsEl.hidden = prefs.range === 'today';
+    if (prefs.range === 'today') return;
+
+    var frag = document.createDocumentFragment();
+
+    for (var i = 0; i < WEEKS.length; i++) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'week-tab';
+      btn.dataset.week = String(i);
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', i === activeWeek ? 'true' : 'false');
+
+      if (i === activeWeek) btn.classList.add('is-active');
+
+      var lbl = document.createElement('span');
+      lbl.className = 'wt-label';
+      lbl.textContent = WEEKS[i].label;
+
+      var rng = document.createElement('span');
+      rng.className = 'wt-range';
+      rng.textContent = WEEKS[i].range;
+
+      btn.appendChild(lbl);
+      btn.appendChild(rng);
+      frag.appendChild(btn);
+    }
+
+    tabsEl.replaceChildren(frag);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     渲染：周课表
+     ═══════════════════════════════════════════════════════════ */
+  function buildSlot(item) {
+    var li = document.createElement('li');
+    li.className = 'slot';
+
+    if (SPECIAL.has(item.c)) {
+      li.classList.add('is-special');
+    } else if (HUES[item.c] !== undefined) {
+      li.style.setProperty('--h', String(HUES[item.c]));
+    }
+
+    var p = document.createElement('span');
+    p.className = 'slot-period';
+    p.textContent = item.p + '节';
+
+    var c = document.createElement('span');
+    c.className = 'slot-course';
+    c.textContent = item.c;
+
+    li.appendChild(p);
+    li.appendChild(c);
+    return li;
+  }
+
+  function buildDayCard(day) {
+    var isToday = day.d === todayISO;
+
+    var card = document.createElement('article');
+    card.className = 'day-card' + (isToday ? ' is-today' : '');
+
+    var head = document.createElement('header');
+    head.className = 'day-head';
+
+    var nameEl = document.createElement('span');
+    nameEl.className = 'day-name';
+    nameEl.textContent = day.w;
+
+    var dateEl = document.createElement('span');
+    dateEl.className = 'day-date';
+    dateEl.textContent = fmtDate(day.d);
+
+    head.appendChild(nameEl);
+    head.appendChild(dateEl);
+
+    if (isToday) {
+      var badge = document.createElement('span');
+      badge.className = 'today-badge';
+      badge.textContent = '今天';
+      head.appendChild(badge);
+    }
+
+    card.appendChild(head);
+
+    var list = document.createElement('ul');
+    list.className = 'slot-list';
+
+    if (day.s.length === 0) {
+      var empty = document.createElement('li');
+      empty.className = 'slot-empty';
+      empty.textContent = '无课';
+      list.appendChild(empty);
+    } else {
+      for (var k = 0; k < day.s.length; k++) {
+        list.appendChild(buildSlot(day.s[k]));
+      }
+    }
+
+    card.appendChild(list);
+    return card;
+  }
+
+  function buildEmptyState(message) {
+    var wrap = document.createElement('div');
+    wrap.className = 'empty-state';
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '1.6');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+
+    var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    r.setAttribute('x', '3');
+    r.setAttribute('y', '4.5');
+    r.setAttribute('width', '18');
+    r.setAttribute('height', '17');
+    r.setAttribute('rx', '3');
+
+    var l1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    l1.setAttribute('d', 'M8 2.5v4M16 2.5v4M3 10.5h18');
+
+    svg.appendChild(r);
+    svg.appendChild(l1);
+
+    var p = document.createElement('p');
+    p.textContent = message;
+
+    wrap.appendChild(svg);
+    wrap.appendChild(p);
+    return wrap;
+  }
+
+  function collectDays() {
+    if (prefs.range === 'today') {
+      if (!todayInfo) return [];
+      var w = WEEKS[todayInfo.wi];
+      return w ? [w.days[todayInfo.di]] : [];
+    }
+    var week = WEEKS[activeWeek];
+    return week ? week.days.slice() : [];
+  }
+
+  function renderWeekGrid() {
+    var days = collectDays();
+    var isSingle = prefs.range === 'today';
+
+    gridEl.classList.toggle('single', isSingle);
+
+    var frag = document.createDocumentFragment();
+
+    if (days.length === 0) {
+      frag.appendChild(buildEmptyState(
+        isSingle
+          ? '今天不在本学期教学周内，暂无课程安排。'
+          : '本周暂无课程安排。'
+      ));
+    } else {
+      for (var i = 0; i < days.length; i++) {
+        frag.appendChild(buildDayCard(days[i]));
+      }
+    }
+
+    gridEl.replaceChildren(frag);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     渲染：教师
+     ═══════════════════════════════════════════════════════════ */
+  function renderTeachers() {
+    var frag = document.createDocumentFragment();
+
+    for (var i = 0; i < TEACHERS.length; i++) {
+      var item = document.createElement('div');
+      item.className = 'teacher-item';
+
+      var name = document.createElement('span');
+      name.className = 't-name';
+      name.textContent = TEACHERS[i][0];
+
+      var person = document.createElement('span');
+      person.className = 't-person';
+      person.textContent = TEACHERS[i][1];
+
+      item.appendChild(name);
+      item.appendChild(person);
+      frag.appendChild(item);
+    }
+
+    teacherGridEl.replaceChildren(frag);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     周次状态
+     ═══════════════════════════════════════════════════════════ */
+  var activeWeek = 0;
+
+  (function pickInitialWeek() {
+    if (todayInfo) {
+      activeWeek = todayInfo.wi;
+      return;
+    }
+    var first = WEEKS[0].days[0].d;
+    var lastDays = WEEKS[WEEKS.length - 1].days;
+    var last = lastDays[lastDays.length - 1].d;
+
+    if (todayISO < first) activeWeek = 0;
+    else if (todayISO > last) activeWeek = WEEKS.length - 1;
+    else activeWeek = 0;
+  })();
+
+  function selectWeek(index, shouldScroll) {
+    if (index < 0 || index >= WEEKS.length) return;
+    activeWeek = index;
+
+    var tabs = tabsEl.querySelectorAll('.week-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      var on = i === index;
+      tabs[i].classList.toggle('is-active', on);
+      tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+    }
+
+    renderWeekGrid();
+
+    if (shouldScroll) scrollToTodayCard();
+  }
+
+  function scrollToTodayCard() {
+    if (rafId) cancelAnimationFrame(rafId);
+
+    rafId = requestAnimationFrame(function () {
+      rafId = 0;
+      var el = gridEl.querySelector('.day-card.is-today');
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     顶栏滚动阴影
+     ═══════════════════════════════════════════════════════════ */
+  var lastScrollY = -1;
+
+  function onScroll() {
+    if (rafId) return;
+    rafId = requestAnimationFrame(function () {
+      rafId = 0;
+      var y = window.scrollY || window.pageYOffset || 0;
+      if (y === lastScrollY) return;
+      lastScrollY = y;
+      headerEl.classList.toggle('is-scrolled', y > 6);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true, signal: signal });
+  onScroll();
+
+  /* ═══════════════════════════════════════════════════════════
+     设置面板开关
+     ═══════════════════════════════════════════════════════════ */
+  var lastFocused = null;
+
+  function openSettings() {
+    lastFocused = document.activeElement;
+    modalEl.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    var closeBtn = document.getElementById('closeSettings');
+    if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus();
+  }
+
+  function closeSettings() {
+    modalEl.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  function isSettingsOpen() {
+    return modalEl.classList.contains('is-open');
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     统一事件委托：单一监听器，减少内存占用
+     ═══════════════════════════════════════════════════════════ */
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || typeof target.closest !== 'function') return;
+
+    var tab = target.closest('.week-tab');
+    if (tab) {
+      selectWeek(Number(tab.dataset.week), false);
+      return;
+    }
+
+    var themeBtn = target.closest('.theme-btn');
+    if (themeBtn) {
+      applyTheme(themeBtn.dataset.pref);
+      return;
+    }
+
+    var styleBtn = target.closest('.style-btn');
+    if (styleBtn) {
+      applyStyle(styleBtn.dataset.ui);
+      return;
+    }
+
+    var rangeBtn = target.closest('.range-btn');
+    if (rangeBtn) {
+      applyRange(rangeBtn.dataset.range);
+      return;
+    }
+
+    var jump = target.closest('[data-action="jump-today"]');
+    if (jump && todayInfo) {
+      if (prefs.range === 'today') {
+        renderWeekGrid();
+      } else {
+        selectWeek(todayInfo.wi, true);
+      }
+      return;
+    }
+
+    if (target.closest('#settingsBtn')) {
+      openSettings();
+      return;
+    }
+
+    if (target.closest('#closeSettings')) {
+      closeSettings();
+      return;
+    }
+
+    if (target === modalEl) {
+      closeSettings();
+    }
+  }, { signal: signal });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && isSettingsOpen()) {
+      event.preventDefault();
+      closeSettings();
+    }
+  }, { signal: signal });
+
+  /* 设置面板焦点循环 */
+  modalEl.addEventListener('keydown', function (event) {
+    if (event.key !== 'Tab') return;
+
+    var focusables = modalEl.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusables.length === 0) return;
+
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }, { signal: signal });
+
+  /* ═══════════════════════════════════════════════════════════
+     PWA：动态注入 Manifest + 数据图标 + 尝试注册 SW
+     ═══════════════════════════════════════════════════════════ */
+  (function initPWA() {
+    var ICON_SVG =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">' +
+        '<rect width="512" height="512" rx="112" fill="#2563eb"/>' +
+        '<rect x="106" y="132" width="300" height="260" rx="34" fill="#ffffff"/>' +
+        '<path d="M106 166a34 34 0 0 1 34-34h232a34 34 0 0 1 34 34v46H106z" fill="#1d4ed8"/>' +
+        '<rect x="152" y="238" width="58" height="46" rx="13" fill="#bfdbfe"/>' +
+        '<rect x="227" y="238" width="58" height="46" rx="13" fill="#bfdbfe"/>' +
+        '<rect x="302" y="238" width="58" height="46" rx="13" fill="#bfdbfe"/>' +
+        '<rect x="152" y="306" width="58" height="46" rx="13" fill="#bfdbfe"/>' +
+        '<rect x="227" y="306" width="58" height="46" rx="13" fill="#93c5fd"/>' +
+        '<rect x="302" y="306" width="58" height="46" rx="13" fill="#bfdbfe"/>' +
+      '</svg>';
+
+    var iconUrl = 'data:image/svg+xml,' + encodeURIComponent(ICON_SVG);
+
+    var manifest = {
+      name: '医学检验技术2025级1班课程表',
+      short_name: '课程表',
+      description: '2025级医学检验技术专业（1）班 2026年秋季学期课程表',
+      start_url: './',
+      scope: './',
+      display: 'standalone',
+      orientation: 'portrait-primary',
+      background_color: '#f4f6fb',
+      theme_color: '#2563eb',
+      lang: 'zh-CN',
+      icons: [
+        { src: iconUrl, sizes: '192x192', type: 'image/svg+xml', purpose: 'any' },
+        { src: iconUrl, sizes: '512x512', type: 'image/svg+xml', purpose: 'maskable' }
+      ]
+    };
+
+    var manifestUrl = '';
+
+    try {
+      var blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+      manifestUrl = URL.createObjectURL(blob);
+
+      var link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = manifestUrl;
+      document.head.appendChild(link);
+    } catch (e) { /* Blob 不可用时忽略 */ }
+
+    try {
+      var apple = document.createElement('link');
+      apple.rel = 'apple-touch-icon';
+      apple.href = iconUrl;
+      document.head.appendChild(apple);
+    } catch (e) { /* 忽略 */ }
+
+    /* 页面真正卸载时回收 Blob URL */
+    window.addEventListener('pagehide', function (e) {
+      if (e.persisted) return;
+      if (manifestUrl) {
+        try { URL.revokeObjectURL(manifestUrl); } catch (err) { /* 忽略 */ }
+        manifestUrl = '';
+      }
+    }, { signal: signal });
+
+    /* Service Worker：仅在 http(s) 下尝试，失败静默降级 */
+    if ('serviceWorker' in navigator &&
+        (location.protocol === 'http:' || location.protocol === 'https:')) {
+      navigator.serviceWorker.register('sw.js').catch(function () {
+        /* 未部署 sw.js 时静默忽略，不影响页面功能 */
+      });
+    }
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     初始化
+     ═══════════════════════════════════════════════════════════ */
+  function init() {
+    renderTodayPanel();
+    renderTeachers();
+
+    applyTheme(prefs.theme, false);
+    applyStyle(prefs.style, false);
+
+    renderWeekTabs();
+    applyRange(prefs.range, false);
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
