@@ -1,0 +1,392 @@
+/* ═══════════════════════════════════════════════════════════════
+   06. 风格六 —— 纸质墨水屏 · 实体手账（Paper / E-Ink）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 米黄纸底 + 炭墨文字，去饱和莫兰迪大地色系，护眼低对比
+     · 无发光无高光，阴影仅保留极淡的纸面起伏
+     · 素描虚线边框、作业本红边线、横线纸底纹、胶带贴纸
+     · 课程块是用马克笔随手划出的一道半透明色痕
+   ═══════════════════════════════════════════════════════════════ */
+html[data-style="paper"] {
+  color-scheme: light;
+
+  --bg: #f4f1e8;
+  --bg-image:
+    radial-gradient(150% 120% at 50% -10%, rgba(255, 255, 255, .5) 0%, transparent 45%),
+    repeating-linear-gradient(0deg, rgba(90, 84, 70, .016) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(90, 84, 70, .013) 0 1px, transparent 1px 3px);
+
+  --surface: #fdfbf4;
+  --surface-2: #f4f1e6;
+  --surface-3: #ede9db;
+  --surface-glass: #fdfbf4;
+
+  --border: #d8d2c0;
+  --border-strong: #bdb5a0;
+  --border-w: 1px;
+
+  --text: #2e2c27;
+  --text-muted: #79735f;
+  --text-soft: #a49d87;
+
+  --accent: #4d6360;
+  --accent-hover: #3d5250;
+  --accent-contrast: #f7f5ec;
+  --accent-soft: rgba(77, 99, 96, .1);
+  --accent-ring: rgba(77, 99, 96, .22);
+
+  --radius: 10px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+
+  --shadow: 0 1px 2px rgba(62, 56, 42, .07), 0 8px 20px -12px rgba(62, 56, 42, .16);
+  --shadow-sm: 0 1px 2px rgba(62, 56, 42, .06), 0 3px 8px -4px rgba(62, 56, 42, .1);
+  --shadow-hover: 0 1px 3px rgba(62, 56, 42, .08), 0 12px 26px -12px rgba(62, 56, 42, .22);
+
+  --slot-s: 42%;
+  --slot-l: 88%;
+  --slot-bw: 1px;
+  --slot-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+
+  --header-bg: rgba(244, 241, 232, .94);
+  --header-blur: blur(10px);
+  --card-blur: none;
+
+  --lift: 0;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur: .2s;
+
+  --ink-line: rgba(178, 96, 84, .32);
+  --wobble: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+html[data-theme="dark"][data-style="paper"] {
+  color-scheme: dark;
+
+  --bg: #1e1d1a;
+  --bg-image:
+    radial-gradient(150% 120% at 50% -10%, rgba(255, 255, 255, .03) 0%, transparent 45%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .012) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .01) 0 1px, transparent 1px 3px);
+
+  --surface: #25231f;
+  --surface-2: #2b2925;
+  --surface-3: #32302b;
+  --surface-glass: #25231f;
+
+  --border: #3c392f;
+  --border-strong: #524e42;
+
+  --text: #d6d2c4;
+  --text-muted: #98917d;
+  --text-soft: #6e6857;
+
+  --accent: #9db09b;
+  --accent-hover: #b2c3b0;
+  --accent-contrast: #20241f;
+  --accent-soft: rgba(157, 176, 155, .12);
+  --accent-ring: rgba(157, 176, 155, .28);
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 20px -12px rgba(0, 0, 0, .5);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3), 0 3px 8px -4px rgba(0, 0, 0, .4);
+  --shadow-hover: 0 1px 3px rgba(0, 0, 0, .4), 0 12px 26px -12px rgba(0, 0, 0, .6);
+
+  --slot-s: 22%;
+  --slot-l: 30%;
+
+  --header-bg: rgba(30, 29, 26, .94);
+
+  --ink-line: rgba(190, 110, 96, .3);
+}
+
+html[data-style="paper"] ::selection {
+  background: rgba(221, 205, 118, .65);
+  color: var(--text);
+}
+
+/* ── 顶部栏：信纸横线 + 虚线分隔 ── */
+html[data-style="paper"] .app-header {
+  border-bottom: none;
+  background-image:
+    linear-gradient(var(--header-bg), var(--header-bg)),
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(121, 115, 95, .1) 26px 27px);
+  box-shadow: 0 1px 0 var(--border);
+}
+
+html[data-style="paper"] .app-header.is-scrolled {
+  box-shadow: 0 1px 0 var(--border), 0 6px 18px -12px rgba(62, 56, 42, .35);
+}
+
+html[data-style="paper"] .brand-text p { font-style: italic; }
+
+/* ── 分段控件：素纸 + 马克笔下划色痕 ── */
+html[data-style="paper"] .segmented {
+  background: var(--surface-2);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+html[data-style="paper"] .seg-btn.is-active {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 -.55em 0 var(--accent-soft);
+  border-radius: var(--wobble);
+}
+
+/* ── 今日卡片：作业本红边线 ── */
+html[data-style="paper"] .today-card {
+  background-image: repeating-linear-gradient(0deg, transparent 0 27px, rgba(121, 115, 95, .09) 27px 28px);
+  box-shadow: var(--shadow);
+}
+
+html[data-style="paper"] .today-card::before {
+  width: 1px;
+  left: 14px;
+  background: var(--ink-line);
+}
+
+/* 右上手写胶带 */
+html[data-style="paper"] .today-card::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 34px;
+  width: 74px;
+  height: 18px;
+  background: rgba(226, 219, 196, .85);
+  border-left: 1px dashed rgba(121, 115, 95, .35);
+  border-right: 1px dashed rgba(121, 115, 95, .35);
+  transform: rotate(2.5deg);
+  box-shadow: 0 1px 2px rgba(62, 56, 42, .12);
+}
+
+html[data-theme="dark"][data-style="paper"] .today-card::after {
+  background: rgba(72, 68, 56, .75);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+html[data-style="paper"] .today-label {
+  background: transparent;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  border-radius: var(--wobble);
+}
+
+html[data-style="paper"] .today-week {
+  background: transparent;
+  border-style: dashed;
+}
+
+html[data-style="paper"] .ghost-btn {
+  background: transparent;
+  border-style: dashed;
+  border-radius: var(--wobble);
+}
+
+html[data-style="paper"] .ghost-btn:hover {
+  box-shadow: inset 0 -.55em 0 var(--accent-soft);
+}
+
+/* ── 课程块：马克笔涂鸦色痕 ── */
+html[data-style="paper"] .today-slot,
+html[data-style="paper"] .slot {
+  background: hsl(var(--h) var(--slot-s) var(--slot-l) / .72);
+  border: 1px dashed hsl(var(--h) 30% 55% / .3);
+  color: var(--text);
+  border-radius: var(--wobble);
+  transform: rotate(-.3deg);
+}
+
+html[data-style="paper"] .today-slot:nth-child(even),
+html[data-style="paper"] .slot:nth-child(even) {
+  transform: rotate(.3deg);
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+}
+
+html[data-theme="dark"][data-style="paper"] .today-slot,
+html[data-theme="dark"][data-style="paper"] .slot {
+  background: hsl(var(--h) var(--slot-s) var(--slot-l) / .85);
+  border-color: hsl(var(--h) 25% 60% / .25);
+}
+
+html[data-style="paper"] .today-slot:hover,
+html[data-style="paper"] .slot:hover {
+  transform: rotate(0deg);
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-style="paper"] .today-slot.is-special,
+html[data-style="paper"] .slot.is-special {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 5px,
+    rgba(121, 115, 95, .07) 5px 7px
+  );
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+html[data-style="paper"] .slot-empty {
+  border-style: dashed;
+  border-radius: var(--wobble);
+  color: var(--text-soft);
+}
+
+/* ── 周标签：手账贴纸便签 ── */
+html[data-style="paper"] .week-tab {
+  border-style: dashed;
+  border-radius: var(--wobble);
+  box-shadow: none;
+  background: var(--surface);
+}
+
+html[data-style="paper"] .week-tab:hover {
+  box-shadow: inset 0 -.5em 0 var(--accent-soft);
+}
+
+html[data-style="paper"] .week-tab.is-active {
+  background: var(--surface);
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: inset 0 -.5em 0 var(--accent-soft);
+  transform: rotate(-1deg);
+}
+
+/* ── 日卡片：信纸 + 红边线 + 横线底纹 ── */
+html[data-style="paper"] .day-card {
+  background-image: repeating-linear-gradient(0deg, transparent 0 27px, rgba(121, 115, 95, .08) 27px 28px);
+  padding-left: 26px;
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-style="paper"] .day-card::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink-line);
+}
+
+html[data-style="paper"] .day-card:hover { box-shadow: var(--shadow); }
+
+html[data-style="paper"] .day-card.is-today {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow);
+}
+
+/* 今天卡片顶部一角折痕 */
+html[data-style="paper"] .day-card.is-today::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(225deg, var(--bg) 0 50%, var(--surface-3) 50% 100%);
+  box-shadow: -1px 1px 2px rgba(62, 56, 42, .1);
+}
+
+html[data-style="paper"] .day-head {
+  border-bottom: 1px dashed var(--border-strong);
+  padding-left: 10px;
+}
+
+html[data-style="paper"] .today-badge {
+  background: transparent;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  border-radius: var(--wobble);
+}
+
+/* ── 教师信息：虚线分隔 + 波浪下划 ── */
+html[data-style="paper"] .teachers {
+  background-image: repeating-linear-gradient(0deg, transparent 0 27px, rgba(121, 115, 95, .07) 27px 28px);
+}
+
+html[data-style="paper"] .teachers-title svg { color: var(--accent); }
+
+html[data-style="paper"] .teacher-item {
+  background: transparent;
+  border-bottom: 1px dashed var(--border);
+  border-radius: 0;
+}
+
+html[data-style="paper"] .teacher-item:hover { background: var(--accent-soft); }
+
+html[data-style="paper"] .t-name { font-style: italic; }
+
+/* ── 设置面板 / 引导 ── */
+html[data-style="paper"] .modal-backdrop {
+  background: rgba(62, 56, 42, .4);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+html[data-style="paper"] .modal {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+html[data-style="paper"] .modal-head { border-bottom-style: dashed; }
+
+html[data-style="paper"] .modal-head h2 { letter-spacing: .06em; }
+
+html[data-style="paper"] .style-btn[aria-checked="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 -.45em 0 var(--accent-soft);
+}
+
+html[data-style="paper"] .btn {
+  background: var(--surface);
+  border-style: dashed;
+  border-radius: var(--wobble);
+  color: var(--text);
+}
+
+html[data-style="paper"] .btn:hover:not(:disabled) {
+  box-shadow: inset 0 -.55em 0 var(--accent-soft);
+}
+
+html[data-style="paper"] .btn-primary {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--accent-contrast);
+  border-radius: var(--wobble);
+}
+
+html[data-style="paper"] .btn-danger { color: #a24b3d; border-color: currentColor; }
+html[data-style="paper"] .btn-danger.is-armed { background: #a24b3d; color: #f7f5ec; border-style: solid; }
+
+html[data-style="paper"] .css-editor {
+  background: var(--surface);
+  border-style: dashed;
+  font-family: var(--font-mono-term);
+}
+
+html[data-style="paper"] .font-option.is-active {
+  border-color: var(--accent);
+  box-shadow: inset 0 -.4em 0 var(--accent-soft);
+}
+
+html[data-style="paper"] .info-strip {
+  background: var(--surface-2);
+  border: 1px dashed var(--border-strong);
+}
+
+html[data-style="paper"] .setting-group h3 { letter-spacing: .12em; }
+
+html[data-style="paper"] .toast {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  color: var(--text);
+  border-radius: var(--wobble);
+}
+
+html[data-style="paper"] :focus-visible {
+  outline: 1.5px dashed var(--accent);
+  outline-offset: 3px;
+}

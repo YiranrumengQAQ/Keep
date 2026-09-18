@@ -2,121 +2,124 @@
 
 2025 级医学检验技术专业（1）班 · 2026 年秋季学期课程表。
 
-在线演示：<https://yiranrumengqaq.github.io/Keep/app.html>
+在线演示：<https://yiranrumengqaq.github.io/Keep/>
 
 ## 项目介绍
 
-这是一个纯静态的课程表单页应用，用于展示第 1～6 教学周（2026.8.31 – 10.11）的每日课程安排与任课教师信息。页面原生 HTML / CSS / JavaScript 编写，零依赖、零构建，拆分为多个模块文件后直接用静态服务器托管即可访问。
+展示第 1～6 教学周（2026.8.31 – 10.11）的每日课程安排与任课教师信息。
+基于 **Vite + React 19** 构建，严格 CSP 安全加固，零网络请求下发数据，偏好仅存本机。
 
 主要能力：
 
-- 按周浏览课表，一键定位到今天
-- 「全部天数 / 仅今天」两种显示范围
-- 4 种界面风格 × 浅色 / 深色 / 跟随系统，偏好保存在本机
-- 任课教师一览、今日课程面板
-- 响应式布局、打印样式、`prefers-reduced-motion` 支持
-- PWA 基础（动态 Manifest、应用图标，Service Worker 预留）
+- 按周浏览课表，一键定位到今天；「全部天数 / 仅今天」两种显示范围
+- **8 种界面风格** × 浅色 / 深色 / 跟随系统，偏好保存在本机
+- **新手引导**：首次打开分步定制主题、风格、字体偏好，实时预览
+- **字体排版**：5 套字体栈 × 4 档字号 × 3 种抗锯齿策略
+- **自定义 CSS**：贴入样式即改即生效；危险语法自动拦截；页面改崩后**快速连点 10 下**自动恢复
+- **偏好管理**：保存当前设置为默认 / 双重确认重置（回到你的默认或出厂值）
+- 任课教师一览、今日课程面板、响应式布局、打印样式、`prefers-reduced-motion` 支持
+- PWA 基础（静态 Manifest、应用图标，Service Worker 预留）
 
 ## 界面风格
 
-| 风格            | 说明                       |
-| --------------- | -------------------------- |
-| 现代化扁平卡片  | 极简几何、克制阴影，信息优先 |
-| 粘土拟物        | 双向柔光阴影、超柔圆角       |
-| 新野兽派        | 粗描边、硬投影、高饱和撞色   |
-| 玻璃拟态        | 毛玻璃、半透明边框与高光     |
+| 风格         | 说明                                       |
+| ------------ | ------------------------------------------ |
+| 现代化扁平卡片 | 极简几何、克制阴影，信息优先               |
+| 粘土拟物     | 双向柔光阴影、超柔圆角                     |
+| 新野兽派     | 粗描边、硬投影、高饱和撞色                 |
+| 玻璃拟态     | 毛玻璃、半透明边框与高光                   |
+| 极客赛博终端 | CRT 荧光字符、扫描线、日志格式、闪烁光标   |
+| 纸质墨水屏   | 米黄纸底、素描虚线、马克笔色痕、作业本红线 |
+| 复古像素风   | 8-Bit 双层像素描边、Zpix 像素字体、街机按压 |
+| 拟物机械实体 | 金属拉丝、亚麻布纹、压印文字、挂历装订孔   |
 
-## 目录结构
+> 「极客赛博终端」为低压显示管美学：浅色 = 琥珀 CRT，深色 = 绿光 CRT。
+> 「复古像素风」的中文像素字体（Zpix，OFL 许可）按需经 jsDelivr 联网加载，
+> 加载失败时自动回退系统等宽字体，不影响使用。
+
+## 技术架构
 
 ```text
 Keep/
-├── app.html            # 入口（原单文件 index.html 拆分后的替代入口）
-├── css/                # 样式模块（与原 <style> 小节一一对应，按序加载）
-│   ├── base.css            # 00. 基础重置
-│   ├── theme-flat.css      # 01. 扁平主题变量（浅色/深色）
-│   ├── theme-clay.css      # 02. 粘土拟物主题变量
-│   ├── theme-neobrutal.css # 03. 新野兽派主题变量
-│   ├── theme-glass.css     # 04. 玻璃拟态主题变量
-│   ├── header.css          # 05. 顶部栏
-│   ├── segmented.css       # 06. 分段控件
-│   ├── layout.css          # 07. 主区域
-│   ├── today.css           # 08. 今日卡片
-│   ├── week-tabs.css       # 09. 周切换标签
-│   ├── week-grid.css       # 10. 周课表网格
-│   ├── teachers.css        # 11. 教师信息
-│   ├── settings.css        # 12. 设置面板
-│   └── responsive.css      # 13. 响应式 / 打印 / 动态偏好
-└── js/                 # 脚本模块（普通 script，按序加载，共享全局作用域）
-    ├── boot.js             # 首屏前置：读偏好、锁定主题，避免闪烁
-    ├── lifecycle.js        # 生命周期管理（AbortController 统一解绑）
-    ├── data.js             # 课程数据：课程、周次、色相、教师
-    ├── date.js             # 日期工具：今天判定、格式化
-    ├── prefs.js            # 偏好读写（localStorage）
-    ├── dom.js              # DOM 引用
-    ├── theme.js            # 浅色/深色/跟随系统
-    ├── style.js            # 4 种界面风格切换
-    ├── range.js            # 全部天数/仅今天
-    ├── render-today.js     # 今日面板渲染
-    ├── render-tabs.js      # 周次标签渲染
-    ├── render-grid.js      # 周课表渲染
-    ├── render-teachers.js  # 教师列表渲染
-    ├── week-state.js       # 当前周状态与跳转
-    ├── header-scroll.js    # 顶栏滚动阴影
-    ├── settings-modal.js   # 设置面板开关
-    ├── events.js           # 统一事件委托、Esc 关闭、焦点循环
-    ├── pwa.js              # Manifest / 图标注入、SW 注册（失败静默降级）
-    └── init.js             # 初始化（必须最后加载）
+├── index.html              # 入口（含严格 CSP / boot 预载）
+├── vite.config.js          # 构建输出到 docs/（GitHub Pages 托管目录）
+├── package.json
+├── public/
+│   ├── boot.js             # 首屏前置：读偏好锁定主题，防闪烁（零依赖原生）
+│   ├── icon.svg            # 应用图标
+│   └── manifest.webmanifest
+├── src/
+│   ├── main.jsx            # 入口：按级联顺序导入全部样式
+│   ├── App.jsx             # 根组件：偏好 → <html> 属性/自定义 CSS/meta 同步
+│   ├── store/              # 状态中心（useSyncExternalStore 外置 store）
+│   │   ├── prefs.js        # 偏好读写、白名单校验、默认快照、引导标记
+│   │   └── toast.js        # Toast 通知队列
+│   ├── utils/
+│   │   ├── date.js         # 日期工具
+│   │   ├── sanitizeCss.js  # 自定义 CSS 消毒器
+│   │   └── pwa.js          # PWA 注入（失败静默降级）
+│   ├── hooks/useRescue.js  # 十连击救援
+│   ├── data/schedule.js    # 课程数据 / 风格元信息
+│   ├── components/         # Header / TodayPanel / WeekTabs / WeekGrid /
+│   │                       # Teachers / SettingsModal / OnboardingWizard /
+│   │                       # Segmented / StyleGrid / FontControls /
+│   │                       # CustomCssEditor / PrefManager / Toasts / Icon
+│   └── styles/             # 样式：base + typography + 8 主题 + 组件层
+└── docs/                   # 构建产物（提交进仓库，Pages 直接托管）
+└── scripts/                # jsdom 冒烟/交互测试（node 直接运行）
 ```
 
-> 说明：本项目由单文件 `index.html` 逐字拆分而来，未增删任何功能逻辑。
-> 拆分时唯一的适配改动是 `js/pwa.js` 中 Manifest 的 `start_url` 由 `'./'` 改为
-> `'./app.html'`（入口文件改名所致）；另有机械性调整：去掉统一 IIFE 包裹、
-> 每个模块顶部加 `'use strict';` 以保持原严格模式语义。
+## 安全设计
 
-## 快速开始
+- **严格 CSP**（`index.html` meta）：脚本仅同源；样式同源+内联（自定义 CSS 特性所需）；
+  字体放行同源与 jsDelivr；`object/base/form` 一律禁止；无第三方脚本与追踪。
+- **自定义 CSS 消毒**：`javascript:` / `expression()` / `@import` / `behavior` 等
+  危险语法在保存与注入时双重拦截；注入使用 `textContent`，无 HTML 解析面。
+- **零内联脚本**：首屏 boot 亦为外部文件，`script-src 'self'` 无例外。
+- 偏好数据全部经**白名单校验**后落盘；localStorage 损坏/隐私模式自动降级。
+- 敏感操作（重置设置）双重确认；CSS 崩溃有十连击紧急逃生通道。
+
+## 开发
 
 ```bash
-# 方式一：Python（仓库根目录执行）
-python3 -m http.server 8000
-# 浏览器打开 http://localhost:8000/app.html
+npm install        # 安装依赖
+npm run dev        # 本地开发（开发模式自动剥离 CSP 以兼容 Fast Refresh）
+npm run build      # 构建到 docs/
+npm run preview    # 预览构建产物
 
-# 方式二：Node
-npx serve .
-# 浏览器打开提示地址下的 /app.html
+node scripts/smoke-test.mjs        # 冒烟测试（构建后可运行）
+node scripts/interaction-test.mjs  # 深度交互测试
 ```
 
-直接双击 `app.html` 用 `file://` 打开也能正常查看（Service Worker 与部分
-PWA 能力在该方式下不可用，不影响课表功能）。
+## 部署（重要）
 
-## 部署
+仓库无 CI 构建步骤，构建产物已提交在 `docs/` 目录。
 
-推送到 GitHub 后开启 Pages（Deploy from branch）即可，仓库无构建步骤。
-
-注意入口文件名为 `app.html`（原 `index.html` 已按模块化拆分并删除），
-线上访问地址需带文件名，例如：
+GitHub 仓库 → **Settings → Pages → Build and deployment → Deploy from a branch**，
+选择主分支、目录选择 **`/docs`**。访问根路径即可直达应用：
 
 ```text
-https://<用户名>.github.io/<仓库名>/app.html
+https://<用户名>.github.io/<仓库名>/
 ```
 
-如需根路径直达，把 `app.html` 改回 `index.html` 即可（同时把
-`js/pwa.js` 的 `start_url` 改回 `'./'`）。
+修改源代码后记得 `npm run build` 并把 `docs/` 一并提交。
 
 ## 数据维护
 
-- 周次与每日课程：`js/data.js` → `WEEKS`
-- 课程简称与色相：`js/data.js` → `C` / `HUES`（放假、运动会等特殊项在 `SPECIAL`）
-- 任课教师：`js/data.js` → `TEACHERS`
-- 「今天」判定与教学周边界提示：`js/date.js`、`js/render-today.js`
+- 周次与每日课程：`src/data/schedule.js` → `WEEKS`
+- 课程简称与色相：`src/data/schedule.js` → `C` / `HUES`（放假等特殊项在 `SPECIAL`）
+- 节次时刻表（终端风格日志格式使用）：`src/data/schedule.js` → `PERIOD_TIMES`
+- 任课教师：`src/data/schedule.js` → `TEACHERS`
 
 ## 偏好设置
 
-偏好保存在 `localStorage`，键为 `med-lab-ct-prefs-v3`，
-包含 `theme`（light / dark / system）、`style`
-（flat / clay / neobrutal / glass）、`range`（all / today）三项，
-换浏览器或清缓存后恢复默认值。
+偏好保存在 `localStorage`，键为 `med-lab-ct-prefs-v4`（自动迁移 v3 数据），包含
+`theme` / `style`（8 种）/ `range` / `font` / `fontSize` / `smoothing` / `customCSS`。
+「保存为默认」快照键为 `med-lab-ct-default-v4`；新手引导完成标记独立于偏好，
+重置设置不会重播引导。
 
 ## 浏览器兼容
 
-支持 Chrome / Edge / Firefox / Safari 近年版本。毛玻璃（`backdrop-filter`）、
-PWA 安装等能力按渐进增强处理，不支持时自动降级，不影响课表查看。
+支持 Chrome / Edge / Firefox / Safari 近年版本。
+字号缩放使用标准化 `zoom`（Firefox 需 ≥126），旧内核自动降级为标准字号；
+像素字体加载失败回退等宽字体；毛玻璃、PWA 安装等能力按渐进增强处理。

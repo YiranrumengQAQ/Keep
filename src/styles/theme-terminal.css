@@ -1,0 +1,499 @@
+/* ═══════════════════════════════════════════════════════════════
+   05. 风格五 —— 极客赛博 · 复古终端（Retro Terminal / CRT）
+   ───────────────────────────────────────────────────────────────
+   设计要点：
+     · 纯黑显示管底色 + 荧光粉字符（浅色=琥珀 CRT / 深色=绿光 CRT）
+     · 全站强制等宽字体，文字与边框带微弱霓虹泛光
+     · 背景固定扫描线 + 屏幕暗角 + 极轻微闪烁
+     · 零圆角、1px 线框，节次呈现为 [08:00 - 09:35] 日志格式
+   ═══════════════════════════════════════════════════════════════ */
+html[data-style="terminal"] {
+  color-scheme: dark;
+
+  --phosphor: #ffb000;
+  --phosphor-dim: rgba(255, 176, 0, .5);
+  --phosphor-faint: rgba(255, 176, 0, .22);
+
+  --bg: #16100a;
+  --bg-image:
+    radial-gradient(140% 110% at 50% 0%, rgba(255, 176, 0, .05) 0%, transparent 55%),
+    radial-gradient(120% 120% at 50% 115%, rgba(0, 0, 0, .5) 0%, transparent 55%);
+
+  --surface: #1c1410;
+  --surface-2: #211812;
+  --surface-3: #271c14;
+  --surface-glass: #1c1410;
+
+  --border: rgba(255, 176, 0, .42);
+  --border-strong: rgba(255, 176, 0, .7);
+  --border-w: 1px;
+
+  --text: #ffbb1c;
+  --text-muted: rgba(255, 176, 0, .62);
+  --text-soft: rgba(255, 176, 0, .4);
+
+  --accent: #ffb000;
+  --accent-hover: #ffc533;
+  --accent-contrast: #1a1005;
+  --accent-soft: rgba(255, 176, 0, .12);
+  --accent-ring: rgba(255, 176, 0, .3);
+
+  --radius: 0;
+  --radius-sm: 0;
+  --radius-xs: 0;
+
+  --shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 0 22px -6px var(--accent-ring);
+  --shadow-sm: 0 0 10px -3px var(--accent-ring);
+  --shadow-hover: 0 0 0 1px rgba(0, 0, 0, .6), 0 0 30px -6px var(--accent-ring);
+
+  --slot-s: 30%;
+  --slot-l: 48%;
+  --slot-bw: 1px;
+  --slot-radius: 0;
+
+  --header-bg: rgba(22, 16, 10, .92);
+  --header-blur: none;
+  --card-blur: none;
+
+  --lift: 0;
+  --ease: cubic-bezier(.2, .9, .3, 1);
+  --dur: .16s;
+
+  --font-body: var(--font-mono-term);
+  --text-glow: 0 0 7px currentColor;
+  --line-glow: 0 0 12px -2px var(--accent-ring);
+
+  font-size-adjust: none;
+}
+
+html[data-theme="dark"][data-style="terminal"] {
+  --phosphor: #4af626;
+  --phosphor-dim: rgba(74, 246, 38, .5);
+  --phosphor-faint: rgba(74, 246, 38, .2);
+
+  --bg: #0a0a0c;
+  --bg-image:
+    radial-gradient(140% 110% at 50% 0%, rgba(74, 246, 38, .045) 0%, transparent 55%),
+    radial-gradient(120% 120% at 50% 115%, rgba(0, 0, 0, .55) 0%, transparent 55%);
+
+  --surface: #0e100e;
+  --surface-2: #111411;
+  --surface-3: #151815;
+  --surface-glass: #0e100e;
+
+  --border: rgba(74, 246, 38, .4);
+  --border-strong: rgba(74, 246, 38, .68);
+
+  --text: #57ff33;
+  --text-muted: rgba(87, 255, 51, .6);
+  --text-soft: rgba(87, 255, 51, .38);
+
+  --accent: #4af626;
+  --accent-hover: #6fff52;
+  --accent-contrast: #05170a;
+  --accent-soft: rgba(74, 246, 38, .12);
+  --accent-ring: rgba(74, 246, 38, .32);
+
+  --header-bg: rgba(10, 10, 12, .92);
+}
+
+/* ── CRT 扫描线 + 微闪烁（fixed 覆盖全屏，不拦截交互） ── */
+html[data-style="terminal"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483640;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, .22) 0px,
+      rgba(0, 0, 0, .22) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: .55;
+  animation: crt-flicker 6s steps(60) infinite;
+}
+
+html[data-style="terminal"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483639;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, .42) 100%);
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: .55; }
+  48% { opacity: .5; }
+  50% { opacity: .62; }
+  52% { opacity: .5; }
+}
+
+@keyframes crt-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ── 全站文字霓虹泛光 ── */
+html[data-style="terminal"] .app-header,
+html[data-style="terminal"] main,
+html[data-style="terminal"] .modal,
+html[data-style="terminal"] .ob-card {
+  text-shadow: var(--text-glow);
+}
+
+html[data-style="terminal"] ::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+}
+
+/* ── 顶部栏 ── */
+html[data-style="terminal"] .app-header {
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .8), var(--line-glow);
+}
+
+html[data-style="terminal"] .app-header.is-scrolled {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .8), 0 0 26px -6px var(--accent-ring);
+}
+
+html[data-style="terminal"] .brand-icon {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent-ring));
+}
+
+html[data-style="terminal"] .brand-text p::before { content: "// "; opacity: .6; }
+
+/* ── 图标按钮 / 分段控件 ── */
+html[data-style="terminal"] .icon-btn,
+html[data-style="terminal"] .seg-btn,
+html[data-style="terminal"] .ghost-btn,
+html[data-style="terminal"] .btn,
+html[data-style="terminal"] .week-tab,
+html[data-style="terminal"] .style-btn,
+html[data-style="terminal"] .font-option,
+html[data-style="terminal"] .teacher-item,
+html[data-style="terminal"] .day-card,
+html[data-style="terminal"] .today-card,
+html[data-style="terminal"] .modal,
+html[data-style="terminal"] .ob-card,
+html[data-style="terminal"] .teachers,
+html[data-style="terminal"] .css-editor,
+html[data-style="terminal"] .toast {
+  border-radius: 0;
+}
+
+html[data-style="terminal"] .segmented {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 2px;
+  box-shadow: none;
+}
+
+html[data-style="terminal"] .seg-btn { border-radius: 0; }
+
+html[data-style="terminal"] .seg-btn.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+  box-shadow: 0 0 14px -2px var(--accent-ring);
+}
+
+html[data-style="terminal"] .icon-btn {
+  background: transparent;
+  border-color: var(--border);
+}
+
+html[data-style="terminal"] .icon-btn:hover {
+  background: var(--accent-soft);
+  box-shadow: var(--line-glow);
+}
+
+/* ── 今日卡片：> TODAY.LOG 引导 + 闪烁光标 ── */
+html[data-style="terminal"] .today-card {
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+
+html[data-style="terminal"] .today-card::before {
+  width: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-ring);
+}
+
+html[data-style="terminal"] .today-label {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  font-family: var(--font-mono-term);
+  letter-spacing: .08em;
+}
+
+html[data-style="terminal"] .today-label::before { content: "> "; }
+
+html[data-style="terminal"] .today-date::after {
+  content: "";
+  display: inline-block;
+  width: .55em;
+  height: 1em;
+  margin-left: .25em;
+  vertical-align: -.12em;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-ring);
+  animation: crt-blink 1.1s steps(1) infinite;
+}
+
+html[data-style="terminal"] .today-week {
+  background: transparent;
+  border-color: var(--border);
+  border-radius: 0;
+}
+
+html[data-style="terminal"] .today-week::before { content: "["; opacity: .7; }
+html[data-style="terminal"] .today-week::after { content: "]"; opacity: .7; }
+
+html[data-style="terminal"] .ghost-btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  color: var(--accent);
+}
+
+html[data-style="terminal"] .ghost-btn:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+  box-shadow: 0 0 16px -2px var(--accent-ring);
+}
+
+/* ── 课程：日志行格式 ── */
+html[data-style="terminal"] .today-slot,
+html[data-style="terminal"] .slot {
+  background: color-mix(in srgb, var(--phosphor) 5%, transparent);
+  border-color: var(--phosphor-faint);
+  color: var(--text);
+}
+
+html[data-style="terminal"] .today-slot:hover,
+html[data-style="terminal"] .slot:hover {
+  background: var(--accent-soft);
+  border-color: var(--border-strong);
+  box-shadow: var(--line-glow);
+  transform: none;
+}
+
+html[data-style="terminal"] .ts-period,
+html[data-style="terminal"] .slot-period {
+  opacity: .9;
+}
+
+html[data-style="terminal"] .ts-period::before,
+html[data-style="terminal"] .slot-period::before { content: "["; }
+
+html[data-style="terminal"] .ts-period::after,
+html[data-style="terminal"] .slot-period::after { content: "]"; }
+
+html[data-style="terminal"] .slot-time {
+  display: inline;
+  font-size: 10.5px;
+  font-weight: 600;
+  opacity: .6;
+  letter-spacing: .02em;
+}
+
+html[data-style="terminal"] .slot-time::before { content: " ["; }
+html[data-style="terminal"] .slot-time::after { content: "]"; }
+
+html[data-style="terminal"] .ts-course::before,
+html[data-style="terminal"] .slot-course::before {
+  content: "$ ";
+  opacity: .75;
+}
+
+html[data-style="terminal"] .today-slot.is-special,
+html[data-style="terminal"] .slot.is-special {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--phosphor-faint);
+  color: var(--text-muted);
+}
+
+html[data-style="terminal"] .slot-empty {
+  border-color: var(--phosphor-faint);
+  color: var(--text-muted);
+}
+
+html[data-style="terminal"] .slot-empty::before { content: "# "; }
+
+/* ── 周标签 / 日卡片 ── */
+html[data-style="terminal"] .week-tab {
+  background: transparent;
+  border-color: var(--border);
+}
+
+html[data-style="terminal"] .week-tab:hover {
+  background: var(--accent-soft);
+}
+
+html[data-style="terminal"] .week-tab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+  box-shadow: 0 0 18px -4px var(--accent-ring);
+}
+
+html[data-style="terminal"] .day-card {
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-style="terminal"] .day-card:hover {
+  box-shadow: var(--shadow);
+}
+
+html[data-style="terminal"] .day-card.is-today {
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 1px var(--accent-ring), var(--shadow-hover);
+}
+
+html[data-style="terminal"] .day-head {
+  border-bottom-style: dashed;
+}
+
+html[data-style="terminal"] .day-head::before {
+  content: "##";
+  opacity: .55;
+  font-size: 12px;
+}
+
+html[data-style="terminal"] .today-badge {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: 0;
+  text-shadow: none;
+  box-shadow: 0 0 12px -2px var(--accent-ring);
+}
+
+/* ── 教师信息 ── */
+html[data-style="terminal"] .teachers-title::after {
+  content: "$ whoami --teachers";
+  color: var(--text-soft);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-left: 2px;
+}
+
+html[data-style="terminal"] .teacher-item {
+  background: transparent;
+  border-color: var(--phosphor-faint);
+}
+
+html[data-style="terminal"] .teacher-item:hover { border-color: var(--border-strong); }
+
+html[data-style="terminal"] .t-person::before { content: "@"; opacity: .6; }
+
+html[data-style="terminal"] .footnote::before { content: "# "; }
+
+/* ── 设置面板 / 引导 ── */
+html[data-style="terminal"] .modal-backdrop {
+  background: rgba(0, 0, 0, .72);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-style="terminal"] .modal {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover), 0 0 60px -12px var(--accent-ring);
+  background: var(--bg);
+}
+
+html[data-style="terminal"] .modal-head h2::after {
+  content: "~/settings $";
+  color: var(--text-soft);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0;
+  align-self: flex-end;
+  margin-bottom: 3px;
+}
+
+html[data-style="terminal"] .modal-head { border-bottom-style: dashed; }
+
+html[data-style="terminal"] .style-btn[aria-checked="true"] {
+  box-shadow: 0 0 0 1px var(--accent), 0 0 18px -4px var(--accent-ring);
+  background: var(--accent-soft);
+}
+
+html[data-style="terminal"] .btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+}
+
+html[data-style="terminal"] .btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+  box-shadow: 0 0 16px -2px var(--accent-ring);
+}
+
+html[data-style="terminal"] .btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-shadow: none;
+}
+
+html[data-style="terminal"] .btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+html[data-style="terminal"] .btn-danger {
+  border-color: var(--border-strong);
+  color: #ff6b5e;
+}
+
+html[data-style="terminal"] .css-editor {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+  font-family: var(--font-mono-term);
+}
+
+html[data-style="terminal"] .font-option.is-active,
+html[data-style="terminal"] .font-option:hover {
+  border-color: var(--border-strong);
+  background: var(--accent-soft);
+}
+
+html[data-style="terminal"] .info-strip {
+  background: var(--accent-soft);
+  border: 1px dashed var(--border);
+}
+
+/* ── Toast ── */
+html[data-style="terminal"] .toast {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+  text-shadow: var(--text-glow);
+}
+
+/* ── 焦点可见性 ── */
+html[data-style="terminal"] :focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 12px -2px var(--accent-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-style="terminal"] body::after { animation: none; }
+  html[data-style="terminal"] .today-date::after { animation: none; opacity: 1; }
+}
