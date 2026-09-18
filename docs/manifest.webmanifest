@@ -1,0 +1,16 @@
+{
+  "name": "医学检验技术2025级1班课程表",
+  "short_name": "课程表",
+  "description": "2025级医学检验技术专业（1）班 2026年秋季学期课程表",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f6fb",
+  "theme_color": "#2563eb",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
