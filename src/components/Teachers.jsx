@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
-   任课教师
+   任课教师（列表由 COURSES 单一数据源派生，
+   本学期暂未排课的课程带「未排课」标记）
    ═══════════════════════════════════════════════════════════ */
 import { TEACHERS } from '../data/schedule.js';
 import { IconUsers } from './Icon.jsx';
@@ -12,10 +13,13 @@ export default function Teachers() {
         任课教师
       </h2>
       <div className="teacher-grid">
-        {TEACHERS.map(([course, person]) => (
-          <div className="teacher-item" key={`${course}-${person}`}>
-            <span className="t-name">{course}</span>
-            <span className="t-person">{person}</span>
+        {TEACHERS.map((t) => (
+          <div className="teacher-item" key={t.key}>
+            <span className="t-name">
+              {t.name}
+              {!t.scheduled && <span className="t-tag">未排课</span>}
+            </span>
+            <span className="t-person">{t.teacher}</span>
           </div>
         ))}
       </div>

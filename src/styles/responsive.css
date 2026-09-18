@@ -33,6 +33,19 @@
   .style-swatch { height: 46px; }
 }
 
+/* 小屏降低玻璃拟态的模糊强度：日历卡 / 教师条目数量多，
+   强 backdrop-filter 在低端移动设备上滚动容易掉帧、发热 */
+@media (max-width: 600px) {
+  [data-style="glass"] {
+    --header-blur: saturate(160%) blur(12px);
+    --card-blur: saturate(150%) blur(10px);
+  }
+  [data-style="glass"] .teacher-item {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: .01ms !important;
@@ -42,8 +55,21 @@
   }
 }
 
+/* 打印抬头：屏幕上隐藏，打印时显示班级 / 学期 / 周次 */
+.print-title { display: none; }
+
+@page { margin: 12mm; }
+
 @media print {
   .app-header, .modal-backdrop, .ghost-btn, .week-tabs { display: none !important; }
   body { background: #fff !important; }
   .day-card { break-inside: avoid; box-shadow: none !important; }
+  .print-title {
+    display: block;
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+  }
 }

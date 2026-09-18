@@ -39,6 +39,10 @@ body {
   color: var(--accent-contrast);
 }
 
+/* 弹窗打开时锁定背景滚动：用 class 而非内联样式，
+   多层弹窗（设置 + 引导等）叠加关闭时不会误解锁 */
+body.modal-open { overflow: hidden; }
+
 button {
   font-family: inherit;
   font-size: inherit;

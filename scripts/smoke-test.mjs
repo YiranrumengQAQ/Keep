@@ -1,6 +1,6 @@
 /* 构建产物冒烟测试：jsdom 中真实挂载 React 应用并断言关键内容。
    运行：node scripts/smoke-test.mjs */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 
 const html = readFileSync('docs/index.html', 'utf8');
@@ -35,13 +35,25 @@ await new Promise((r) => setTimeout(r, 800));
 const doc = dom.window.document;
 const bodyText = doc.body.textContent || '';
 
+/* 「今天」相关断言按运行当天动态计算，不硬编码日期 */
+const nowD = new Date();
+const dateText = `${nowD.getFullYear()}年${nowD.getMonth() + 1}月${nowD.getDate()}日`;
+
 const checks = [
   ['React 挂载', doc.getElementById('root')?.children.length > 0],
   ['班级标题', bodyText.includes('2025级医学检验技术专业（1）班')],
-  ['今日面板', bodyText.includes('2026年9月18日')],
-  ['今日课程内容', bodyText.includes('微生物检验')],
-  ['周次标签', bodyText.includes('第3周')],
+  ['今日面板（按当天日期断言）', bodyText.includes(dateText)],
+  ['今日课程内容（课程条目或休息提示）',
+    doc.querySelectorAll('.today-card .today-slot, .today-card .today-note').length > 0],
+  ['周次标签', bodyText.includes('第1周')],
   ['教师列表', bodyText.includes('刘长林')],
+  ['未排课课程有标记', bodyText.includes('未排课')],
+  ['PWA：sw.js 已随构建部署', existsSync('docs/sw.js')],
+  ['PWA：PNG 图标齐全',
+    existsSync('docs/icons/icon-192.png') &&
+    existsSync('docs/icons/icon-512.png') &&
+    existsSync('docs/icons/maskable-512.png') &&
+    existsSync('docs/icons/apple-touch-icon.png')],
   ['新手引导出现（首次访问）', !!doc.querySelector('.onboarding')],
   ['引导欢迎语', bodyText.includes('欢迎使用课程表')],
 ];

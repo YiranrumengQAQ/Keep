@@ -93,6 +93,21 @@
   white-space: nowrap;
 }
 
+/* 本学期暂未排课的课程标记 */
+.t-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
 .t-person { font-weight: 650; flex: none; }
 [data-style="neobrutal"] .t-person { font-weight: 800; }
 

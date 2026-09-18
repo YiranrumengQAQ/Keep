@@ -3,6 +3,7 @@
    ═══════════════════════════════════════════════════════════ */
 import { useState, useEffect, useRef } from 'react';
 import { usePref, setPref } from '../store/prefs.js';
+import { WEEKS } from '../data/schedule.js';
 import Segmented from './Segmented.jsx';
 import { IconCalendar, IconSun, IconMoon, IconSystem, IconGear } from './Icon.jsx';
 
@@ -46,7 +47,7 @@ export default function Header({ onOpenSettings }) {
           </span>
           <div className="brand-text">
             <h1>2025级医学检验技术专业（1）班</h1>
-            <p>2026 年秋季学期 · 第 1～6 周</p>
+            <p>2026 年秋季学期 · 第 1～{WEEKS.length} 周</p>
           </div>
         </div>
 

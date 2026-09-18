@@ -22,5 +22,7 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: false
   },
-  server: { host: '0.0.0.0' }
+  server: { host: '0.0.0.0' },
+  /* 允许经反向代理 / 预览域名访问（如 e2b 沙箱预览、Codespaces 等） */
+  preview: { host: '0.0.0.0', allowedHosts: true }
 });

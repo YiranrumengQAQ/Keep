@@ -168,6 +168,19 @@
   border-radius: 5px;
 }
 
+/* 周末有课 → 自动标注的「补课」徽章（中性描边样式，兼容全部主题） */
+.makeup-badge {
+  align-self: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
 [data-style="clay"] .today-badge {
   border-radius: 999px;
   padding: 3px 10px;

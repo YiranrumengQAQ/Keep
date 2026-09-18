@@ -1,29 +1,47 @@
 /* ═══════════════════════════════════════════════════════════
-   课程数据
+   课程数据 —— 单一数据源
+   ─────────────────────────────────────────────────────────
+   · COURSES   ：课程 → 名称 / 教师 / 色相 / 特殊标记（全站唯一定义处）
+   · RAW_WEEKS ：每周排课，只存「日期 + 课程键 + 节次」
+   · WEEKS     ：由 RAW_WEEKS 自动派生（周次标签 / 日期范围 / 星期 / 补课标记）
+   · TEACHERS  ：由 COURSES 自动派生（课程名与教师永远同源，不会再对不上）
+
+   修改课表只需要动 COURSES 和 RAW_WEEKS 两处；
+   星期写错、范围忘记改、两套课程名不一致这类问题从结构上消除。
    ═══════════════════════════════════════════════════════════ */
-export const C = {
-  trad:   '中国传统文化',
-  immu:   '免疫技术与检验',
-  bio:    '生物化学检验',
-  comm:   '人际沟通',
-  micro:  '微生物检验',
-  path:   '病理检验技术',
-  pe:     '体育',
-  midAut: '中秋节放假',
-  natDay: '国庆节放假',
-  sports: '校运动会'
-};
 
-export const SPECIAL = new Set([C.midAut, C.natDay, C.sports]);
+export const WEEKDAY_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
-export const HUES = {
-  [C.trad]: 268,
-  [C.immu]: 199,
-  [C.bio]: 158,
-  [C.comm]: 33,
-  [C.micro]: 352,
-  [C.path]: 232,
-  [C.pe]: 312
+/* ── 课程总表 ────────────────────────────────────────────────
+   name    显示名（全站唯一来源）
+   teacher 任课教师（教师列表由此派生）
+   hue     课程色块色相；特殊日程与未排课课程无需填写
+   special 特殊日程（放假 / 运动会），不算课程、不进教师列表 */
+export const COURSES = {
+  /* 本学期已排课 */
+  trad:  { name: '中国传统文化',     teacher: '张文君', hue: 268 },
+  /* ⚠️ 待核对：旧数据课表写「免疫技术与检验」、教师名单写「免疫学技术与检验」，
+     此处统一取教师名单写法；如需改回只改这一行。 */
+  immu:  { name: '免疫学技术与检验', teacher: '孙荣华', hue: 199 },
+  bio:   { name: '生物化学检验',     teacher: '林笑宇', hue: 158 },
+  comm:  { name: '人际沟通',         teacher: '张萌',   hue: 33 },
+  /* ⚠️ 待核对：同上，「微生物检验」/「微生物学检验」统一取教师名单写法。 */
+  micro: { name: '微生物学检验',     teacher: '刘长林', hue: 352 },
+  path:  { name: '病理检验技术',     teacher: '崔妲',   hue: 232 },
+  pe:    { name: '体育',             teacher: '崔丰旭', hue: 312 },
+
+  /* 任课教师总表中、第 1～6 周暂未排课的课程（教师列表会标注「未排课」） */
+  policy:      { name: '形势与政策',     teacher: '赵桐萱' },
+  aesthetics:  { name: '大学美育',       teacher: '吴雅莉' },
+  instrument:  { name: '临床检验仪器',   teacher: '崔妲' },
+  molecular:   { name: '分子生物学概要', teacher: '陈莹莹' },
+  parasite:    { name: '寄生虫学检验',   teacher: '张雅惠' },
+  transfusion: { name: '输血检验技术',   teacher: '崔妲' },
+
+  /* 特殊日程 */
+  midAut: { name: '中秋节放假', special: true },
+  natDay: { name: '国庆节放假', special: true },
+  sports: { name: '校运动会',   special: true }
 };
 
 /* 节次对应时刻（仅供参考，如需调整在此修改） */
@@ -34,100 +52,159 @@ export const PERIOD_TIMES = {
   '7-8': '15:25 - 17:00'
 };
 
-function P(period, course) { return { p: period, c: course }; }
+/* ── 每周排课（c 存的是 COURSES 的键，不是课程名） ── */
+function P(period, key) { return { p: period, c: key }; }
 
-const MON_FULL = [P('1-2', C.trad), P('3-4', C.pe), P('5-6', C.immu), P('7-8', C.immu)];
-const TUE_A    = [P('1-2', C.immu), P('3-4', C.immu)];
-const TUE_B    = [P('1-2', C.immu), P('3-4', C.immu), P('5-6', C.comm)];
-const WED_FULL = [P('1-2', C.bio), P('3-4', C.bio), P('5-6', C.micro), P('7-8', C.micro)];
-const THU_A    = [P('1-2', C.comm), P('3-4', C.pe), P('5-6', C.path), P('7-8', C.path)];
-const THU_PATH = [P('1-2', C.path), P('3-4', C.path)];
-const THU_MIC  = [P('1-2', C.micro), P('3-4', C.micro)];
-const FRI_MIC  = [P('1-2', C.micro), P('3-4', C.micro)];
-const THU_W6   = [P('1-2', C.micro), P('3-4', C.micro), P('5-6', C.bio), P('7-8', C.bio)];
-const FRI_W6   = [P('1-2', C.micro), P('3-4', C.micro), P('5-6', C.immu), P('7-8', C.immu)];
+const MON_FULL = [P('1-2', 'trad'), P('3-4', 'pe'), P('5-6', 'immu'), P('7-8', 'immu')];
+const TUE_A    = [P('1-2', 'immu'), P('3-4', 'immu')];
+const TUE_B    = [P('1-2', 'immu'), P('3-4', 'immu'), P('5-6', 'comm')];
+const WED_FULL = [P('1-2', 'bio'), P('3-4', 'bio'), P('5-6', 'micro'), P('7-8', 'micro')];
+const THU_A    = [P('1-2', 'comm'), P('3-4', 'pe'), P('5-6', 'path'), P('7-8', 'path')];
+const THU_PATH = [P('1-2', 'path'), P('3-4', 'path')];
+const THU_MIC  = [P('1-2', 'micro'), P('3-4', 'micro')];
+const FRI_MIC  = [P('1-2', 'micro'), P('3-4', 'micro')];
+const THU_W6   = [P('1-2', 'micro'), P('3-4', 'micro'), P('5-6', 'bio'), P('7-8', 'bio')];
+const FRI_W6   = [P('1-2', 'micro'), P('3-4', 'micro'), P('5-6', 'immu'), P('7-8', 'immu')];
 
-export const WEEKS = [
+const RAW_WEEKS = [
   {
-    label: '第1周', range: '8.31 - 9.6',
     days: [
-      { w: '周一', d: '2026-08-31', s: MON_FULL },
-      { w: '周二', d: '2026-09-01', s: TUE_A },
-      { w: '周三', d: '2026-09-02', s: WED_FULL },
-      { w: '周四', d: '2026-09-03', s: THU_A },
-      { w: '周五', d: '2026-09-04', s: FRI_MIC }
+      { d: '2026-08-31', s: MON_FULL },
+      { d: '2026-09-01', s: TUE_A },
+      { d: '2026-09-02', s: WED_FULL },
+      { d: '2026-09-03', s: THU_A },
+      { d: '2026-09-04', s: FRI_MIC }
     ]
   },
   {
-    label: '第2周', range: '9.7 - 9.13',
     days: [
-      { w: '周一', d: '2026-09-07', s: MON_FULL },
-      { w: '周二', d: '2026-09-08', s: TUE_A },
-      { w: '周三', d: '2026-09-09', s: WED_FULL },
-      { w: '周四', d: '2026-09-10', s: THU_A },
-      { w: '周五', d: '2026-09-11', s: FRI_MIC }
+      { d: '2026-09-07', s: MON_FULL },
+      { d: '2026-09-08', s: TUE_A },
+      { d: '2026-09-09', s: WED_FULL },
+      { d: '2026-09-10', s: THU_A },
+      { d: '2026-09-11', s: FRI_MIC }
     ]
   },
   {
-    label: '第3周', range: '9.14 - 9.20',
     days: [
-      { w: '周一', d: '2026-09-14', s: MON_FULL },
-      { w: '周二', d: '2026-09-15', s: TUE_B },
-      { w: '周三', d: '2026-09-16', s: WED_FULL },
-      { w: '周四', d: '2026-09-17', s: THU_PATH },
-      { w: '周五', d: '2026-09-18', s: FRI_MIC },
-      { w: '周六', d: '2026-09-19', s: [] },
-      { w: '周日', d: '2026-09-20', s: THU_PATH }
+      { d: '2026-09-14', s: MON_FULL },
+      { d: '2026-09-15', s: TUE_B },
+      { d: '2026-09-16', s: WED_FULL },
+      { d: '2026-09-17', s: THU_PATH },
+      { d: '2026-09-18', s: FRI_MIC },
+      { d: '2026-09-19', s: [] },
+      /* ⚠️ 待核对：原始课表是否确有周日补课（病理 1-2 / 3-4）？
+         疑为国庆假期调课，若为复制笔误请改成 []。 */
+      { d: '2026-09-20', s: THU_PATH }
     ]
   },
   {
-    label: '第4周', range: '9.21 - 9.27',
     days: [
-      { w: '周一', d: '2026-09-21', s: MON_FULL },
-      { w: '周二', d: '2026-09-22', s: TUE_B },
-      { w: '周三', d: '2026-09-23', s: WED_FULL },
-      { w: '周四', d: '2026-09-24', s: THU_MIC },
-      { w: '周五', d: '2026-09-25', s: [P('1-2', C.midAut)] }
+      { d: '2026-09-21', s: MON_FULL },
+      { d: '2026-09-22', s: TUE_B },
+      { d: '2026-09-23', s: WED_FULL },
+      { d: '2026-09-24', s: THU_MIC },
+      { d: '2026-09-25', s: [P('1-2', 'midAut')] }
     ]
   },
   {
-    label: '第5周', range: '9.28 - 10.4',
     days: [
-      { w: '周一', d: '2026-09-28', s: [P('1-2', C.trad), P('3-4', C.pe), P('5-6', C.comm)] },
-      { w: '周二', d: '2026-09-29', s: [P('1-2', C.sports)] },
-      { w: '周三', d: '2026-09-30', s: [] },
-      { w: '周四', d: '2026-10-01', s: [P('1-2', C.natDay)] },
-      { w: '周五', d: '2026-10-02', s: [] }
+      { d: '2026-09-28', s: [P('1-2', 'trad'), P('3-4', 'pe'), P('5-6', 'comm')] },
+      { d: '2026-09-29', s: [P('1-2', 'sports')] },
+      { d: '2026-09-30', s: [] },
+      { d: '2026-10-01', s: [P('1-2', 'natDay')] },
+      { d: '2026-10-02', s: [] }
     ]
   },
   {
-    label: '第6周', range: '10.5 - 10.11',
     days: [
-      { w: '周一', d: '2026-10-05', s: [] },
-      { w: '周二', d: '2026-10-06', s: [] },
-      { w: '周三', d: '2026-10-07', s: [] },
-      { w: '周四', d: '2026-10-08', s: THU_W6 },
-      { w: '周五', d: '2026-10-09', s: FRI_W6 },
-      { w: '周六', d: '2026-10-10', s: THU_PATH }
+      { d: '2026-10-05', s: [] },
+      { d: '2026-10-06', s: [] },
+      { d: '2026-10-07', s: [] },
+      { d: '2026-10-08', s: THU_W6 },
+      { d: '2026-10-09', s: FRI_W6 },
+      /* ⚠️ 待核对：周六补课（病理 1-2 / 3-4）是否属实？若为笔误请改成 []。 */
+      { d: '2026-10-10', s: THU_PATH },
+      /* ⚠️ 待核对：10.11（周日）暂按无课处理，若仍有安排请补上课程。 */
+      { d: '2026-10-11', s: [] }
     ]
   }
 ];
 
-export const TEACHERS = [
-  ['形势与政策', '赵桐萱'],
-  ['大学美育', '吴雅莉'],
-  ['体育', '崔丰旭'],
-  ['中国传统文化', '张文君'],
-  ['人际沟通', '张萌'],
-  ['临床检验仪器', '崔妲'],
-  ['分子生物学概要', '陈莹莹'],
-  ['生物化学检验', '林笑宇'],
-  ['微生物学检验', '刘长林'],
-  ['寄生虫学检验', '张雅惠'],
-  ['免疫学技术与检验', '孙荣华'],
-  ['输血检验技术', '崔妲'],
-  ['病理检验技术', '崔妲']
-];
+/* ── 以下全部自动派生，无需手工维护 ───────────────────────── */
+
+function dateOf(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function isoOf(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function weekdayOf(iso) {
+  return WEEKDAY_CN[dateOf(iso).getDay()];
+}
+
+function fmtShort(iso) {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${m}.${d}`;
+}
+
+function fmtFull(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${y}.${m}.${d}`;
+}
+
+/* 周次标签 / 日期范围 / 星期 / 补课标记，全部由日期自动计算。
+   范围按「自然周」推导：从本周首日延伸到周日，
+   再与最后一个有课条目的日期取较晚者（覆盖补课出现在周日的情况）。 */
+export const WEEKS = RAW_WEEKS.map((week, i) => {
+  const days = week.days.map((day) => {
+    const w = weekdayOf(day.d);
+    const makeup = (w === '周六' || w === '周日') && day.s.length > 0;
+    return { d: day.d, s: day.s, w, makeup };
+  });
+  const start = dateOf(days[0].d);
+  const daysToSunday = (7 - start.getDay()) % 7;
+  start.setDate(start.getDate() + daysToSunday);
+  const lastEntry = dateOf(days[days.length - 1].d);
+  const weekEnd = lastEntry > start ? lastEntry : start;
+  return {
+    label: `第${i + 1}周`,
+    range: `${fmtShort(days[0].d)} - ${fmtShort(isoOf(weekEnd))}`,
+    days
+  };
+});
+
+/* 学期总日期范围（今日面板的「不在教学周内」提示语用） */
+export const TERM_RANGE = (() => {
+  const first = WEEKS[0].days[0].d;
+  const lastWeek = WEEKS[WEEKS.length - 1];
+  const last = lastWeek.days[lastWeek.days.length - 1].d;
+  return `${fmtFull(first)} - ${fmtShort(last)}`;
+})();
+
+/* 课表中实际出现过的课程键（教师列表据此标注「未排课」） */
+const SCHEDULED_KEYS = new Set();
+for (const week of RAW_WEEKS) {
+  for (const day of week.days) {
+    for (const slot of day.s) SCHEDULED_KEYS.add(slot.c);
+  }
+}
+
+/* 任课教师总表：由 COURSES 派生，含本学期未排课的课程 */
+export const TEACHERS = Object.entries(COURSES)
+  .filter(([, course]) => !course.special)
+  .map(([key, course]) => ({
+    key,
+    name: course.name,
+    teacher: course.teacher,
+    scheduled: SCHEDULED_KEYS.has(key)
+  }));
 
 /* 八种界面风格元信息：名称 / 简介 / 色卡标识（设置与新手引导共用） */
 export const STYLES = [
