@@ -1,0 +1,49 @@
+/* ═══════════════════════════════════════════════════════════════
+   13. 响应式
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 760px) {
+  .header-inner { padding: 11px 14px; gap: 10px; }
+  main { padding: 14px 14px 56px; gap: 14px; }
+  .brand-icon { width: 32px; height: 32px; }
+  [data-style="clay"] .brand-icon,
+  [data-style="glass"] .brand-icon { width: 38px; height: 38px; }
+  [data-style="neobrutal"] .brand-icon { width: 36px; height: 36px; }
+  .brand-text h1 { font-size: 14px; }
+  .brand-text p { font-size: 11.5px; }
+  .today-card { padding: 15px 15px 15px 20px; }
+  .today-date { font-size: 14px; }
+  .ghost-btn { margin-left: 0; }
+  .week-grid { grid-template-columns: 1fr; }
+  .week-grid.single { grid-template-columns: 1fr; }
+  .modal-backdrop { padding: 0; place-items: end center; }
+  .modal {
+    width: 100%;
+    max-height: 93vh;
+    border-radius: var(--radius) var(--radius) 0 0;
+    transform: translateY(100%);
+  }
+  .modal-backdrop.is-open .modal { transform: none; }
+  [data-style="neobrutal"] .modal { border-radius: 8px 8px 0 0; }
+  [data-style="neobrutal"] .style-grid { gap: 12px; }
+}
+
+@media (max-width: 420px) {
+  .style-grid { grid-template-columns: 1fr; }
+  .seg-btn { min-width: 32px; padding: 0 8px; }
+  .style-swatch { height: 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .app-header, .modal-backdrop, .ghost-btn, .week-tabs { display: none !important; }
+  body { background: #fff !important; }
+  .day-card { break-inside: avoid; box-shadow: none !important; }
+}
