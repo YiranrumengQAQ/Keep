@@ -91,3 +91,30 @@ input {
 }
 
 .icon-btn svg { width: 18px; height: 18px; display: block; }
+
+/* ═══════════════════════════════════════════════════════════════
+   99. 硬件加速（GPU 合成层提升）
+   ─ html[data-hwaccel="true"] 时激活；为关键 UI 元素启用
+     translateZ(0) 强制 GPU 合成，改善滚动与动画流畅度
+   ═══════════════════════════════════════════════════════════════ */
+html[data-hwaccel="true"] .app-header,
+html[data-hwaccel="true"] .today-panel,
+html[data-hwaccel="true"] .week-tabs,
+html[data-hwaccel="true"] .day-card,
+html[data-hwaccel="true"] .teachers,
+html[data-hwaccel="true"] .modal,
+html[data-hwaccel="true"] .onboarding,
+html[data-hwaccel="true"] .toast-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+html[data-hwaccel="true"] .day-card,
+html[data-hwaccel="true"] .modal,
+html[data-hwaccel="true"] .onboarding {
+  will-change: transform;
+}
+
+html[data-hwaccel="true"] .app-header {
+  will-change: transform;
+}

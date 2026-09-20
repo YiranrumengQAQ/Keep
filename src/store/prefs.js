@@ -25,6 +25,7 @@ export const FACTORY = Object.freeze({
   font: 'system',
   fontSize: 'm',
   smoothing: 'auto',
+  hwAccel: false,
   customCSS: ''
 });
 
@@ -47,6 +48,7 @@ export function sanitizePrefs(p) {
   for (const key of Object.keys(VALID)) {
     if (VALID[key].includes(p[key])) out[key] = p[key];
   }
+  if (typeof p.hwAccel === 'boolean') out.hwAccel = p.hwAccel;
   if (typeof p.customCSS === 'string') out.customCSS = p.customCSS.slice(0, 40000);
   return out;
 }
@@ -80,6 +82,7 @@ export function usePref(key) {
 export function setPref(key, value) {
   if (!(key in FACTORY)) return;
   if (VALID[key] && !VALID[key].includes(value)) return;
+  if (key === 'hwAccel' && typeof value !== 'boolean') return;
   if (key === 'customCSS') value = String(value ?? '').slice(0, 40000);
   if (state[key] === value) return;
   state = { ...state, [key]: value };

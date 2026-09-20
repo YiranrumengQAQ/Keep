@@ -55,6 +55,7 @@ export default function App() {
     root.dataset.font = prefs.font;
     root.dataset.size = prefs.fontSize;
     root.dataset.smoothing = prefs.smoothing;
+    root.dataset.hwaccel = prefs.hwAccel ? 'true' : 'false';
 
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
