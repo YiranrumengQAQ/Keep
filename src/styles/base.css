@@ -98,13 +98,13 @@ input {
      translateZ(0) 强制 GPU 合成，改善滚动与动画流畅度
    ═══════════════════════════════════════════════════════════════ */
 html[data-hwaccel="true"] .app-header,
-html[data-hwaccel="true"] .today-panel,
+html[data-hwaccel="true"] .today-card,
 html[data-hwaccel="true"] .week-tabs,
 html[data-hwaccel="true"] .day-card,
 html[data-hwaccel="true"] .teachers,
 html[data-hwaccel="true"] .modal,
 html[data-hwaccel="true"] .onboarding,
-html[data-hwaccel="true"] .toast-container {
+html[data-hwaccel="true"] .toast-host {
   transform: translateZ(0);
   backface-visibility: hidden;
 }

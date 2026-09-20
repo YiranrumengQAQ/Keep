@@ -139,7 +139,7 @@ export default function SettingsModal({ open, onClose, onReopenOnboarding }) {
           </section>
 
           <section className="setting-group">
-            <h3><IconBolt size={13} />性能</h3>
+            <h3><IconBolt size={13} className="icon-bolt" />性能</h3>
             <label className="toggle-row">
               <input
                 type="checkbox"
