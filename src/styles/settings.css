@@ -158,6 +158,12 @@
   flex: none;
 }
 
+/* 闪电图标光学校准：折线路径的视觉重心略低于几何中心，
+   上移 1px 补偿，使其与 12px 分组标题居中对齐 */
+.setting-group h3 .icon-bolt {
+  transform: translateY(-1px);
+}
+
 [data-style="neobrutal"] .setting-group h3 {
   color: var(--text);
   font-weight: 800;
@@ -914,15 +920,25 @@
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-/* 新野兽派 */
+/* 新野兽派
+   ─ 滑槽加 2px 描边后，外框同步放大 2×border（46×28），
+     使内腔仍是 42×24，滑块 20px / 边距 2px / 行程 18px 的几何保持成立，
+     避免滑块撞穿右侧边框。 */
 [data-style="neobrutal"] .toggle-row {
   border-width: 3px;
   border-radius: 4px;
 }
 
 [data-style="neobrutal"] .toggle-switch {
+  width: 46px;
+  height: 28px;
   border: 2px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
+}
+
+[data-style="neobrutal"] .toggle-thumb {
+  border: 2px solid var(--border);
+  box-shadow: 2px 2px 0 var(--border);
 }
 
 [data-style="neobrutal"] .toggle-row:has(.toggle-input:checked) {
@@ -934,14 +950,31 @@
   border-color: var(--accent);
 }
 
-/* 粘土 */
+/* 粘土：凹陷滑槽 + 膨胀浮雕滑块（无描边，不改变开关几何） */
 [data-style="clay"] .toggle-row {
   box-shadow: var(--shadow-sm);
   border-color: rgba(255, 255, 255, .8);
 }
 
 [data-style="clay"] .toggle-switch {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .12);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-style="clay"] .toggle-thumb {
+  background: linear-gradient(145deg, #ffffff, #e2e8fa);
+  box-shadow:
+    3px 3px 6px rgba(163, 177, 198, .6),
+    -2px -2px 4px rgba(255, 255, 255, .95),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+[data-theme="dark"][data-style="clay"] .toggle-thumb {
+  background: linear-gradient(145deg, #2a3048, #1d2233);
+  box-shadow:
+    3px 3px 6px rgba(0, 0, 0, .55),
+    -2px -2px 4px rgba(255, 255, 255, .05),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 /* 玻璃 */
@@ -959,4 +992,185 @@
 
 [data-style="glass"] .toggle-switch {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, .15);
+}
+
+/* 玻璃滑块：高光玻璃珠（无描边，不改变开关几何） */
+[data-style="glass"] .toggle-thumb {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .72));
+  box-shadow:
+    0 1px 4px rgba(31, 38, 135, .25),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+/* ── 极客终端：直角荧光拨动开关 ──
+   滑槽加 1px 描边，外框同步放大到 44×26，内腔保持 42×24。 */
+[data-style="terminal"] .toggle-row {
+  border-radius: 0;
+  background: transparent;
+}
+
+[data-style="terminal"] .toggle-row:has(.toggle-input:checked) {
+  background: var(--accent-soft);
+  border-color: var(--border-strong);
+  box-shadow: var(--line-glow);
+}
+
+[data-style="terminal"] .toggle-switch {
+  width: 44px;
+  height: 26px;
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  background: rgba(0, 0, 0, .35);
+}
+
+[data-style="terminal"] .toggle-thumb {
+  border-radius: 0;
+  background: var(--text-muted);
+  box-shadow: none;
+}
+
+[data-style="terminal"] .toggle-row:has(.toggle-input:checked) .toggle-switch {
+  background: var(--accent-soft);
+  box-shadow: var(--line-glow);
+}
+
+[data-style="terminal"] .toggle-row:has(.toggle-input:checked) .toggle-thumb {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-ring);
+}
+
+/* ── 纸质手账：手绘虚线开关 ──
+   滑槽加 1px 虚线描边，外框同步放大到 44×26，内腔保持 42×24。 */
+[data-style="paper"] .toggle-row {
+  border-style: dashed;
+  border-radius: var(--wobble);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+[data-style="paper"] .toggle-row:has(.toggle-input:checked) {
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: inset 0 -.45em 0 var(--accent-soft);
+}
+
+[data-style="paper"] .toggle-switch {
+  width: 44px;
+  height: 26px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--wobble);
+  background: var(--surface-2);
+}
+
+[data-style="paper"] .toggle-thumb {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--wobble);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+[data-style="paper"] .toggle-row:has(.toggle-input:checked) .toggle-switch {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-style="paper"] .toggle-row:has(.toggle-input:checked) .toggle-thumb {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── 拟物机械：iOS 6 式凹陷拨动开关 + 铬合金滑块 ──
+   滑槽加 1px 描边，外框同步放大到 44×26，内腔保持 42×24。 */
+[data-style="skeuo"] .toggle-row {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-style="skeuo"] .toggle-row:has(.toggle-input:checked) {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring), var(--shadow);
+}
+
+[data-style="skeuo"] .toggle-switch {
+  width: 44px;
+  height: 26px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(180deg, #b9b4a6 0%, #d5d1c5 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, .3),
+    0 1px 0 rgba(255, 255, 255, .6);
+}
+
+[data-theme="dark"][data-style="skeuo"] .toggle-switch {
+  background: linear-gradient(180deg, #1a1814 0%, #2b2822 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, .6),
+    0 1px 0 rgba(255, 255, 255, .07);
+}
+
+[data-style="skeuo"] .toggle-thumb {
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(180deg, #ffffff 0%, #e6e2d7 50%, #d5d1c5 100%);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, .35),
+    inset 0 1px 0 #ffffff;
+}
+
+[data-theme="dark"][data-style="skeuo"] .toggle-thumb {
+  background: linear-gradient(180deg, #5a564c 0%, #403c33 50%, #35322b 100%);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .14);
+}
+
+[data-style="skeuo"] .toggle-row:has(.toggle-input:checked) .toggle-switch {
+  background: linear-gradient(180deg, #5b98ec 0%, #2f6bd0 48%, #2559b5 52%, #2f68cc 100%);
+  border-color: #1c4c9a;
+}
+
+[data-theme="dark"][data-style="skeuo"] .toggle-row:has(.toggle-input:checked) .toggle-switch {
+  background: linear-gradient(180deg, #efb874 0%, #e0a458 48%, #c98c3f 52%, #d69947 100%);
+  border-color: #8a5f22;
+}
+
+/* ── 复古像素：街机拨动开关 ──
+   滑槽加 3px 描边，外框同步放大到 48×30，内腔保持 42×24。 */
+[data-style="pixel"] .toggle-row {
+  border-radius: 0;
+  background: var(--surface-2);
+  border: var(--border-w) solid var(--border);
+  outline: 2px solid var(--border-inner);
+  outline-offset: calc(-1 * var(--border-w) - 2px);
+}
+
+[data-style="pixel"] .toggle-row:has(.toggle-input:checked) {
+  background: var(--surface-3);
+  border-color: var(--border);
+  outline-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-style="pixel"] .toggle-switch {
+  width: 48px;
+  height: 30px;
+  border: 3px solid var(--border);
+  border-radius: 0;
+  background: var(--surface-3);
+  box-shadow: 3px 3px 0 0 var(--accent-ring);
+}
+
+[data-style="pixel"] .toggle-thumb {
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: var(--text-muted);
+  box-shadow: none;
+}
+
+[data-style="pixel"] .toggle-row:has(.toggle-input:checked) .toggle-switch {
+  background: var(--accent);
+}
+
+[data-style="pixel"] .toggle-row:has(.toggle-input:checked) .toggle-thumb {
+  background: var(--accent-contrast);
 }
