@@ -10,7 +10,8 @@ import CustomCssEditor from './CustomCssEditor.jsx';
 import PrefManager from './PrefManager.jsx';
 import {
   IconGear, IconClose, IconSun, IconMoon, IconSystem,
-  IconWeek, IconClock, IconInfo, IconType, IconCode, IconPalette
+  IconWeek, IconClock, IconInfo, IconType, IconCode, IconPalette,
+  IconBolt
 } from './Icon.jsx';
 
 const THEME_OPTIONS = [
@@ -27,6 +28,7 @@ const RANGE_OPTIONS = [
 export default function SettingsModal({ open, onClose, onReopenOnboarding }) {
   const theme = usePref('theme');
   const range = usePref('range');
+  const hwAccel = usePref('hwAccel');
   const modalRef = useRef(null);
   const lastFocusedRef = useRef(null);
 
@@ -134,6 +136,29 @@ export default function SettingsModal({ open, onClose, onReopenOnboarding }) {
           <section className="setting-group">
             <h3><IconCode size={13} />自定义 CSS</h3>
             <CustomCssEditor />
+          </section>
+
+          <section className="setting-group">
+            <h3><IconBolt size={13} />性能</h3>
+            <label className="toggle-row">
+              <input
+                type="checkbox"
+                className="toggle-input"
+                checked={hwAccel}
+                onChange={(e) => setPref('hwAccel', e.target.checked)}
+                aria-label="硬件加速"
+              />
+              <span className="toggle-switch" role="presentation" aria-hidden="true">
+                <span className="toggle-thumb" />
+              </span>
+              <span className="toggle-text">
+                <span className="toggle-label">硬件加速</span>
+                <span className="toggle-desc">启用 GPU 合成层，滚动与动画更流畅</span>
+              </span>
+            </label>
+            <p className="setting-hint">
+              开启后会为卡片和弹窗启用 GPU 加速，可提升滚动和动画流畅度；若出现画面闪烁或耗电异常请关闭。
+            </p>
           </section>
 
           <section className="setting-group">
