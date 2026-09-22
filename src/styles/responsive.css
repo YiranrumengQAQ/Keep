@@ -33,16 +33,33 @@
   .style-swatch { height: 46px; }
 }
 
-/* 小屏降低玻璃拟态的模糊强度：日历卡 / 教师条目数量多，
-   强 backdrop-filter 在低端移动设备上滚动容易掉帧、发热 */
+/* 小屏降级：液晶玻璃在手机上的处理
+   1) 主模糊再压小（本来就是 2~3px，小屏直接降到 1.5~2px）
+   2) 关闭液态光流动画（省电、避免低端机持续重绘）
+   3) 折射环的二次采样在长列表上代价高，移动端直接关闭，
+      改由静态虹彩棱边承担「晶体感」 */
 @media (max-width: 600px) {
   [data-style="glass"] {
-    --header-blur: saturate(160%) blur(12px);
-    --card-blur: saturate(150%) blur(10px);
+    --header-blur: saturate(200%) brightness(1.06) blur(9px);
+    --card-blur: saturate(200%) brightness(1.05) blur(1.8px);
+    --lens-blur: saturate(200%) brightness(1.1) blur(6px);
+    --lens-blur-soft: saturate(200%) brightness(1.08) blur(5px);
   }
-  [data-style="glass"] .teacher-item {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+
+  html[data-style="glass"] body::before {
+    animation: none;
+  }
+
+  .day-card::before,
+  .today-card::after,
+  .teachers::before,
+  .modal::after,
+  .ob-card::after,
+  .icon-btn,
+  .week-tab,
+  .teacher-item {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 }
 
@@ -62,8 +79,29 @@
 
 @media print {
   .app-header, .modal-backdrop, .ghost-btn, .week-tabs { display: none !important; }
-  body { background: #fff !important; }
+  body { background: #fff !important; animation: none !important; }
   .day-card { break-inside: avoid; box-shadow: none !important; }
+
+  /* 打印：剥离全部玻璃滤镜与折射装饰，只留内容与色块 */
+  html[data-style="glass"] *,
+  html[data-style="glass"] *::before,
+  html[data-style="glass"] *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html[data-style="glass"] body::before,
+  html[data-style="glass"] .app-header::after,
+  html[data-style="glass"] .day-card::before,
+  html[data-style="glass"] .day-card::after,
+  html[data-style="glass"] .today-card::after,
+  html[data-style="glass"] .teachers::before,
+  html[data-style="glass"] .empty-state::before,
+  html[data-style="glass"] .modal::after,
+  html[data-style="glass"] .ob-card::after,
+  html[data-style="glass"] .app-header::after {
+    display: none !important;
+  }
   .print-title {
     display: block;
     margin: 0 0 10px;

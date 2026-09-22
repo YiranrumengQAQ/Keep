@@ -39,16 +39,77 @@
   to { transform: none; opacity: 1; }
 }
 
+/* ── 玻璃：引导卡与设置面板同语言（厚玻璃板 + 折射环 + 顶部镜面） ── */
+[data-style="glass"] .onboarding {
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(12, 20, 45, .22) 0%, rgba(12, 20, 45, .4) 100%);
+  -webkit-backdrop-filter: blur(7px) saturate(150%) brightness(.96);
+  backdrop-filter: blur(7px) saturate(150%) brightness(.96);
+}
+
+[data-theme="dark"][data-style="glass"] .onboarding {
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(2, 5, 16, .42) 0%, rgba(2, 5, 16, .66) 100%);
+}
+
 [data-style="glass"] .ob-card {
-  background: rgba(255, 255, 255, .6);
-  border-color: rgba(255, 255, 255, .8);
-  box-shadow: 0 32px 90px -24px rgba(2, 8, 23, .45), inset 0 1px 0 rgba(255, 255, 255, .9);
+  position: relative;
+  background: var(--glass-spec), rgba(255, 255, 255, .24);
+  -webkit-backdrop-filter: saturate(200%) brightness(1.08) contrast(1.02) blur(16px);
+  backdrop-filter: saturate(200%) brightness(1.08) contrast(1.02) blur(16px);
+  border-color: rgba(255, 255, 255, .82);
+  box-shadow:
+    0 44px 110px -34px rgba(2, 8, 23, .5),
+    var(--glass-float),
+    var(--glass-inner-light),
+    var(--glass-inner-bounce),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm),
+    inset 0 0 40px -18px rgba(255, 255, 255, 1);
+}
+
+[data-style="glass"] .ob-card::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95) 50%, transparent);
+  z-index: 2;
+}
+
+[data-style="glass"] .ob-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  pointer-events: none;
+  background: var(--glass-iris);
+  opacity: .38;
+  -webkit-backdrop-filter: var(--lens-blur);
+  backdrop-filter: var(--lens-blur);
+  -webkit-mask: var(--glass-ring-mask);
+  -webkit-mask-composite: xor;
+  mask: var(--glass-ring-mask);
+  mask-composite: exclude;
 }
 
 [data-theme="dark"][data-style="glass"] .ob-card {
-  background: rgba(22, 30, 50, .76);
-  border-color: rgba(255, 255, 255, .16);
-  box-shadow: 0 32px 90px -24px rgba(0, 0, 0, .85), inset 0 1px 0 rgba(255, 255, 255, .12);
+  background: var(--glass-spec), rgba(14, 20, 38, .44);
+  -webkit-backdrop-filter: saturate(190%) brightness(1.14) blur(18px);
+  backdrop-filter: saturate(190%) brightness(1.14) blur(18px);
+  border-color: rgba(255, 255, 255, .2);
+  box-shadow:
+    0 44px 120px -30px rgba(0, 0, 0, .9),
+    var(--glass-float),
+    var(--glass-inner-light),
+    var(--glass-inner-bounce),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm),
+    inset 0 0 44px -20px rgba(180, 220, 255, .35);
 }
 
 [data-style="neobrutal"] .ob-card {
