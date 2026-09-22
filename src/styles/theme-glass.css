@@ -1,77 +1,167 @@
 /* ═══════════════════════════════════════════════════════════════
-   04. 风格四 —— 玻璃拟态（Glassmorphism）
+   04. 风格四 —— Ultra-Clear Liquid Crystal Glass（超清液晶玻璃）
    ───────────────────────────────────────────────────────────────
-   设计要点：
-     · 强 backdrop-filter 毛玻璃 + 高饱和背景光晕
-     · 半透明白边框 + 顶部内高光，模拟玻璃厚度
-     · 卡片边缘细腻的"折射感"光带
-     · 柔和多层投影，营造悬浮深度
-     · 悬停时高光扫过（sheen）
+   与上一代「毛玻璃」的关键差异：
+
+     · 清透优先（Ultra-Clear）
+       旧版用 blur(22px) 把背景糊成一层奶白薄膜，玻璃与背景被切断，
+       「玻璃」只剩下白色卡片。新版把主模糊压到 2~3px，改用
+       高饱和 + 轻微提亮 + 对比微调，背后的液体光团依然清晰可辨，
+       玻璃是「折射」介质而不是「磨砂」遮挡物。
+
+     · 边缘折射（Lens Edge）
+       每块面板内侧额外叠一层 backdrop-filter 二次采样，用 mask
+       只留 1~2.5px 环带：边缘处的背景被更狠地模糊与提亮，
+       形成真实玻璃的厚度 / 透镜感（中间通透、边缘聚光）。
+
+     · 色散棱边（Chromatic Dispersion）
+       环带上再叠一圈 conic 虹彩渐变，并辅以冷 / 暖两色内阴影，
+       模拟白光斜穿玻璃棱角时被拆成青—紫—品红的色散。
+
+     · 液态光流（Liquid）
+       多组高饱和径向渐变以 44s 极缓漂移，背景如液体在玻璃后流动。
+
+     · 镜面 / 星芒（Specular & Glint）
+       静态镜面高光带 + 悬停扫光 + 角落星芒，强调晶体硬度。
+
+   实现约束：所有装饰只用伪元素与既有 DOM 结构，不改组件树；
+   小屏与打印自动降级（见 responsive.css）。
    ═══════════════════════════════════════════════════════════════ */
 [data-style="glass"] {
   color-scheme: light;
 
-  --bg: #dbe6ff;
+  /* ── 液态背景：高饱和光团 + 冷调底 ── */
+  --bg: #c6d8ff;
   --bg-image:
-    radial-gradient(1000px 700px at 10% -6%, #9db8ff 0%, transparent 55%),
-    radial-gradient(900px 700px at 92% 2%, #f7c4ee 0%, transparent 52%),
-    radial-gradient(900px 800px at 78% 96%, #a8f0e2 0%, transparent 55%),
-    radial-gradient(900px 800px at 4% 92%, #c9b3ff 0%, transparent 54%);
+    radial-gradient(46% 42% at 10% 0%, #6f9dff 0%, rgba(111, 157, 255, 0) 62%),
+    radial-gradient(40% 38% at 92% 4%, #ff8fdd 0%, rgba(255, 143, 221, 0) 64%),
+    radial-gradient(48% 46% at 82% 92%, #4fe9cc 0%, rgba(79, 233, 204, 0) 62%),
+    radial-gradient(44% 42% at 2% 88%, #a687ff 0%, rgba(166, 135, 255, 0) 64%),
+    radial-gradient(24% 20% at 66% 18%, #ffe3a0 0%, rgba(255, 227, 160, 0) 74%),
+    linear-gradient(158deg, #e8efff 0%, #d6e3ff 46%, #cadcff 100%);
+  --bg-size:
+    148% 148%, 140% 140%, 150% 150%, 142% 142%, 130% 130%, 100% 100%;
 
-  --surface: rgba(255, 255, 255, .52);
-  --surface-2: rgba(255, 255, 255, .38);
-  --surface-3: rgba(255, 255, 255, .26);
-  --surface-glass: rgba(255, 255, 255, .45);
+  /* ── 玻璃面板：低不透明、高通透 ── */
+  --surface: rgba(255, 255, 255, .13);
+  --surface-2: rgba(255, 255, 255, .1);
+  --surface-3: rgba(255, 255, 255, .07);
+  --surface-glass: rgba(255, 255, 255, .17);
 
-  --border: rgba(255, 255, 255, .7);
-  --border-strong: rgba(255, 255, 255, .9);
+  --border: rgba(255, 255, 255, .68);
+  --border-strong: rgba(255, 255, 255, .88);
   --border-w: 1px;
 
-  --text: #141d38;
-  --text-muted: #47557a;
-  --text-soft: #6b7a9e;
+  /* ── 文字：深靛蓝，配 0 1px 白浮雕（蚀刻玻璃上的字） ── */
+  --text: #0d1631;
+  --text-muted: #333e60;
+  --text-soft: #4a587f;
+  --text-emboss: 0 1px 0 rgba(255, 255, 255, .62);
 
-  --accent: #3b5bdb;
-  --accent-hover: #2f4bc4;
+  --accent: #2f52e0;
+  --accent-hover: #2544c6;
   --accent-contrast: #ffffff;
-  --accent-soft: rgba(255, 255, 255, .58);
-  --accent-ring: rgba(59, 91, 219, .3);
+  --accent-soft: rgba(255, 255, 255, .52);
+  --accent-ring: rgba(47, 82, 224, .3);
 
-  --radius: 22px;
-  --radius-sm: 16px;
-  --radius-xs: 11px;
+  --radius: 26px;
+  --radius-sm: 18px;
+  --radius-xs: 12px;
 
+  /* ── 液晶玻璃工具箱（组件层复用） ──
+     spec      静态镜面（大角度扫光）
+     sheen     悬停时扫过的高光带
+     float*    漂浮投影（贴地 1px + 中层扩散 + 远景柔化）
+     float-hover 抬起后的投影
+     inner-*   内高光 / 底部反光 / 冷暖色散棱边 / 内部柔光
+     iris      虹彩环（conic 虹彩，做边缘色散用）
+     ring-mask 环带遮罩（content-box + 全盒两层的 xor，只留 padding 厚度） */
+  --glass-spec: linear-gradient(
+    126deg,
+    rgba(255, 255, 255, .5) 0%,
+    rgba(255, 255, 255, .12) 15%,
+    rgba(255, 255, 255, .01) 32%,
+    rgba(255, 255, 255, .04) 62%,
+    rgba(255, 255, 255, .26) 100%
+  );
+  --glass-sheen: linear-gradient(
+    112deg,
+    transparent 34%,
+    rgba(255, 255, 255, .58) 45%,
+    rgba(196, 242, 255, .44) 50%,
+    transparent 62%
+  );
+  --glass-float:
+    0 1px 1px rgba(9, 17, 48, .12),
+    0 10px 24px -12px rgba(9, 17, 48, .38),
+    0 30px 66px -30px rgba(9, 17, 48, .46);
+  --glass-float-sm:
+    0 1px 1px rgba(9, 17, 48, .08),
+    0 5px 14px -8px rgba(9, 17, 48, .3);
+  --glass-float-hover:
+    0 2px 2px rgba(9, 17, 48, .1),
+    0 14px 32px -14px rgba(9, 17, 48, .36),
+    0 34px 72px -30px rgba(9, 17, 48, .46);
+  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .98);
+  --glass-inner-bounce: inset 0 -1px 0 rgba(168, 214, 255, .42);
+  --glass-edge-cool: inset 1px 0 0 rgba(120, 215, 255, .34);
+  --glass-edge-warm: inset -1px 0 0 rgba(255, 150, 225, .3);
+  --glass-inner-glow: inset 0 0 26px -14px rgba(255, 255, 255, .95);
+  --glass-iris: conic-gradient(
+    from 200deg,
+    rgba(120, 215, 255, .85),
+    rgba(158, 150, 255, .7) 22%,
+    rgba(255, 150, 230, .75) 44%,
+    rgba(150, 255, 215, .8) 68%,
+    rgba(120, 215, 255, .85) 100%
+  );
+  --glass-ring-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+
+  /* 面板块影子：组合成「晶体」 */
   --shadow:
-    0 4px 16px rgba(31, 38, 135, .1),
-    0 12px 40px -12px rgba(31, 38, 135, .22),
-    inset 0 1px 0 rgba(255, 255, 255, .85),
-    inset 0 -1px 0 rgba(255, 255, 255, .25);
+    var(--glass-float),
+    var(--glass-inner-light),
+    var(--glass-inner-bounce),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm),
+    var(--glass-inner-glow);
   --shadow-sm:
-    0 2px 8px rgba(31, 38, 135, .09),
-    inset 0 1px 0 rgba(255, 255, 255, .7);
+    var(--glass-float-sm),
+    var(--glass-inner-light),
+    var(--glass-edge-cool);
   --shadow-hover:
-    0 6px 22px rgba(31, 38, 135, .14),
-    0 18px 52px -14px rgba(31, 38, 135, .3),
-    inset 0 1px 0 rgba(255, 255, 255, .95),
-    inset 0 -1px 0 rgba(255, 255, 255, .3);
+    var(--glass-float-hover),
+    var(--glass-inner-light),
+    var(--glass-inner-bounce),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm),
+    var(--glass-inner-glow);
 
-  /* 课程色块 */
-  --slot-s: 92%;
+  /* ── 课程色块：低饱和填充 + 同色内辉光 ── */
+  --slot-s: 96%;
   --slot-l: 86%;
-  --slot-s2: 88%;
+  --slot-s2: 92%;
   --slot-l2: 78%;
-  --slot-bs: 90%;
+  --slot-bs: 92%;
   --slot-bl: 92%;
-  --slot-ts: 60%;
-  --slot-tl: 26%;
+  --slot-ts: 52%;
+  --slot-tl: 22%;
   --slot-bw: 1px;
-  --slot-radius: 14px;
+  --slot-radius: 16px;
+  --slot-fill: .52;
 
-  --header-bg: rgba(255, 255, 255, .42);
-  --header-blur: saturate(200%) blur(22px);
-  --card-blur: saturate(190%) blur(22px);
+  /* ── 磨砂 / 折射强度 ── */
+  --header-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, .34) 0%,
+    rgba(255, 255, 255, .12) 100%
+  );
+  --header-blur: saturate(210%) brightness(1.08) blur(12px);
+  --card-blur: saturate(205%) brightness(1.06) contrast(1.015) blur(2.5px);
+  --lens-blur: saturate(240%) brightness(1.16) contrast(1.04) blur(11px);
+  --lens-blur-soft: saturate(230%) brightness(1.12) blur(8px);
 
-  --lift: -2px;
+  --lift: -3px;
   --ease: cubic-bezier(.4, 0, .2, 1);
   --dur: .3s;
 }
@@ -79,53 +169,258 @@
 [data-theme="dark"][data-style="glass"] {
   color-scheme: dark;
 
-  --bg: #070b18;
+  /* ── 液态背景：霓虹光团落入近黑底 ── */
+  --bg: #05070f;
   --bg-image:
-    radial-gradient(1000px 700px at 10% -6%, #1e2f7a 0%, transparent 55%),
-    radial-gradient(900px 700px at 92% 2%, #5c1f57 0%, transparent 52%),
-    radial-gradient(900px 800px at 78% 96%, #0b3f3c 0%, transparent 55%),
-    radial-gradient(900px 800px at 4% 92%, #2c1f5e 0%, transparent 54%);
+    radial-gradient(48% 44% at 10% 2%, #2b46d8 0%, rgba(43, 70, 216, 0) 62%),
+    radial-gradient(42% 40% at 90% 0%, #8b1f8f 0%, rgba(139, 31, 143, 0) 64%),
+    radial-gradient(50% 48% at 82% 92%, #0d6d68 0%, rgba(13, 109, 104, 0) 62%),
+    radial-gradient(46% 44% at 2% 88%, #4a1fb0 0%, rgba(74, 31, 176, 0) 64%),
+    radial-gradient(30% 26% at 56% 44%, rgba(120, 190, 255, .3) 0%, rgba(120, 190, 255, 0) 72%),
+    linear-gradient(152deg, #080c1c 0%, #05070f 55%, #060a16 100%);
+  --bg-size:
+    148% 148%, 140% 140%, 150% 150%, 142% 142%, 118% 118%, 100% 100%;
 
-  --surface: rgba(28, 38, 62, .48);
-  --surface-2: rgba(38, 50, 80, .36);
-  --surface-3: rgba(46, 60, 94, .26);
-  --surface-glass: rgba(28, 38, 62, .42);
+  --surface: rgba(7, 12, 30, .44);
+  --surface-2: rgba(7, 12, 30, .34);
+  --surface-3: rgba(7, 12, 30, .26);
+  --surface-glass: rgba(7, 12, 30, .38);
 
-  --border: rgba(255, 255, 255, .13);
-  --border-strong: rgba(255, 255, 255, .22);
+  --border: rgba(255, 255, 255, .17);
+  --border-strong: rgba(255, 255, 255, .32);
 
-  --text: #eaf0ff;
-  --text-muted: #9aa8c8;
-  --text-soft: #6b7a9c;
+  --text: #eef4ff;
+  --text-muted: #c2cfea;
+  --text-soft: #93a2c6;
+  --text-emboss: 0 1px 0 rgba(0, 0, 0, .45);
 
-  --accent: #7d9bff;
-  --accent-hover: #96b0ff;
-  --accent-contrast: #070b18;
-  --accent-soft: rgba(125, 155, 255, .16);
-  --accent-ring: rgba(125, 155, 255, .35);
+  --accent: #8fb0ff;
+  --accent-hover: #a6c0ff;
+  --accent-contrast: #060814;
+  --accent-soft: rgba(143, 176, 255, .16);
+  --accent-ring: rgba(143, 176, 255, .4);
 
-  --shadow:
-    0 4px 16px rgba(0, 0, 0, .35),
-    0 12px 40px -12px rgba(0, 0, 0, .6),
-    inset 0 1px 0 rgba(255, 255, 255, .09),
-    inset 0 -1px 0 rgba(255, 255, 255, .03);
-  --shadow-sm:
-    0 2px 8px rgba(0, 0, 0, .3),
-    inset 0 1px 0 rgba(255, 255, 255, .08);
-  --shadow-hover:
-    0 6px 22px rgba(0, 0, 0, .4),
-    0 18px 52px -14px rgba(0, 0, 0, .7),
-    inset 0 1px 0 rgba(255, 255, 255, .12),
-    inset 0 -1px 0 rgba(255, 255, 255, .04);
+  --glass-spec: linear-gradient(
+    126deg,
+    rgba(255, 255, 255, .2) 0%,
+    rgba(255, 255, 255, .05) 18%,
+    rgba(255, 255, 255, 0) 36%,
+    rgba(255, 255, 255, .03) 64%,
+    rgba(255, 255, 255, .12) 100%
+  );
+  --glass-sheen: linear-gradient(
+    112deg,
+    transparent 34%,
+    rgba(210, 240, 255, .22) 45%,
+    rgba(150, 220, 255, .14) 50%,
+    transparent 62%
+  );
+  --glass-float:
+    0 1px 1px rgba(0, 0, 0, .55),
+    0 10px 26px -14px rgba(0, 0, 0, .72),
+    0 30px 72px -34px rgba(0, 0, 0, .88);
+  --glass-float-sm:
+    0 1px 1px rgba(0, 0, 0, .5),
+    0 6px 18px -10px rgba(0, 0, 0, .68);
+  --glass-float-hover:
+    0 2px 2px rgba(0, 0, 0, .55),
+    0 16px 36px -16px rgba(0, 0, 0, .76),
+    0 40px 84px -34px rgba(0, 0, 0, .9);
+  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .21);
+  --glass-inner-bounce: inset 0 -1px 0 rgba(96, 156, 255, .22);
+  --glass-edge-cool: inset 1px 0 0 rgba(96, 224, 255, .26);
+  --glass-edge-warm: inset -1px 0 0 rgba(255, 124, 220, .24);
+  --glass-inner-glow: inset 0 0 30px -16px rgba(255, 255, 255, .38);
+  --glass-iris: conic-gradient(
+    from 200deg,
+    rgba(96, 224, 255, .62),
+    rgba(150, 130, 255, .52) 22%,
+    rgba(255, 110, 214, .52) 44%,
+    rgba(96, 255, 205, .58) 68%,
+    rgba(96, 224, 255, .62) 100%
+  );
 
-  --slot-s: 40%;
-  --slot-l: 22%;
-  --slot-s2: 36%;
-  --slot-l2: 30%;
-  --slot-bs: 40%;
-  --slot-bl: 40%;
-  --slot-ts: 80%;
-  --slot-tl: 84%;
+  --slot-s: 58%;
+  --slot-l: 26%;
+  --slot-s2: 66%;
+  --slot-l2: 44%;
+  --slot-bs: 74%;
+  --slot-bl: 66%;
+  --slot-ts: 88%;
+  --slot-tl: 88%;
+  --slot-fill: .46;
 
-  --header-bg: rgba(20, 28, 48, .42);
+  --header-bg: linear-gradient(
+    180deg,
+    rgba(20, 30, 56, .5) 0%,
+    rgba(12, 18, 36, .26) 100%
+  );
+  --header-blur: saturate(190%) brightness(1.1) blur(14px);
+  --card-blur: saturate(190%) brightness(1.14) blur(3px);
+  --lens-blur: saturate(220%) brightness(1.28) blur(11px);
+  --lens-blur-soft: saturate(210%) brightness(1.2) blur(8px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   液态光流（Liquid）
+   ───────────────────────────────────────────────────────────────
+   底层：body 自带的静态液态渐变（--bg-image，background-attachment:
+         fixed）保证任何时刻都是完整的构图。
+   上层：body::before 是同一屏的「流动色团」独立图层。
+        · 用 transform 做位移 / 旋转 / 缩放 —— GPU 合成，
+          比动 background-position 省得多，而且必定触发重绘
+          （fixed 背景改 background-position 在部分引擎里会被
+          缓存成静态层，看不到流动）。
+        · inset 外扩 14%，旋转缩放后也不会露出边缘。
+        · 深色主题用 screen 混合，霓虹光团像真的在玻璃后发光。
+   ═══════════════════════════════════════════════════════════════ */
+html[data-style="glass"] body::before {
+  content: "";
+  position: fixed;
+  inset: -14%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(38% 34% at 24% 20%, rgba(126, 167, 255, .85) 0%, rgba(126, 167, 255, 0) 72%),
+    radial-gradient(34% 30% at 76% 10%, rgba(255, 143, 221, .78) 0%, rgba(255, 143, 221, 0) 72%),
+    radial-gradient(40% 36% at 66% 82%, rgba(79, 233, 204, .72) 0%, rgba(79, 233, 204, 0) 74%),
+    radial-gradient(34% 30% at 14% 76%, rgba(166, 135, 255, .8) 0%, rgba(166, 135, 255, 0) 72%),
+    radial-gradient(22% 18% at 52% 46%, rgba(255, 224, 138, .42) 0%, rgba(255, 224, 138, 0) 76%);
+  background-size: 132% 132%, 126% 126%, 138% 138%, 128% 128%, 118% 118%;
+  animation: glass-flow 38s cubic-bezier(.42, 0, .58, 1) infinite alternate;
+}
+
+html[data-theme="dark"][data-style="glass"] body::before {
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(38% 34% at 24% 20%, rgba(58, 96, 255, .9) 0%, rgba(58, 96, 255, 0) 72%),
+    radial-gradient(34% 30% at 76% 10%, rgba(190, 62, 190, .85) 0%, rgba(190, 62, 190, 0) 72%),
+    radial-gradient(40% 36% at 66% 82%, rgba(20, 150, 140, .8) 0%, rgba(20, 150, 140, 0) 74%),
+    radial-gradient(34% 30% at 14% 76%, rgba(120, 60, 255, .85) 0%, rgba(120, 60, 255, 0) 72%),
+    radial-gradient(26% 22% at 52% 46%, rgba(90, 150, 255, .5) 0%, rgba(90, 150, 255, 0) 74%);
+}
+
+@keyframes glass-flow {
+  0%   { transform: translate3d(-2.5%, -2%, 0) scale(1.05) rotate(-2.5deg); }
+  50%  { transform: translate3d(2.5%, 1.5%, 0) scale(1.14) rotate(2deg); }
+  100% { transform: translate3d(-1%, 2.5%, 0) scale(1.07) rotate(-1deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   晶体基元：所有面板通用的「中间通透 + 边缘聚光」折射环
+   ─ 由各组件在自己的文件里通过 ::before / ::after 复用，
+     此处的规则是全局兜底（滚动条、焦点环、选中色、图标按钮）
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 蚀刻玻璃上的文字：极淡的白色浮雕，增强「刻在玻璃上」的实体感 */
+html[data-style="glass"] .brand-text h1,
+html[data-style="glass"] .day-name,
+html[data-style="glass"] .today-date,
+html[data-style="glass"] .teachers-title,
+html[data-style="glass"] .setting-group h3,
+html[data-style="glass"] .slot-course,
+html[data-style="glass"] .ts-course {
+  text-shadow: var(--text-emboss);
+}
+
+/* 选中色：虹彩玻璃高亮 */
+html[data-style="glass"] ::selection {
+  background: linear-gradient(120deg, rgba(120, 215, 255, .55), rgba(180, 150, 255, .5));
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* 焦点环：镜面白边 + 外部冷光晕，贴合玻璃语汇又足够醒目 */
+html[data-style="glass"] :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .9),
+    0 0 0 5px var(--accent-ring),
+    0 0 20px -2px var(--accent-ring);
+}
+
+/* 通用图标按钮：厚玻璃按键（顶部内高光 + 底部反光 + 冷暖棱边） */
+html[data-style="glass"] .icon-btn {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .16) 100%);
+  border-color: rgba(255, 255, 255, .78);
+  -webkit-backdrop-filter: var(--lens-blur-soft);
+  backdrop-filter: var(--lens-blur-soft);
+  box-shadow:
+    var(--glass-float-sm),
+    var(--glass-inner-light),
+    var(--glass-inner-bounce),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm);
+  transition:
+    transform .2s var(--ease),
+    box-shadow .28s var(--ease),
+    border-color .2s var(--ease),
+    color .2s var(--ease),
+    background-color .28s var(--ease);
+}
+
+html[data-style="glass"] .icon-btn:hover {
+  color: var(--accent);
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .68) 0%, rgba(255, 255, 255, .3) 100%);
+  transform: translateY(-1px);
+  box-shadow:
+    var(--glass-float-hover),
+    var(--glass-inner-light),
+    var(--glass-edge-cool),
+    var(--glass-edge-warm),
+    inset 0 0 18px -6px rgba(255, 255, 255, 1);
+}
+
+html[data-style="glass"] .icon-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    var(--glass-float-sm),
+    inset 0 2px 6px -2px rgba(9, 17, 48, .28),
+    var(--glass-inner-light);
+}
+
+html[data-theme="dark"][data-style="glass"] .icon-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .04) 100%);
+  border-color: rgba(255, 255, 255, .2);
+}
+
+html[data-theme="dark"][data-style="glass"] .icon-btn:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .2) 0%, rgba(255, 255, 255, .08) 100%);
+  border-color: rgba(255, 255, 255, .34);
+}
+
+/* 滚动条：极细晶体轨道（主流浏览器各自的写法） */
+html[data-style="glass"] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .55) transparent;
+}
+
+html[data-style="glass"] *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html[data-style="glass"] *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, .08);
+  border-radius: 999px;
+}
+
+html[data-style="glass"] *::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .5)) content-box;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+}
+
+html[data-theme="dark"][data-style="glass"] {
+  scrollbar-color: rgba(255, 255, 255, .28) transparent;
+}
+
+html[data-theme="dark"][data-style="glass"] *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, .16))
+    content-box;
 }

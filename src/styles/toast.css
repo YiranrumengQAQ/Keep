@@ -53,6 +53,47 @@
   border-color: rgba(255, 255, 255, .85);
 }
 
+/* ── 玻璃：Toast = 一颗悬浮的小水晶 ── */
+[data-style="glass"] .toast {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .58) 0%, rgba(255, 255, 255, .2) 100%),
+    var(--glass-spec),
+    var(--surface-glass);
+  border-color: rgba(255, 255, 255, .78);
+  -webkit-backdrop-filter: var(--lens-blur-soft);
+  backdrop-filter: var(--lens-blur-soft);
+  box-shadow:
+    var(--glass-float),
+    inset 0 1px 0 rgba(255, 255, 255, .98),
+    inset 0 -1px 0 rgba(160, 205, 255, .5),
+    inset 1px 0 0 rgba(190, 235, 255, .6),
+    inset -1px 0 0 rgba(255, 190, 240, .55);
+}
+
+[data-style="glass"] .toast-ok {
+  color: var(--accent);
+  border-color: rgba(255, 255, 255, .9);
+  box-shadow:
+    var(--glass-float),
+    inset 0 1px 0 rgba(255, 255, 255, .98),
+    inset 0 0 22px -10px rgba(120, 200, 255, .9),
+    0 0 20px -8px rgba(90, 160, 255, .6);
+}
+
+[data-theme="dark"][data-style="glass"] .toast {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .04) 100%),
+    var(--glass-spec),
+    var(--surface-glass);
+  border-color: rgba(255, 255, 255, .22);
+  box-shadow:
+    var(--glass-float),
+    inset 0 1px 0 rgba(255, 255, 255, .24),
+    inset 0 -1px 0 rgba(110, 170, 255, .26),
+    inset 1px 0 0 rgba(120, 220, 255, .24),
+    inset -1px 0 0 rgba(255, 150, 230, .22);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .toast { animation: none; }
 }

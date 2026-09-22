@@ -74,16 +74,93 @@
   border-color: rgba(255, 255, 255, .05);
 }
 
+/* ── 玻璃：任课教师 = 一块带折射边的大晶体板 + 内嵌小水晶片 ── */
+[data-style="glass"] .teachers {
+  position: relative;
+  background: var(--glass-spec), var(--surface);
+  border-color: rgba(255, 255, 255, .58);
+  box-shadow: var(--shadow);
+}
+
+[data-style="glass"] .teachers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  pointer-events: none;
+  background: var(--glass-iris);
+  opacity: .5;
+  -webkit-backdrop-filter: var(--lens-blur);
+  backdrop-filter: var(--lens-blur);
+  -webkit-mask: var(--glass-ring-mask);
+  -webkit-mask-composite: xor;
+  mask: var(--glass-ring-mask);
+  mask-composite: exclude;
+}
+
+[data-theme="dark"][data-style="glass"] .teachers {
+  position: relative;
+  background: var(--glass-spec), var(--surface);
+  border-color: rgba(255, 255, 255, .18);
+}
+
+[data-theme="dark"][data-style="glass"] .teachers::before {
+  opacity: .32;
+}
+
 [data-style="glass"] .teacher-item {
-  background: rgba(255, 255, 255, .3);
-  border-color: rgba(255, 255, 255, .5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .12) 100%),
+    var(--glass-spec),
+    var(--surface-2);
+  border-color: rgba(255, 255, 255, .6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -1px 0 rgba(160, 205, 255, .35),
+    0 4px 12px -8px rgba(9, 17, 48, .4);
+  transition:
+    transform .22s var(--ease),
+    box-shadow .22s var(--ease),
+    border-color .22s var(--ease);
+}
+
+[data-style="glass"] .teacher-item:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, .8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 18px -8px rgba(255, 255, 255, 1),
+    0 10px 22px -10px rgba(9, 17, 48, .5);
+}
+
+/* 未排课标记：蚀刻玻璃小牌 */
+[data-style="glass"] .t-tag {
+  color: var(--text-soft);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .14) 100%);
+  border-color: rgba(255, 255, 255, .7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 
 [data-theme="dark"][data-style="glass"] .teacher-item {
-  background: rgba(255, 255, 255, .06);
-  border-color: rgba(255, 255, 255, .1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%),
+    var(--glass-spec),
+    var(--surface-2);
+  border-color: rgba(255, 255, 255, .16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    0 6px 16px -10px rgba(0, 0, 0, .8);
+}
+
+[data-theme="dark"][data-style="glass"] .teacher-item:hover {
+  border-color: rgba(255, 255, 255, .28);
+}
+
+[data-theme="dark"][data-style="glass"] .t-tag {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%);
+  border-color: rgba(255, 255, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
 }
 
 .t-name {
@@ -116,4 +193,31 @@
   text-align: center;
   font-size: 12px;
   color: var(--text-muted);
+}
+
+/* 玻璃：页脚直接落在流动背景上，配一枚小玻璃条稳住对比度 */
+[data-style="glass"] .footnote {
+  align-self: center;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .16) 100%),
+    var(--surface-glass);
+  border: 1px solid rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: var(--lens-blur-soft);
+  backdrop-filter: var(--lens-blur-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -1px 0 rgba(160, 205, 255, .35),
+    0 6px 18px -12px rgba(9, 17, 48, .5);
+}
+
+[data-theme="dark"][data-style="glass"] .footnote {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .03) 100%),
+    var(--surface-glass);
+  border-color: rgba(255, 255, 255, .18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    0 8px 20px -12px rgba(0, 0, 0, .8);
 }

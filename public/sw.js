@@ -13,7 +13,7 @@
    发布新版后请把 VERSION 改成新值，客户端会清掉旧缓存。
    ═══════════════════════════════════════════════════════════ */
 
-const VERSION = 'keep-v2.1.0';
+const VERSION = 'keep-v2.2.0';
 const SHELL_CACHE = `keep-shell-${VERSION}`;
 const RUNTIME_CACHE = `keep-runtime-${VERSION}`;
 
