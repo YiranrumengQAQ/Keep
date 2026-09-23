@@ -40,13 +40,13 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* ── 玻璃：日期卡 = 一块竖立的晶体板 ──
+/* ── 玻璃：日期卡 = 雨夜里竖着的一块透明玻璃 ──
    · 镜面（--glass-spec）直接作为背景图层，静态可读
-   · ::before 折射环：2px 环带做二次采样 + 虹彩色散
-   · ::after 悬停扫光：一道高光斜掠过玻璃表面 */
+   · ::before 折射环：3px 环带二次采样（单色白，见 --glass-iris）
+   · ::after 悬停扫光：一道白色水光斜掠过玻璃表面 */
 [data-style="glass"] .day-card {
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .58);
+  border-color: rgba(255, 255, 255, .26);
   box-shadow: var(--shadow);
 }
 
@@ -58,7 +58,7 @@
   padding: 3px;
   pointer-events: none;
   background: var(--glass-iris);
-  opacity: .52;
+  opacity: .5;
   -webkit-backdrop-filter: var(--lens-blur);
   backdrop-filter: var(--lens-blur);
   -webkit-mask: var(--glass-ring-mask);
@@ -69,14 +69,14 @@
 
 [data-style="glass"] .day-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, .78);
+  border-color: rgba(255, 255, 255, .42);
   box-shadow:
     var(--glass-float-hover),
     var(--glass-inner-light),
     var(--glass-inner-bounce),
     var(--glass-edge-cool),
     var(--glass-edge-warm),
-    inset 0 0 30px -14px rgba(255, 255, 255, 1);
+    inset 0 0 26px -14px rgba(255, 255, 255, .5);
 }
 
 [data-style="glass"] .day-card::after {
@@ -97,27 +97,28 @@
 }
 
 [data-theme="dark"][data-style="glass"] .today-badge {
-  background: linear-gradient(135deg, #a8c6ff 0%, #c9a8ff 52%, #8fe4ff 100%);
-  color: #060814;
+  background: linear-gradient(135deg, rgba(232, 242, 255, .92) 0%, rgba(188, 212, 246, .8) 100%);
+  color: #081120;
+  text-shadow: none;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .8),
-    0 3px 14px -4px rgba(150, 190, 255, .85);
+    inset 0 1px 0 rgba(255, 255, 255, .7),
+    0 3px 14px -4px rgba(160, 195, 240, .45);
 }
 
 [data-theme="dark"][data-style="glass"] .day-card {
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .14);
 }
 
 [data-theme="dark"][data-style="glass"] .day-card:hover {
-  border-color: rgba(255, 255, 255, .3);
+  border-color: rgba(255, 255, 255, .26);
   box-shadow:
     var(--glass-float-hover),
     var(--glass-inner-light),
     var(--glass-inner-bounce),
     var(--glass-edge-cool),
     var(--glass-edge-warm),
-    inset 0 0 34px -16px rgba(180, 220, 255, .5);
+    inset 0 0 28px -16px rgba(200, 225, 255, .3);
 }
 
 [data-theme="dark"][data-style="glass"] .day-card::before {
@@ -158,32 +159,32 @@
 }
 
 [data-style="glass"] .day-card.is-today {
-  border-color: rgba(255, 255, 255, .95);
+  border-color: rgba(255, 255, 255, .5);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, .6),
+    0 0 0 1px rgba(255, 255, 255, .28),
     0 0 0 4px var(--accent-ring),
     0 18px 44px -20px var(--accent-ring),
     var(--glass-float),
     var(--glass-inner-light),
-    inset 0 0 34px -14px rgba(255, 255, 255, 1);
+    inset 0 0 28px -14px rgba(255, 255, 255, .45);
 }
 
-/* 今天卡：折射环同时加强，虹彩更明显 */
+/* 今天卡：折射环同时加强，水光更明显 */
 [data-style="glass"] .day-card.is-today::before {
-  opacity: .78;
+  opacity: .75;
   padding: 2.5px;
   background: var(--glass-iris), var(--accent-ring);
 }
 
 [data-theme="dark"][data-style="glass"] .day-card.is-today {
-  border-color: rgba(255, 255, 255, .34);
+  border-color: rgba(255, 255, 255, .28);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, .16),
+    0 0 0 1px rgba(255, 255, 255, .12),
     0 0 0 4px var(--accent-ring),
     0 18px 48px -20px var(--accent-ring),
     var(--glass-float),
     var(--glass-inner-light),
-    inset 0 0 34px -16px rgba(170, 215, 255, .45);
+    inset 0 0 28px -16px rgba(200, 225, 255, .28);
 }
 
 [data-theme="dark"][data-style="glass"] .day-card.is-today::before {
@@ -209,16 +210,16 @@
   border-bottom-color: rgba(255, 255, 255, .7);
 }
 
-/* 玻璃：分隔线 = 玻璃内部的一道刻痕（上暗下亮） */
+/* 玻璃：分隔线 = 玻璃上的一道水痕（上亮下暗） */
 [data-style="glass"] .day-head {
   border-bottom-style: solid;
-  border-bottom-color: rgba(255, 255, 255, .55);
-  box-shadow: 0 1px 0 rgba(9, 17, 48, .06);
+  border-bottom-color: rgba(255, 255, 255, .22);
+  box-shadow: 0 1px 0 rgba(0, 3, 10, .35);
 }
 
 [data-theme="dark"][data-style="glass"] .day-head {
-  border-bottom-color: rgba(255, 255, 255, .14);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, .4);
+  border-bottom-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .45);
 }
 
 .day-name {
@@ -273,34 +274,35 @@
   box-shadow: 2px 2px 0 var(--border);
 }
 
+/* 玻璃：今天徽章 = 雨夜里唯一发亮的白牌 */
 [data-style="glass"] .today-badge {
-  background: linear-gradient(135deg, #3557d8 0%, #5a2fd0 54%, #1668b8 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(232, 242, 255, .92) 0%, rgba(188, 212, 246, .8) 100%);
+  color: #081120;
+  text-shadow: none;
   border-radius: 999px;
   padding: 3px 10px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .6),
-    0 3px 12px -3px rgba(79, 124, 255, .75),
-    0 6px 18px -8px rgba(139, 92, 246, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .7),
+    0 3px 12px -3px rgba(160, 195, 240, .45);
 }
 
 /* 玻璃：补课徽章 = 半透明刻字牌 */
 [data-style="glass"] .makeup-badge {
   color: var(--text-muted);
-  background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .14) 100%);
-  border-color: rgba(255, 255, 255, .7);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, .05) 100%);
+  border-color: rgba(255, 255, 255, .28);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    0 2px 8px -5px rgba(9, 17, 48, .45);
+    inset 0 1px 0 rgba(255, 255, 255, .3),
+    0 2px 8px -5px rgba(0, 3, 10, .6);
 }
 
 [data-theme="dark"][data-style="glass"] .makeup-badge {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .04) 100%);
-  border-color: rgba(255, 255, 255, .2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%);
+  border-color: rgba(255, 255, 255, .18);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .2),
+    inset 0 1px 0 rgba(255, 255, 255, .16),
     0 2px 8px -5px rgba(0, 0, 0, .7);
 }
 
@@ -391,38 +393,37 @@
   box-shadow: 4px 4px 0 var(--border);
 }
 
-/* ── 玻璃：课程小卡 = 彩色水晶薄片 ──
-   三层背景：顶部白高光 → 斜向镜面 → 同色极淡填充
-   （低不透明 + 1px 半透明白描边 + 彩色内辉光，像一片染色玻璃） */
+/* ── 玻璃：课程小卡 = 透明薄玻璃片 ──
+   色相全部褪掉：白高光 + 极淡白填充 + 白描边，
+   左侧留一根白色水光条；课程不再染色，只靠文字区分 */
 [data-style="glass"] .slot {
   padding-left: 18px;
+  color: rgba(243, 248, 255, .96);
   background:
     linear-gradient(
       180deg,
-      hsl(var(--h) 100% 100% / .3) 0%,
-      hsl(var(--h) 100% 100% / 0) 40%
-    ),
-    hsl(var(--h) var(--slot-s) var(--slot-l) / var(--slot-fill));
+      rgba(255, 255, 255, .12) 0%,
+      rgba(255, 255, 255, .045) 42%,
+      rgba(255, 255, 255, .02) 100%
+    );
   -webkit-backdrop-filter: var(--card-blur);
   backdrop-filter: var(--card-blur);
-  border-color: hsl(var(--h) 100% 98% / .78);
+  border-color: rgba(255, 255, 255, .22);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 100% / .95),
-    inset 0 -1px 0 hsl(var(--h) 90% 86% / .55),
-    inset 1px 0 0 hsl(var(--h) 100% 97% / .6),
-    inset -1px 0 0 hsl(var(--h) 100% 88% / .5),
-    0 1px 1px hsl(var(--h) 60% 40% / .12),
-    0 6px 16px -9px hsl(var(--h) 70% 45% / .32);
+    inset 0 1px 0 rgba(255, 255, 255, .28),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    0 6px 16px -12px rgba(0, 3, 10, .85);
   transition:
     transform .24s var(--ease),
     box-shadow .24s var(--ease),
     background-color .3s var(--ease);
 }
 
-/* 左侧色条：把课程色相打成一束光 */
+/* 左侧水光条 + 灰白节次文字 */
 [data-style="glass"] .slot-period,
 [data-style="glass"] .ts-period {
   opacity: .94;
+  color: rgba(208, 223, 246, .72);
 }
 
 [data-style="glass"] .slot::before {
@@ -434,10 +435,10 @@
   width: 3px;
   border-radius: 999px;
   pointer-events: none;
-  background: linear-gradient(180deg, hsl(var(--h) 100% 84%), hsl(var(--h) 92% 56%));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .3));
   box-shadow:
-    0 0 10px -1px hsl(var(--h) 96% 62% / .95),
-    inset 0 0 2px rgba(255, 255, 255, .9);
+    0 0 10px -2px rgba(214, 232, 255, .5),
+    inset 0 0 2px rgba(255, 255, 255, .6);
 }
 
 [data-style="glass"] .slot::after {
@@ -453,13 +454,12 @@
 
 [data-style="glass"] .slot:hover {
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, .34);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 100% / 1),
-    inset 0 -1px 0 hsl(var(--h) 90% 86% / .6),
-    inset 1px 0 0 hsl(var(--h) 100% 97% / .7),
-    inset -1px 0 0 hsl(var(--h) 100% 88% / .6),
-    0 2px 3px hsl(var(--h) 60% 40% / .14),
-    0 14px 30px -12px hsl(var(--h) 70% 45% / .44);
+    inset 0 1px 0 rgba(255, 255, 255, .38),
+    inset 0 -1px 0 rgba(255, 255, 255, .08),
+    0 12px 26px -14px rgba(0, 3, 10, .9),
+    inset 0 0 18px -10px rgba(255, 255, 255, .3);
 }
 
 [data-style="glass"] .slot:hover::after {
@@ -468,40 +468,39 @@
 }
 
 [data-theme="dark"][data-style="glass"] .slot {
+  color: rgba(235, 243, 254, .92);
   background:
     linear-gradient(
       180deg,
-      hsl(var(--h) 100% 96% / .16) 0%,
-      hsl(var(--h) 100% 96% / 0) 42%
-    ),
-    hsl(var(--h) var(--slot-s) var(--slot-l) / var(--slot-fill));
-  border-color: hsl(var(--h) 90% 80% / .3);
+      rgba(255, 255, 255, .09) 0%,
+      rgba(255, 255, 255, .03) 42%,
+      rgba(255, 255, 255, .015) 100%
+    );
+  border-color: rgba(255, 255, 255, .14);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 92% / .3),
-    inset 0 -1px 0 hsl(var(--h) 90% 60% / .2),
-    inset 1px 0 0 hsl(var(--h) 100% 85% / .22),
-    inset -1px 0 0 hsl(var(--h) 100% 75% / .18),
-    0 8px 20px -10px rgba(0, 0, 0, .75);
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    inset 0 -1px 0 rgba(255, 255, 255, .05),
+    0 8px 20px -12px rgba(0, 0, 0, .85);
 }
 
 [data-theme="dark"][data-style="glass"] .slot-period,
-[data-style="glass"] .ts-period {
-  opacity: .94;
+[data-theme="dark"][data-style="glass"] .ts-period {
+  color: rgba(190, 207, 232, .62);
 }
 
-[data-style="glass"] .slot::before {
-  background: linear-gradient(180deg, hsl(var(--h) 100% 88%), hsl(var(--h) 95% 62%));
+[data-theme="dark"][data-style="glass"] .slot::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .22));
   box-shadow:
-    0 0 12px -1px hsl(var(--h) 95% 65% / .85),
-    inset 0 0 2px rgba(255, 255, 255, .5);
+    0 0 10px -2px rgba(214, 232, 255, .35),
+    inset 0 0 2px rgba(255, 255, 255, .4);
 }
 
 [data-theme="dark"][data-style="glass"] .slot:hover {
+  border-color: rgba(255, 255, 255, .24);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 92% / .4),
-    inset 0 -1px 0 hsl(var(--h) 90% 60% / .28),
-    0 14px 32px -12px rgba(0, 0, 0, .85),
-    0 0 22px -10px hsl(var(--h) 95% 70% / .75);
+    inset 0 1px 0 rgba(255, 255, 255, .26),
+    0 14px 32px -14px rgba(0, 0, 0, .9),
+    inset 0 0 16px -10px rgba(255, 255, 255, .2);
 }
 
 .slot.is-special {
@@ -531,16 +530,16 @@
 
 [data-style="glass"] .slot.is-special {
   padding-left: 12px;
+  color: var(--text-muted);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .46) 0%, rgba(255, 255, 255, .14) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .09) 0%, rgba(255, 255, 255, .03) 100%),
     var(--glass-spec),
     var(--surface-2);
   border-style: solid;
-  border-color: rgba(255, 255, 255, .62);
+  border-color: rgba(255, 255, 255, .2);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    inset 0 -1px 0 rgba(160, 205, 255, .35),
-    0 6px 16px -10px rgba(9, 17, 48, .4);
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    0 6px 16px -12px rgba(0, 3, 10, .7);
 }
 
 [data-style="glass"] .slot.is-special::before { display: none; }
@@ -548,13 +547,13 @@
 
 [data-theme="dark"][data-style="glass"] .slot.is-special {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 100%),
     var(--glass-spec),
     var(--surface-2);
-  border-color: rgba(255, 255, 255, .16);
+  border-color: rgba(255, 255, 255, .13);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .16),
-    0 8px 18px -10px rgba(0, 0, 0, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .13),
+    0 8px 18px -12px rgba(0, 0, 0, .8);
 }
 
 .slot-period {
@@ -595,21 +594,21 @@
 
 [data-style="glass"] .slot-empty {
   border-style: solid;
-  border-color: rgba(255, 255, 255, .5);
+  border-color: rgba(255, 255, 255, .18);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .08) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 100%),
     var(--surface-3);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .8),
-    inset 0 0 20px -12px rgba(255, 255, 255, .9);
+    inset 0 1px 0 rgba(255, 255, 255, .2),
+    inset 0 0 18px -12px rgba(255, 255, 255, .3);
 }
 
 [data-theme="dark"][data-style="glass"] .slot-empty {
-  border-color: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .12);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .08) 0%, rgba(255, 255, 255, .02) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .05) 0%, rgba(255, 255, 255, .015) 100%),
     var(--surface-3);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
 }
 
 /* 空状态 */
@@ -642,7 +641,7 @@
 [data-style="glass"] .empty-state {
   position: relative;
   border-style: solid;
-  border-color: rgba(255, 255, 255, .55);
+  border-color: rgba(255, 255, 255, .24);
   background: var(--glass-spec), var(--surface-2);
   -webkit-backdrop-filter: var(--card-blur);
   backdrop-filter: var(--card-blur);
@@ -665,7 +664,7 @@
 }
 
 [data-theme="dark"][data-style="glass"] .empty-state {
-  border-color: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .13);
   background: var(--glass-spec), var(--surface-2);
 }
 

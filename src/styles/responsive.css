@@ -33,35 +33,8 @@
   .style-swatch { height: 46px; }
 }
 
-/* 小屏降级：液晶玻璃在手机上的处理
-   1) 主模糊再压小（本来就是 2~3px，小屏直接降到 1.5~2px）
-   2) 关闭液态光流动画（省电、避免低端机持续重绘）
-   3) 折射环的二次采样在长列表上代价高，移动端直接关闭，
-      改由静态虹彩棱边承担「晶体感」 */
-@media (max-width: 600px) {
-  [data-style="glass"] {
-    --header-blur: saturate(200%) brightness(1.06) blur(9px);
-    --card-blur: saturate(200%) brightness(1.05) blur(1.8px);
-    --lens-blur: saturate(200%) brightness(1.1) blur(6px);
-    --lens-blur-soft: saturate(200%) brightness(1.08) blur(5px);
-  }
-
-  html[data-style="glass"] body::before {
-    animation: none;
-  }
-
-  .day-card::before,
-  .today-card::after,
-  .teachers::before,
-  .modal::after,
-  .ob-card::after,
-  .icon-btn,
-  .week-tab,
-  .teacher-item {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-}
+/* 雨夜毛玻璃不做小屏降级：blur 与雨幕在手机上原样保留
+   （本项目明确不考虑性能，换取一致的观感） */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -91,6 +64,8 @@
   }
 
   html[data-style="glass"] body::before,
+  html[data-style="glass"] body::after,
+  html[data-style="glass"] #root::after,
   html[data-style="glass"] .app-header::after,
   html[data-style="glass"] .day-card::before,
   html[data-style="glass"] .day-card::after,
@@ -98,8 +73,7 @@
   html[data-style="glass"] .teachers::before,
   html[data-style="glass"] .empty-state::before,
   html[data-style="glass"] .modal::after,
-  html[data-style="glass"] .ob-card::after,
-  html[data-style="glass"] .app-header::after {
+  html[data-style="glass"] .ob-card::after {
     display: none !important;
   }
   .print-title {

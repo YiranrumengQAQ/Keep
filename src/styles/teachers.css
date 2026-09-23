@@ -74,11 +74,11 @@
   border-color: rgba(255, 255, 255, .05);
 }
 
-/* ── 玻璃：任课教师 = 一块带折射边的大晶体板 + 内嵌小水晶片 ── */
+/* ── 玻璃：任课教师 = 一块带折射边的大透明玻璃板 + 内嵌小玻璃片 ── */
 [data-style="glass"] .teachers {
   position: relative;
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .58);
+  border-color: rgba(255, 255, 255, .26);
   box-shadow: var(--shadow);
 }
 
@@ -102,7 +102,7 @@
 [data-theme="dark"][data-style="glass"] .teachers {
   position: relative;
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .14);
 }
 
 [data-theme="dark"][data-style="glass"] .teachers::before {
@@ -111,14 +111,14 @@
 
 [data-style="glass"] .teacher-item {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .12) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .11) 0%, rgba(255, 255, 255, .03) 100%),
     var(--glass-spec),
     var(--surface-2);
-  border-color: rgba(255, 255, 255, .6);
+  border-color: rgba(255, 255, 255, .22);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    inset 0 -1px 0 rgba(160, 205, 255, .35),
-    0 4px 12px -8px rgba(9, 17, 48, .4);
+    inset 0 1px 0 rgba(255, 255, 255, .26),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    0 4px 12px -9px rgba(0, 3, 10, .7);
   transition:
     transform .22s var(--ease),
     box-shadow .22s var(--ease),
@@ -127,40 +127,40 @@
 
 [data-style="glass"] .teacher-item:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, .8);
+  border-color: rgba(255, 255, 255, .36);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 0 18px -8px rgba(255, 255, 255, 1),
-    0 10px 22px -10px rgba(9, 17, 48, .5);
+    inset 0 1px 0 rgba(255, 255, 255, .36),
+    inset 0 0 16px -8px rgba(255, 255, 255, .3),
+    0 10px 22px -12px rgba(0, 3, 10, .8);
 }
 
-/* 未排课标记：蚀刻玻璃小牌 */
+/* 未排课标记：湿玻璃小牌 */
 [data-style="glass"] .t-tag {
   color: var(--text-soft);
-  background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .14) 100%);
-  border-color: rgba(255, 255, 255, .7);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .04) 100%);
+  border-color: rgba(255, 255, 255, .26);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .26);
 }
 
 [data-theme="dark"][data-style="glass"] .teacher-item {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .08) 0%, rgba(255, 255, 255, .02) 100%),
     var(--glass-spec),
     var(--surface-2);
-  border-color: rgba(255, 255, 255, .16);
+  border-color: rgba(255, 255, 255, .13);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .16),
-    0 6px 16px -10px rgba(0, 0, 0, .8);
+    inset 0 1px 0 rgba(255, 255, 255, .13),
+    0 6px 16px -11px rgba(0, 0, 0, .85);
 }
 
 [data-theme="dark"][data-style="glass"] .teacher-item:hover {
-  border-color: rgba(255, 255, 255, .28);
+  border-color: rgba(255, 255, 255, .22);
 }
 
 [data-theme="dark"][data-style="glass"] .t-tag {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%);
-  border-color: rgba(255, 255, 255, .18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .08) 0%, rgba(255, 255, 255, .02) 100%);
+  border-color: rgba(255, 255, 255, .16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13);
 }
 
 .t-name {
@@ -195,29 +195,29 @@
   color: var(--text-muted);
 }
 
-/* 玻璃：页脚直接落在流动背景上，配一枚小玻璃条稳住对比度 */
+/* 玻璃：页脚直接落在雨幕上，配一枚小玻璃条稳住对比度 */
 [data-style="glass"] .footnote {
   align-self: center;
   padding: 7px 16px;
   border-radius: 999px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .16) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .05) 100%),
     var(--surface-glass);
-  border: 1px solid rgba(255, 255, 255, .6);
+  border: 1px solid rgba(255, 255, 255, .24);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    inset 0 -1px 0 rgba(160, 205, 255, .35),
-    0 6px 18px -12px rgba(9, 17, 48, .5);
+    inset 0 1px 0 rgba(255, 255, 255, .28),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    0 6px 18px -13px rgba(0, 3, 10, .8);
 }
 
 [data-theme="dark"][data-style="glass"] .footnote {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .03) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .02) 100%),
     var(--surface-glass);
-  border-color: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .15);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .18),
-    0 8px 20px -12px rgba(0, 0, 0, .8);
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    0 8px 20px -13px rgba(0, 0, 0, .85);
 }

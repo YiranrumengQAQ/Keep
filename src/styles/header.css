@@ -46,24 +46,24 @@
     inset 0 -1px 0 rgba(255, 255, 255, .05);
 }
 
-/* ── 玻璃：晶体顶栏 ──
-   顶部镜面高光 + 底部一道流动的虹彩折射线（liquid crystal 标志性细节） */
+/* ── 玻璃：雨夜顶栏 ──
+   顶部一道白色受光边 + 底缘一根极淡的单色水痕（替代旧虹彩光带） */
 [data-style="glass"] .app-header {
   background: var(--header-bg);
-  border-bottom-color: rgba(255, 255, 255, .42);
+  border-bottom-color: rgba(255, 255, 255, .2);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .5),
-    0 -1px 0 rgba(255, 255, 255, .18) inset,
-    0 12px 34px -22px rgba(9, 17, 48, .5);
+    0 1px 0 rgba(255, 255, 255, .16),
+    0 -1px 0 rgba(255, 255, 255, .06) inset,
+    0 12px 34px -22px rgba(0, 4, 14, .8);
 }
 
 [data-style="glass"] .app-header.is-scrolled {
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .5),
-    0 18px 44px -24px rgba(9, 17, 48, .55);
+    0 1px 0 rgba(255, 255, 255, .16),
+    0 18px 44px -24px rgba(0, 4, 14, .85);
 }
 
-/* 底缘虹彩光带 */
+/* 底缘单色水痕 */
 [data-style="glass"] .app-header::after {
   content: "";
   position: absolute;
@@ -75,26 +75,25 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(120, 215, 255, .85) 18%,
-    rgba(158, 150, 255, .8) 38%,
-    rgba(255, 150, 230, .8) 58%,
-    rgba(150, 255, 215, .85) 80%,
+    rgba(255, 255, 255, .3) 22%,
+    rgba(255, 255, 255, .38) 50%,
+    rgba(255, 255, 255, .3) 78%,
     transparent 100%
   );
-  opacity: .9;
+  opacity: .7;
 }
 
 [data-theme="dark"][data-style="glass"] .app-header {
   background: var(--header-bg);
-  border-bottom-color: rgba(255, 255, 255, .14);
+  border-bottom-color: rgba(255, 255, 255, .12);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .12),
+    0 1px 0 rgba(255, 255, 255, .1),
     0 18px 44px -24px rgba(0, 0, 0, .85);
 }
 
 [data-theme="dark"][data-style="glass"] .app-header.is-scrolled {
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .12),
+    0 1px 0 rgba(255, 255, 255, .1),
     0 22px 54px -26px rgba(0, 0, 0, .9);
 }
 
@@ -150,10 +149,10 @@
   box-shadow: 3px 3px 0 var(--border);
 }
 
-/* ── 玻璃：品牌图标 = 一枚切割过的晶体 ──
-   · 静态镜面 + 冷/暖棱边 + 内部柔光
-   · ::before 星芒（右上角的镜面反射点）
-   · ::after 虹彩光环（色散） */
+/* ── 玻璃：品牌图标 = 雨夜里的一块小厚玻璃 ──
+   · 单色受光 + 白色内辉光
+   · ::before 星芒（右上角沾着的一点灯光）
+   · ::after 单色折射环（--glass-iris 已改单色） */
 [data-style="glass"] .brand-icon-wrap {
   position: relative;
 }
@@ -165,17 +164,17 @@
   border-radius: 15px;
   color: var(--accent);
   background:
-    linear-gradient(148deg, rgba(255, 255, 255, .82) 0%, rgba(255, 255, 255, .3) 46%, rgba(198, 230, 255, .38) 100%);
-  border: 1px solid rgba(255, 255, 255, .9);
+    linear-gradient(148deg, rgba(255, 255, 255, .28) 0%, rgba(255, 255, 255, .1) 46%, rgba(255, 255, 255, .14) 100%);
+  border: 1px solid rgba(255, 255, 255, .4);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
     var(--glass-float-sm),
     var(--glass-inner-light),
-    inset 0 -2px 6px -2px rgba(120, 180, 255, .6),
+    inset 0 -2px 6px -2px rgba(255, 255, 255, .25),
     var(--glass-edge-cool),
     var(--glass-edge-warm),
-    inset 0 0 16px -5px rgba(255, 255, 255, 1);
+    inset 0 0 16px -6px rgba(255, 255, 255, .6);
 }
 
 [data-style="glass"] .brand-icon-wrap::after {
@@ -218,12 +217,12 @@
 
 [data-theme="dark"][data-style="glass"] .brand-icon {
   background:
-    linear-gradient(148deg, rgba(255, 255, 255, .22) 0%, rgba(255, 255, 255, .06) 48%, rgba(150, 200, 255, .12) 100%);
-  border-color: rgba(255, 255, 255, .24);
+    linear-gradient(148deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, .05) 48%, rgba(255, 255, 255, .08) 100%);
+  border-color: rgba(255, 255, 255, .22);
   box-shadow:
     var(--glass-float-sm),
     var(--glass-inner-light),
-    inset 0 -2px 8px -3px rgba(120, 180, 255, .5),
+    inset 0 -2px 8px -3px rgba(255, 255, 255, .2),
     var(--glass-edge-cool),
     var(--glass-edge-warm);
 }

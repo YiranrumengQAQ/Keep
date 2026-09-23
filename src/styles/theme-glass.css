@@ -1,123 +1,119 @@
 /* ═══════════════════════════════════════════════════════════════
-   04. 风格四 —— Ultra-Clear Liquid Crystal Glass（超清液晶玻璃）
+   04. 风格四 —— Rainy-Night Frosted Glass（雨夜毛玻璃）
    ───────────────────────────────────────────────────────────────
-   与上一代「毛玻璃」的关键差异：
+   一次彻底的推翻重做，与上一代「液晶晶体」的区别：
 
-     · 清透优先（Ultra-Clear）
-       旧版用 blur(22px) 把背景糊成一层奶白薄膜，玻璃与背景被切断，
-       「玻璃」只剩下白色卡片。新版把主模糊压到 2~3px，改用
-       高饱和 + 轻微提亮 + 对比微调，背后的液体光团依然清晰可辨，
-       玻璃是「折射」介质而不是「磨砂」遮挡物。
+     · 雨夜幕布（Rainy Night）
+       背景不再是自己画的彩色液态光团，而是一张真实的雨夜街景
+       照片：湿沥青的反光、雨丝、薄雾与远处零星的窗灯。
+       照片之上只压两层冷色 scrim（顶部薄雾、四周暗角），
+       保证文字对比度，但绝不给夜景色相染色。
 
-     · 边缘折射（Lens Edge）
-       每块面板内侧额外叠一层 backdrop-filter 二次采样，用 mask
-       只留 1~2.5px 环带：边缘处的背景被更狠地模糊与提亮，
-       形成真实玻璃的厚度 / 透镜感（中间通透、边缘聚光）。
+     · 单色玻璃（Monochrome Glass）
+       删掉全部五颜六色的光效：虹彩 conic 棱边、冷暖双色内阴影、
+       品红/青/紫的霓虹光团一律移除。玻璃只保留白色高光、
+       白色描边与近黑的投影 —— 像一块真正淋着雨的透明玻璃。
 
-     · 色散棱边（Chromatic Dispersion）
-       环带上再叠一圈 conic 虹彩渐变，并辅以冷 / 暖两色内阴影，
-       模拟白光斜穿玻璃棱角时被拆成青—紫—品红的色散。
+     · 非常透（Ultra-Transparent）
+       面板填充不透明度压到 5%~12%，靠 backdrop-filter 的重模糊
+       把背后的雨夜晕开成一片湿润的光，玻璃几乎隐形。
+       （不考虑性能：blur 给足，层数给足。）
 
-     · 液态光流（Liquid）
-       多组高饱和径向渐变以 44s 极缓漂移，背景如液体在玻璃后流动。
-
-     · 镜面 / 星芒（Specular & Glint）
-       静态镜面高光带 + 悬停扫光 + 角落星芒，强调晶体硬度。
+     · 活的雨（Living Rain）
+       body::before / body::after 是两片内联 SVG 雨丝贴图，
+       以不同速度垂直循环位移（位移量 = 贴图周期，无缝循环），
+       伪元素整体微微旋转形成风角；远层细、近层粗，做出纵深。
+       #root::after 每隔十几秒掠过一道极淡的闪电，照亮整块玻璃。
 
    实现约束：所有装饰只用伪元素与既有 DOM 结构，不改组件树；
-   小屏与打印自动降级（见 responsive.css）。
+   打印时剥离（见 responsive.css）。
    ═══════════════════════════════════════════════════════════════ */
 [data-style="glass"] {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* ── 液态背景：高饱和光团 + 冷调底 ── */
-  --bg: #c6d8ff;
+  /* ── 雨夜幕布：照片 + 顶部冷雾 + 四周暗角 ── */
+  --bg: #0a1120;
   --bg-image:
-    radial-gradient(46% 42% at 10% 0%, #6f9dff 0%, rgba(111, 157, 255, 0) 62%),
-    radial-gradient(40% 38% at 92% 4%, #ff8fdd 0%, rgba(255, 143, 221, 0) 64%),
-    radial-gradient(48% 46% at 82% 92%, #4fe9cc 0%, rgba(79, 233, 204, 0) 62%),
-    radial-gradient(44% 42% at 2% 88%, #a687ff 0%, rgba(166, 135, 255, 0) 64%),
-    radial-gradient(24% 20% at 66% 18%, #ffe3a0 0%, rgba(255, 227, 160, 0) 74%),
-    linear-gradient(158deg, #e8efff 0%, #d6e3ff 46%, #cadcff 100%);
-  --bg-size:
-    148% 148%, 140% 140%, 150% 150%, 142% 142%, 130% 130%, 100% 100%;
+    linear-gradient(180deg, rgba(148, 178, 222, .14) 0%, rgba(56, 78, 118, .1) 46%, rgba(8, 13, 26, .36) 100%),
+    radial-gradient(130% 100% at 50% 0%, rgba(6, 10, 22, 0) 42%, rgba(3, 7, 16, .52) 100%),
+    url("../assets/rain-night.jpg");
+  --bg-size: 100% 100%, 100% 100%, cover;
 
-  /* ── 玻璃面板：低不透明、高通透 ── */
-  --surface: rgba(255, 255, 255, .13);
-  --surface-2: rgba(255, 255, 255, .1);
-  --surface-3: rgba(255, 255, 255, .07);
-  --surface-glass: rgba(255, 255, 255, .17);
+  /* ── 玻璃面板：极低不透明，几乎只剩一层水光 ── */
+  --surface: rgba(196, 217, 246, .1);
+  --surface-2: rgba(196, 217, 246, .07);
+  --surface-3: rgba(196, 217, 246, .05);
+  --surface-glass: rgba(196, 217, 246, .12);
 
-  --border: rgba(255, 255, 255, .68);
-  --border-strong: rgba(255, 255, 255, .88);
+  --border: rgba(255, 255, 255, .24);
+  --border-strong: rgba(255, 255, 255, .44);
   --border-w: 1px;
 
-  /* ── 文字：深靛蓝，配 0 1px 白浮雕（蚀刻玻璃上的字） ── */
-  --text: #0d1631;
-  --text-muted: #333e60;
-  --text-soft: #4a587f;
-  --text-emboss: 0 1px 0 rgba(255, 255, 255, .62);
+  /* ── 文字：雨夜里的白，配深色落影压在透明玻璃上 ── */
+  --text: #f0f5ff;
+  --text-muted: #ccd8ec;
+  --text-soft: #9cadca;
+  --text-emboss: 0 1px 2px rgba(2, 8, 20, .62);
 
-  --accent: #2f52e0;
-  --accent-hover: #2544c6;
-  --accent-contrast: #ffffff;
-  --accent-soft: rgba(255, 255, 255, .52);
-  --accent-ring: rgba(47, 82, 224, .3);
+  --accent: #cfe0fa;
+  --accent-hover: #e4efff;
+  --accent-contrast: #0a1322;
+  --accent-soft: rgba(207, 224, 250, .16);
+  --accent-ring: rgba(207, 224, 250, .38);
 
   --radius: 26px;
   --radius-sm: 18px;
   --radius-xs: 12px;
 
-  /* ── 液晶玻璃工具箱（组件层复用） ──
-     spec      静态镜面（大角度扫光）
-     sheen     悬停时扫过的高光带
-     float*    漂浮投影（贴地 1px + 中层扩散 + 远景柔化）
-     float-hover 抬起后的投影
-     inner-*   内高光 / 底部反光 / 冷暖色散棱边 / 内部柔光
-     iris      虹彩环（conic 虹彩，做边缘色散用）
-     ring-mask 环带遮罩（content-box + 全盒两层的 xor，只留 padding 厚度） */
+  /* ── 单色玻璃工具箱（组件层复用）──
+     spec      静态镜面：一大片几乎看不见的白色受光
+     sheen     悬停扫光：一道白色水光掠过
+     float*    投影：近黑的夜影，把透明玻璃从夜色里托出来
+     inner-*   顶部受光 / 底部回光 / 左右边缘 / 内部水雾，全部白色
+     iris      边缘折射环：单色白渐变（替代旧的虹彩 conic）
+     ring-mask 环带遮罩 */
   --glass-spec: linear-gradient(
-    126deg,
-    rgba(255, 255, 255, .5) 0%,
-    rgba(255, 255, 255, .12) 15%,
-    rgba(255, 255, 255, .01) 32%,
-    rgba(255, 255, 255, .04) 62%,
-    rgba(255, 255, 255, .26) 100%
+    155deg,
+    rgba(255, 255, 255, .13) 0%,
+    rgba(255, 255, 255, .045) 22%,
+    rgba(255, 255, 255, .015) 50%,
+    rgba(255, 255, 255, .05) 80%,
+    rgba(255, 255, 255, .09) 100%
   );
   --glass-sheen: linear-gradient(
     112deg,
-    transparent 34%,
-    rgba(255, 255, 255, .58) 45%,
-    rgba(196, 242, 255, .44) 50%,
-    transparent 62%
+    transparent 38%,
+    rgba(255, 255, 255, .13) 46%,
+    rgba(240, 248, 255, .2) 50%,
+    transparent 60%
   );
   --glass-float:
-    0 1px 1px rgba(9, 17, 48, .12),
-    0 10px 24px -12px rgba(9, 17, 48, .38),
-    0 30px 66px -30px rgba(9, 17, 48, .46);
+    0 1px 2px rgba(1, 5, 14, .55),
+    0 12px 28px -14px rgba(1, 5, 14, .65),
+    0 32px 72px -32px rgba(1, 5, 14, .75);
   --glass-float-sm:
-    0 1px 1px rgba(9, 17, 48, .08),
-    0 5px 14px -8px rgba(9, 17, 48, .3);
+    0 1px 2px rgba(1, 5, 14, .5),
+    0 6px 16px -9px rgba(1, 5, 14, .6);
   --glass-float-hover:
-    0 2px 2px rgba(9, 17, 48, .1),
-    0 14px 32px -14px rgba(9, 17, 48, .36),
-    0 34px 72px -30px rgba(9, 17, 48, .46);
-  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .98);
-  --glass-inner-bounce: inset 0 -1px 0 rgba(168, 214, 255, .42);
-  --glass-edge-cool: inset 1px 0 0 rgba(120, 215, 255, .34);
-  --glass-edge-warm: inset -1px 0 0 rgba(255, 150, 225, .3);
-  --glass-inner-glow: inset 0 0 26px -14px rgba(255, 255, 255, .95);
-  --glass-iris: conic-gradient(
-    from 200deg,
-    rgba(120, 215, 255, .85),
-    rgba(158, 150, 255, .7) 22%,
-    rgba(255, 150, 230, .75) 44%,
-    rgba(150, 255, 215, .8) 68%,
-    rgba(120, 215, 255, .85) 100%
+    0 2px 3px rgba(1, 5, 14, .55),
+    0 16px 34px -16px rgba(1, 5, 14, .7),
+    0 38px 80px -32px rgba(1, 5, 14, .8);
+  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .3);
+  --glass-inner-bounce: inset 0 -1px 0 rgba(255, 255, 255, .09);
+  --glass-edge-cool: inset 1px 0 0 rgba(255, 255, 255, .1);
+  --glass-edge-warm: inset -1px 0 0 rgba(255, 255, 255, .1);
+  --glass-inner-glow: inset 0 0 28px -16px rgba(255, 255, 255, .26);
+  --glass-iris: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, .42),
+    rgba(255, 255, 255, .1) 30%,
+    rgba(255, 255, 255, .05) 56%,
+    rgba(255, 255, 255, .18) 84%,
+    rgba(255, 255, 255, .36)
   );
   --glass-ring-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
 
-  /* 面板块影子：组合成「晶体」 */
+  /* 面板块影子：组合成「淋雨的玻璃」 */
   --shadow:
     var(--glass-float),
     var(--glass-inner-light),
@@ -137,29 +133,29 @@
     var(--glass-edge-warm),
     var(--glass-inner-glow);
 
-  /* ── 课程色块：低饱和填充 + 同色内辉光 ── */
-  --slot-s: 96%;
-  --slot-l: 86%;
-  --slot-s2: 92%;
+  /* ── 课程色块：褪成单色水痕（只留一丝冷调） ── */
+  --slot-s: 12%;
+  --slot-l: 90%;
+  --slot-s2: 12%;
   --slot-l2: 78%;
-  --slot-bs: 92%;
-  --slot-bl: 92%;
-  --slot-ts: 52%;
-  --slot-tl: 22%;
+  --slot-bs: 12%;
+  --slot-bl: 78%;
+  --slot-ts: 14%;
+  --slot-tl: 94%;
   --slot-bw: 1px;
   --slot-radius: 16px;
-  --slot-fill: .52;
+  --slot-fill: .08;
 
-  /* ── 磨砂 / 折射强度 ── */
+  /* ── 磨砂强度：不考虑性能，blur 给足 ── */
   --header-bg: linear-gradient(
     180deg,
-    rgba(255, 255, 255, .34) 0%,
-    rgba(255, 255, 255, .12) 100%
+    rgba(196, 217, 246, .13) 0%,
+    rgba(196, 217, 246, .05) 100%
   );
-  --header-blur: saturate(210%) brightness(1.08) blur(12px);
-  --card-blur: saturate(205%) brightness(1.06) contrast(1.015) blur(2.5px);
-  --lens-blur: saturate(240%) brightness(1.16) contrast(1.04) blur(11px);
-  --lens-blur-soft: saturate(230%) brightness(1.12) blur(8px);
+  --header-blur: saturate(130%) brightness(1.02) blur(24px);
+  --card-blur: saturate(125%) brightness(1.03) blur(18px);
+  --lens-blur: saturate(140%) brightness(1.1) blur(30px);
+  --lens-blur-soft: saturate(135%) brightness(1.05) blur(14px);
 
   --lift: -3px;
   --ease: cubic-bezier(.4, 0, .2, 1);
@@ -169,150 +165,171 @@
 [data-theme="dark"][data-style="glass"] {
   color-scheme: dark;
 
-  /* ── 液态背景：霓虹光团落入近黑底 ── */
-  --bg: #05070f;
+  /* ── 深色 = 更沉的夜：scrim 加重，照片退进黑暗 ── */
+  --bg: #05080f;
   --bg-image:
-    radial-gradient(48% 44% at 10% 2%, #2b46d8 0%, rgba(43, 70, 216, 0) 62%),
-    radial-gradient(42% 40% at 90% 0%, #8b1f8f 0%, rgba(139, 31, 143, 0) 64%),
-    radial-gradient(50% 48% at 82% 92%, #0d6d68 0%, rgba(13, 109, 104, 0) 62%),
-    radial-gradient(46% 44% at 2% 88%, #4a1fb0 0%, rgba(74, 31, 176, 0) 64%),
-    radial-gradient(30% 26% at 56% 44%, rgba(120, 190, 255, .3) 0%, rgba(120, 190, 255, 0) 72%),
-    linear-gradient(152deg, #080c1c 0%, #05070f 55%, #060a16 100%);
-  --bg-size:
-    148% 148%, 140% 140%, 150% 150%, 142% 142%, 118% 118%, 100% 100%;
+    linear-gradient(180deg, rgba(3, 6, 14, .3) 0%, rgba(2, 5, 12, .34) 46%, rgba(1, 3, 9, .62) 100%),
+    radial-gradient(130% 100% at 50% 0%, rgba(0, 2, 8, .1) 40%, rgba(0, 2, 8, .68) 100%),
+    url("../assets/rain-night.jpg");
+  --bg-size: 100% 100%, 100% 100%, cover;
 
-  --surface: rgba(7, 12, 30, .44);
-  --surface-2: rgba(7, 12, 30, .34);
-  --surface-3: rgba(7, 12, 30, .26);
-  --surface-glass: rgba(7, 12, 30, .38);
+  --surface: rgba(7, 11, 22, .3);
+  --surface-2: rgba(7, 11, 22, .24);
+  --surface-3: rgba(7, 11, 22, .18);
+  --surface-glass: rgba(7, 11, 22, .34);
 
-  --border: rgba(255, 255, 255, .17);
-  --border-strong: rgba(255, 255, 255, .32);
+  --border: rgba(255, 255, 255, .15);
+  --border-strong: rgba(255, 255, 255, .3);
 
-  --text: #eef4ff;
-  --text-muted: #c2cfea;
-  --text-soft: #93a2c6;
-  --text-emboss: 0 1px 0 rgba(0, 0, 0, .45);
+  --text: #e9f0fc;
+  --text-muted: #bdcadf;
+  --text-soft: #8b9cb9;
+  --text-emboss: 0 1px 2px rgba(0, 3, 10, .7);
 
-  --accent: #8fb0ff;
-  --accent-hover: #a6c0ff;
-  --accent-contrast: #060814;
-  --accent-soft: rgba(143, 176, 255, .16);
-  --accent-ring: rgba(143, 176, 255, .4);
+  --accent: #bcd2f2;
+  --accent-hover: #d6e6ff;
+  --accent-contrast: #081120;
+  --accent-soft: rgba(188, 210, 242, .14);
+  --accent-ring: rgba(188, 210, 242, .34);
 
   --glass-spec: linear-gradient(
-    126deg,
-    rgba(255, 255, 255, .2) 0%,
-    rgba(255, 255, 255, .05) 18%,
-    rgba(255, 255, 255, 0) 36%,
-    rgba(255, 255, 255, .03) 64%,
-    rgba(255, 255, 255, .12) 100%
+    155deg,
+    rgba(255, 255, 255, .1) 0%,
+    rgba(255, 255, 255, .035) 22%,
+    rgba(255, 255, 255, .01) 50%,
+    rgba(255, 255, 255, .04) 80%,
+    rgba(255, 255, 255, .07) 100%
   );
   --glass-sheen: linear-gradient(
     112deg,
-    transparent 34%,
-    rgba(210, 240, 255, .22) 45%,
-    rgba(150, 220, 255, .14) 50%,
-    transparent 62%
+    transparent 38%,
+    rgba(255, 255, 255, .1) 46%,
+    rgba(235, 245, 255, .16) 50%,
+    transparent 60%
   );
   --glass-float:
-    0 1px 1px rgba(0, 0, 0, .55),
-    0 10px 26px -14px rgba(0, 0, 0, .72),
-    0 30px 72px -34px rgba(0, 0, 0, .88);
+    0 1px 2px rgba(0, 0, 0, .6),
+    0 12px 30px -14px rgba(0, 0, 0, .75),
+    0 34px 76px -32px rgba(0, 0, 0, .85);
   --glass-float-sm:
-    0 1px 1px rgba(0, 0, 0, .5),
-    0 6px 18px -10px rgba(0, 0, 0, .68);
+    0 1px 2px rgba(0, 0, 0, .55),
+    0 6px 18px -10px rgba(0, 0, 0, .7);
   --glass-float-hover:
-    0 2px 2px rgba(0, 0, 0, .55),
-    0 16px 36px -16px rgba(0, 0, 0, .76),
-    0 40px 84px -34px rgba(0, 0, 0, .9);
-  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .21);
-  --glass-inner-bounce: inset 0 -1px 0 rgba(96, 156, 255, .22);
-  --glass-edge-cool: inset 1px 0 0 rgba(96, 224, 255, .26);
-  --glass-edge-warm: inset -1px 0 0 rgba(255, 124, 220, .24);
-  --glass-inner-glow: inset 0 0 30px -16px rgba(255, 255, 255, .38);
-  --glass-iris: conic-gradient(
-    from 200deg,
-    rgba(96, 224, 255, .62),
-    rgba(150, 130, 255, .52) 22%,
-    rgba(255, 110, 214, .52) 44%,
-    rgba(96, 255, 205, .58) 68%,
-    rgba(96, 224, 255, .62) 100%
+    0 2px 3px rgba(0, 0, 0, .6),
+    0 16px 36px -16px rgba(0, 0, 0, .8),
+    0 40px 84px -32px rgba(0, 0, 0, .9);
+  --glass-inner-light: inset 0 1px 0 rgba(255, 255, 255, .2);
+  --glass-inner-bounce: inset 0 -1px 0 rgba(255, 255, 255, .07);
+  --glass-edge-cool: inset 1px 0 0 rgba(255, 255, 255, .08);
+  --glass-edge-warm: inset -1px 0 0 rgba(255, 255, 255, .08);
+  --glass-inner-glow: inset 0 0 30px -18px rgba(255, 255, 255, .18);
+  --glass-iris: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, .3),
+    rgba(255, 255, 255, .08) 30%,
+    rgba(255, 255, 255, .04) 56%,
+    rgba(255, 255, 255, .13) 84%,
+    rgba(255, 255, 255, .26)
   );
 
-  --slot-s: 58%;
-  --slot-l: 26%;
-  --slot-s2: 66%;
-  --slot-l2: 44%;
-  --slot-bs: 74%;
-  --slot-bl: 66%;
-  --slot-ts: 88%;
-  --slot-tl: 88%;
-  --slot-fill: .46;
+  --slot-s: 10%;
+  --slot-l: 88%;
+  --slot-s2: 10%;
+  --slot-l2: 72%;
+  --slot-bs: 10%;
+  --slot-bl: 70%;
+  --slot-ts: 12%;
+  --slot-tl: 92%;
+  --slot-fill: .07;
 
   --header-bg: linear-gradient(
     180deg,
-    rgba(20, 30, 56, .5) 0%,
-    rgba(12, 18, 36, .26) 100%
+    rgba(6, 10, 20, .44) 0%,
+    rgba(6, 10, 20, .26) 100%
   );
-  --header-blur: saturate(190%) brightness(1.1) blur(14px);
-  --card-blur: saturate(190%) brightness(1.14) blur(3px);
-  --lens-blur: saturate(220%) brightness(1.28) blur(11px);
-  --lens-blur-soft: saturate(210%) brightness(1.2) blur(8px);
+  --header-blur: saturate(120%) brightness(.92) blur(26px);
+  --card-blur: saturate(115%) brightness(.98) blur(20px);
+  --lens-blur: saturate(130%) brightness(1.06) blur(30px);
+  --lens-blur-soft: saturate(125%) brightness(1) blur(14px);
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   液态光流（Liquid）
+   活的雨（Living Rain）
    ───────────────────────────────────────────────────────────────
-   底层：body 自带的静态液态渐变（--bg-image，background-attachment:
-         fixed）保证任何时刻都是完整的构图。
-   上层：body::before 是同一屏的「流动色团」独立图层。
-        · 用 transform 做位移 / 旋转 / 缩放 —— GPU 合成，
-          比动 background-position 省得多，而且必定触发重绘
-          （fixed 背景改 background-position 在部分引擎里会被
-          缓存成静态层，看不到流动）。
-        · inset 外扩 14%，旋转缩放后也不会露出边缘。
-        · 深色主题用 screen 混合，霓虹光团像真的在玻璃后发光。
+   两片内联 SVG 雨丝贴图：远层细而疏、近层粗而亮。
+   · background-position 每轮循环垂直位移恰好一个贴图周期 → 无缝。
+   · 伪元素整体 rotate(4~6deg)，雨丝带一点风角斜落。
+   · inset 外扩，旋转/位移都不露边。
+   · z-index:-1，落在 body 背景（雨夜照片）之上、内容之下；
+     面板的 backdrop-filter 会把雨一起晕进玻璃里。
    ═══════════════════════════════════════════════════════════════ */
 html[data-style="glass"] body::before {
   content: "";
   position: fixed;
-  inset: -14%;
+  inset: -16% -10%;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    radial-gradient(38% 34% at 24% 20%, rgba(126, 167, 255, .85) 0%, rgba(126, 167, 255, 0) 72%),
-    radial-gradient(34% 30% at 76% 10%, rgba(255, 143, 221, .78) 0%, rgba(255, 143, 221, 0) 72%),
-    radial-gradient(40% 36% at 66% 82%, rgba(79, 233, 204, .72) 0%, rgba(79, 233, 204, 0) 74%),
-    radial-gradient(34% 30% at 14% 76%, rgba(166, 135, 255, .8) 0%, rgba(166, 135, 255, 0) 72%),
-    radial-gradient(22% 18% at 52% 46%, rgba(255, 224, 138, .42) 0%, rgba(255, 224, 138, 0) 76%);
-  background-size: 132% 132%, 126% 126%, 138% 138%, 128% 128%, 118% 118%;
-  animation: glass-flow 38s cubic-bezier(.42, 0, .58, 1) infinite alternate;
+  transform: rotate(4deg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='300'%3E%3Cg stroke='%23d6e6ff' stroke-linecap='round' fill='none'%3E%3Cline x1='14' y1='18' x2='14' y2='76' stroke-opacity='.2'/%3E%3Cline x1='52' y1='140' x2='52' y2='188' stroke-opacity='.14'/%3E%3Cline x1='88' y1='52' x2='88' y2='126' stroke-opacity='.22'/%3E%3Cline x1='126' y1='204' x2='126' y2='258' stroke-opacity='.16'/%3E%3Cline x1='36' y1='232' x2='36' y2='276' stroke-opacity='.12'/%3E%3Cline x1='146' y1='108' x2='146' y2='170' stroke-opacity='.18'/%3E%3Cline x1='70' y1='256' x2='70' y2='296' stroke-opacity='.14'/%3E%3Cline x1='108' y1='6' x2='108' y2='64' stroke-opacity='.18'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 300px;
+  animation: rain-fall-far 2.6s linear infinite;
 }
 
-html[data-theme="dark"][data-style="glass"] body::before {
+html[data-style="glass"] body::after {
+  content: "";
+  position: fixed;
+  inset: -16% -10%;
+  z-index: -1;
+  pointer-events: none;
+  transform: rotate(6deg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='420'%3E%3Cg stroke='%23e8f2ff' stroke-linecap='round' fill='none' stroke-width='1.8'%3E%3Cline x1='22' y1='30' x2='22' y2='128' stroke-opacity='.34'/%3E%3Cline x1='78' y1='210' x2='78' y2='296' stroke-opacity='.24'/%3E%3Cline x1='128' y1='80' x2='128' y2='190' stroke-opacity='.38'/%3E%3Cline x1='184' y1='300' x2='184' y2='386' stroke-opacity='.26'/%3E%3Cline x1='52' y1='330' x2='52' y2='404' stroke-opacity='.2'/%3E%3Cline x1='214' y1='140' x2='214' y2='236' stroke-opacity='.3'/%3E%3Cline x1='156' y1='356' x2='156' y2='412' stroke-opacity='.22'/%3E%3Cline x1='8' y1='180' x2='8' y2='252' stroke-opacity='.24'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 240px 420px;
+  animation: rain-fall-near 1.15s linear infinite;
+}
+
+@keyframes rain-fall-far {
+  from { background-position: 0 0; }
+  to   { background-position: 0 300px; }
+}
+
+@keyframes rain-fall-near {
+  from { background-position: 0 0; }
+  to   { background-position: 0 420px; }
+}
+
+/* 闪电：每 19s 掠过一道极淡的冷白，screen 混合照亮整块玻璃 */
+html[data-style="glass"] #root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  pointer-events: none;
+  background: radial-gradient(58% 42% at 68% 4%, rgba(226, 238, 255, .95) 0%, rgba(226, 238, 255, 0) 72%);
   mix-blend-mode: screen;
-  background-image:
-    radial-gradient(38% 34% at 24% 20%, rgba(58, 96, 255, .9) 0%, rgba(58, 96, 255, 0) 72%),
-    radial-gradient(34% 30% at 76% 10%, rgba(190, 62, 190, .85) 0%, rgba(190, 62, 190, 0) 72%),
-    radial-gradient(40% 36% at 66% 82%, rgba(20, 150, 140, .8) 0%, rgba(20, 150, 140, 0) 74%),
-    radial-gradient(34% 30% at 14% 76%, rgba(120, 60, 255, .85) 0%, rgba(120, 60, 255, 0) 72%),
-    radial-gradient(26% 22% at 52% 46%, rgba(90, 150, 255, .5) 0%, rgba(90, 150, 255, 0) 74%);
+  opacity: 0;
+  animation: storm-flash 19s linear infinite;
 }
 
-@keyframes glass-flow {
-  0%   { transform: translate3d(-2.5%, -2%, 0) scale(1.05) rotate(-2.5deg); }
-  50%  { transform: translate3d(2.5%, 1.5%, 0) scale(1.14) rotate(2deg); }
-  100% { transform: translate3d(-1%, 2.5%, 0) scale(1.07) rotate(-1deg); }
+@keyframes storm-flash {
+  0%, 84.5%, 92%, 100% { opacity: 0; }
+  85.5% { opacity: .14; }
+  87%   { opacity: .04; }
+  88.5% { opacity: .2; }
+  90.5% { opacity: .06; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   晶体基元：所有面板通用的「中间通透 + 边缘聚光」折射环
-   ─ 由各组件在自己的文件里通过 ::before / ::after 复用，
-     此处的规则是全局兜底（滚动条、焦点环、选中色、图标按钮）
+   单色玻璃基元：全局兜底（文字落影、选中色、焦点环、图标按钮、滚动条）
    ═══════════════════════════════════════════════════════════════ */
 
-/* 蚀刻玻璃上的文字：极淡的白色浮雕，增强「刻在玻璃上」的实体感 */
+/* 雨夜里的白字：全局一层深色落影，透明玻璃上也读得清 */
+html[data-style="glass"] {
+  text-shadow: 0 1px 2px rgba(2, 7, 18, .55);
+}
+
+/* 标题级文字用更重的落影（蚀进玻璃里） */
 html[data-style="glass"] .brand-text h1,
 html[data-style="glass"] .day-name,
 html[data-style="glass"] .today-date,
@@ -323,28 +340,27 @@ html[data-style="glass"] .ts-course {
   text-shadow: var(--text-emboss);
 }
 
-/* 选中色：虹彩玻璃高亮 */
+/* 选中色：冷白水印，不再虹彩 */
 html[data-style="glass"] ::selection {
-  background: linear-gradient(120deg, rgba(120, 215, 255, .55), rgba(180, 150, 255, .5));
-  color: var(--text);
+  background: rgba(176, 205, 244, .38);
+  color: #ffffff;
   text-shadow: none;
 }
 
-/* 焦点环：镜面白边 + 外部冷光晕，贴合玻璃语汇又足够醒目 */
+/* 焦点环：白边 + 冷光晕 */
 html[data-style="glass"] :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, .9),
+    0 0 0 1px rgba(255, 255, 255, .5),
     0 0 0 5px var(--accent-ring),
     0 0 20px -2px var(--accent-ring);
 }
 
-/* 通用图标按钮：厚玻璃按键（顶部内高光 + 底部反光 + 冷暖棱边） */
+/* 通用图标按钮：一块透明的厚玻璃按键 */
 html[data-style="glass"] .icon-btn {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .16) 100%);
-  border-color: rgba(255, 255, 255, .78);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .05) 100%);
+  border-color: rgba(255, 255, 255, .3);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
@@ -364,38 +380,38 @@ html[data-style="glass"] .icon-btn {
 html[data-style="glass"] .icon-btn:hover {
   color: var(--accent);
   border-color: var(--border-strong);
-  background: linear-gradient(180deg, rgba(255, 255, 255, .68) 0%, rgba(255, 255, 255, .3) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .24) 0%, rgba(255, 255, 255, .1) 100%);
   transform: translateY(-1px);
   box-shadow:
     var(--glass-float-hover),
     var(--glass-inner-light),
     var(--glass-edge-cool),
     var(--glass-edge-warm),
-    inset 0 0 18px -6px rgba(255, 255, 255, 1);
+    inset 0 0 16px -6px rgba(255, 255, 255, .5);
 }
 
 html[data-style="glass"] .icon-btn:active {
   transform: translateY(0);
   box-shadow:
     var(--glass-float-sm),
-    inset 0 2px 6px -2px rgba(9, 17, 48, .28),
+    inset 0 2px 6px -2px rgba(0, 3, 10, .5),
     var(--glass-inner-light);
 }
 
 html[data-theme="dark"][data-style="glass"] .icon-btn {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .04) 100%);
-  border-color: rgba(255, 255, 255, .2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%);
+  border-color: rgba(255, 255, 255, .18);
 }
 
 html[data-theme="dark"][data-style="glass"] .icon-btn:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .2) 0%, rgba(255, 255, 255, .08) 100%);
-  border-color: rgba(255, 255, 255, .34);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .17) 0%, rgba(255, 255, 255, .07) 100%);
+  border-color: rgba(255, 255, 255, .3);
 }
 
-/* 滚动条：极细晶体轨道（主流浏览器各自的写法） */
+/* 滚动条：夜里的水痕 */
 html[data-style="glass"] {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, .55) transparent;
+  scrollbar-color: rgba(255, 255, 255, .3) transparent;
 }
 
 html[data-style="glass"] *::-webkit-scrollbar {
@@ -404,23 +420,21 @@ html[data-style="glass"] *::-webkit-scrollbar {
 }
 
 html[data-style="glass"] *::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, .08);
+  background: rgba(255, 255, 255, .05);
   border-radius: 999px;
 }
 
 html[data-style="glass"] *::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
   border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .5)) content-box;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .24)) content-box;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28);
 }
 
 html[data-theme="dark"][data-style="glass"] {
-  scrollbar-color: rgba(255, 255, 255, .28) transparent;
+  scrollbar-color: rgba(255, 255, 255, .22) transparent;
 }
 
 html[data-theme="dark"][data-style="glass"] *::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, .16))
-    content-box;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .12)) content-box;
 }
