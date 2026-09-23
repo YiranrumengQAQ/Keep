@@ -48,14 +48,13 @@
   border-right: 3px solid var(--border);
 }
 
-/* ── 玻璃：今日卡 = 主晶体板 ──
-   · 液态左侧光带（青→紫→品红，带外发光）
-   · ::after 边缘折射环：只留 2.5px 环带做二次采样，
-     中间保持通透，形成玻璃厚度
-   · 镜面与色散由 --glass-* 工具箱提供 */
+/* ── 玻璃：今日卡 = 主玻璃板 ──
+   · 左侧一道单色白水光（替代旧的青→紫→品红光带）
+   · ::after 边缘折射环：只留 2.5px 环带做二次采样（单色白）
+   · 镜面由 --glass-* 工具箱提供 */
 [data-style="glass"] .today-card {
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .62);
+  border-color: rgba(255, 255, 255, .28);
   box-shadow: var(--shadow);
 }
 
@@ -65,11 +64,10 @@
   bottom: 14px;
   left: 3px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #5cc8ff, var(--accent) 34%, #a78bfa 66%, #ff8fe0);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(226, 239, 255, .55) 52%, rgba(190, 214, 246, .3));
   box-shadow:
-    0 0 14px -2px rgba(120, 200, 255, .85),
-    0 0 22px -6px rgba(200, 140, 255, .7),
-    inset 0 0 3px rgba(255, 255, 255, .9);
+    0 0 14px -3px rgba(214, 232, 255, .55),
+    inset 0 0 3px rgba(255, 255, 255, .6);
   filter: none;
   opacity: 1;
 }
@@ -91,27 +89,26 @@
   mask-composite: exclude;
 }
 
-/* 深色下文字是深色墨，徽章反而要发亮 */
+/* 深色下雨夜更沉，徽章是唯一发亮的白牌 */
 [data-theme="dark"][data-style="glass"] .today-label {
-  background: linear-gradient(135deg, #a8c6ff 0%, #c9a8ff 54%, #8fe4ff 100%);
-  color: #060814;
+  background: linear-gradient(135deg, rgba(232, 242, 255, .92) 0%, rgba(188, 212, 246, .8) 100%);
+  color: #081120;
+  text-shadow: none;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .8),
-    0 3px 14px -3px rgba(150, 190, 255, .8),
-    0 8px 24px -10px rgba(160, 130, 255, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .7),
+    0 3px 14px -4px rgba(160, 195, 240, .4);
 }
 
 [data-theme="dark"][data-style="glass"] .today-card {
   background: var(--glass-spec), var(--surface);
-  border-color: rgba(255, 255, 255, .2);
+  border-color: rgba(255, 255, 255, .15);
 }
 
 [data-theme="dark"][data-style="glass"] .today-card::before {
-  background: linear-gradient(180deg, #6fd8ff, #7d9bff 34%, #b18cff 66%, #ff8fe0);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .7), rgba(214, 232, 255, .4) 52%, rgba(170, 200, 240, .22));
   box-shadow:
-    0 0 16px -2px rgba(110, 200, 255, .8),
-    0 0 26px -6px rgba(190, 130, 255, .6),
-    inset 0 0 3px rgba(255, 255, 255, .35);
+    0 0 14px -3px rgba(214, 232, 255, .4),
+    inset 0 0 3px rgba(255, 255, 255, .4);
 }
 
 [data-theme="dark"][data-style="glass"] .today-card::after {
@@ -153,15 +150,16 @@
   letter-spacing: .08em;
 }
 
+/* 玻璃：今天徽章 = 雨夜里发亮的白牌 */
 [data-style="glass"] .today-label {
-  background: linear-gradient(135deg, #3557d8 0%, #5a2fd0 54%, #1668b8 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(232, 242, 255, .92) 0%, rgba(188, 212, 246, .8) 100%);
+  color: #081120;
+  text-shadow: none;
   border-radius: 999px;
   padding: 4px 12px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .55) inset,
-    0 3px 12px -3px rgba(79, 124, 255, .7),
-    0 6px 20px -8px rgba(139, 92, 246, .65);
+    0 1px 0 rgba(255, 255, 255, .6) inset,
+    0 3px 12px -4px rgba(160, 195, 240, .45);
 }
 
 .today-date {
@@ -195,23 +193,21 @@
 
 [data-style="glass"] .today-week {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .62) 0%, rgba(255, 255, 255, .22) 100%);
-  border-color: rgba(255, 255, 255, .8);
+    linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, .06) 100%);
+  border-color: rgba(255, 255, 255, .28);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .95),
-    inset 0 -1px 0 rgba(160, 205, 255, .5),
-    0 2px 8px -4px rgba(9, 17, 48, .35);
+    inset 0 1px 0 rgba(255, 255, 255, .3),
+    0 2px 8px -5px rgba(0, 3, 10, .6);
 }
 
 [data-theme="dark"][data-style="glass"] .today-week {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .05) 100%);
-  border-color: rgba(255, 255, 255, .2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .03) 100%);
+  border-color: rgba(255, 255, 255, .18);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .22),
-    inset 0 -1px 0 rgba(110, 170, 255, .25),
-    0 2px 10px -4px rgba(0, 0, 0, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    0 2px 10px -5px rgba(0, 0, 0, .75);
 }
 
 /* 幽灵按钮 */
@@ -276,22 +272,23 @@
   box-shadow: 0 0 0 var(--border);
 }
 
+/* 玻璃：幽灵按钮 = 一粒透明玻璃胶囊，白字浮在雨夜上 */
 [data-style="glass"] .ghost-btn {
   position: relative;
   border-radius: 999px;
   padding: 6px 16px;
   color: var(--accent);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .72) 0%, rgba(255, 255, 255, .3) 100%);
-  border-color: rgba(255, 255, 255, .85);
+    linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, .06) 100%);
+  border-color: rgba(255, 255, 255, .3);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
     var(--glass-float-sm),
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 0 rgba(150, 205, 255, .6),
-    inset 1px 0 0 rgba(190, 235, 255, .7),
-    inset -1px 0 0 rgba(255, 190, 240, .6);
+    inset 0 1px 0 rgba(255, 255, 255, .35),
+    inset 0 -1px 0 rgba(255, 255, 255, .08),
+    inset 1px 0 0 rgba(255, 255, 255, .12),
+    inset -1px 0 0 rgba(255, 255, 255, .12);
   transition:
     transform .2s var(--ease),
     box-shadow .28s var(--ease),
@@ -302,13 +299,13 @@
 [data-style="glass"] .ghost-btn:hover {
   color: var(--accent-hover);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .92) 0%, rgba(255, 255, 255, .5) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, .26) 0%, rgba(255, 255, 255, .1) 100%);
   border-color: var(--border-strong);
   transform: translateY(-1px);
   box-shadow:
     var(--glass-float-hover),
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 0 18px -6px rgba(255, 255, 255, 1),
+    inset 0 1px 0 rgba(255, 255, 255, .45),
+    inset 0 0 16px -6px rgba(255, 255, 255, .4),
     var(--glass-edge-cool),
     var(--glass-edge-warm);
 }
@@ -316,24 +313,24 @@
 [data-style="glass"] .ghost-btn:active {
   transform: translateY(0);
   box-shadow:
-    inset 0 2px 6px -2px rgba(9, 17, 48, .3),
-    inset 0 1px 0 rgba(255, 255, 255, .8);
+    inset 0 2px 6px -2px rgba(0, 3, 10, .5),
+    inset 0 1px 0 rgba(255, 255, 255, .25);
 }
 
 [data-theme="dark"][data-style="glass"] .ghost-btn {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, .05) 100%);
-  border-color: rgba(255, 255, 255, .24);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .04) 100%);
+  border-color: rgba(255, 255, 255, .2);
   box-shadow:
     var(--glass-float-sm),
-    inset 0 1px 0 rgba(255, 255, 255, .28),
-    inset 0 -1px 0 rgba(110, 170, 255, .3),
-    inset 1px 0 0 rgba(120, 220, 255, .3),
-    inset -1px 0 0 rgba(255, 150, 230, .26);
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    inset 1px 0 0 rgba(255, 255, 255, .08),
+    inset -1px 0 0 rgba(255, 255, 255, .08);
 }
 
 [data-theme="dark"][data-style="glass"] .ghost-btn:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .26) 0%, rgba(255, 255, 255, .1) 100%);
-  border-color: rgba(255, 255, 255, .38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .2) 0%, rgba(255, 255, 255, .08) 100%);
+  border-color: rgba(255, 255, 255, .32);
 }
 
 .today-slots {
@@ -402,32 +399,31 @@
   box-shadow: 5px 5px 0 var(--border);
 }
 
+/* 玻璃：今日课程条 = 透明薄玻璃片（单色） */
 [data-style="glass"] .today-slot {
   padding-left: 19px;
+  color: rgba(243, 248, 255, .96);
   background:
     linear-gradient(
       180deg,
-      hsl(var(--h) 100% 100% / .3) 0%,
-      hsl(var(--h) 100% 100% / 0) 40%
-    ),
-    hsl(var(--h) var(--slot-s) var(--slot-l) / var(--slot-fill));
+      rgba(255, 255, 255, .12) 0%,
+      rgba(255, 255, 255, .045) 42%,
+      rgba(255, 255, 255, .02) 100%
+    );
   -webkit-backdrop-filter: var(--card-blur);
   backdrop-filter: var(--card-blur);
-  border-color: hsl(var(--h) 100% 98% / .78);
+  border-color: rgba(255, 255, 255, .22);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 100% / .95),
-    inset 0 -1px 0 hsl(var(--h) 90% 88% / .55),
-    inset 1px 0 0 hsl(var(--h) 100% 97% / .6),
-    inset -1px 0 0 hsl(var(--h) 100% 88% / .5),
-    0 1px 1px hsl(var(--h) 60% 40% / .14),
-    0 7px 18px -9px hsl(var(--h) 70% 45% / .34);
+    inset 0 1px 0 rgba(255, 255, 255, .28),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    0 7px 18px -12px rgba(0, 3, 10, .85);
   transition:
     transform .26s var(--ease),
     box-shadow .26s var(--ease),
     background-color .3s var(--ease);
 }
 
-/* 左侧色条：光谱指示 */
+/* 左侧水光条 */
 [data-style="glass"] .today-slot::before {
   content: "";
   position: absolute;
@@ -437,52 +433,51 @@
   width: 3px;
   border-radius: 999px;
   pointer-events: none;
-  background: linear-gradient(180deg, hsl(var(--h) 100% 82%), hsl(var(--h) 92% 56%));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .3));
   box-shadow:
-    0 0 10px -1px hsl(var(--h) 96% 62% / .95),
-    inset 0 0 2px rgba(255, 255, 255, .9);
+    0 0 10px -2px rgba(214, 232, 255, .5),
+    inset 0 0 2px rgba(255, 255, 255, .6);
 }
 
 [data-style="glass"] .today-slot:hover {
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, .34);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 100% / 1),
-    inset 0 -1px 0 hsl(var(--h) 90% 88% / .6),
-    inset 1px 0 0 hsl(var(--h) 100% 97% / .7),
-    inset -1px 0 0 hsl(var(--h) 100% 88% / .6),
-    0 2px 2px hsl(var(--h) 60% 40% / .14),
-    0 14px 30px -12px hsl(var(--h) 70% 45% / .45);
+    inset 0 1px 0 rgba(255, 255, 255, .38),
+    inset 0 -1px 0 rgba(255, 255, 255, .08),
+    0 14px 30px -14px rgba(0, 3, 10, .9),
+    inset 0 0 18px -10px rgba(255, 255, 255, .3);
 }
 
 [data-theme="dark"][data-style="glass"] .today-slot {
+  color: rgba(235, 243, 254, .92);
   background:
     linear-gradient(
       180deg,
-      hsl(var(--h) 100% 96% / .16) 0%,
-      hsl(var(--h) 100% 96% / 0) 42%
-    ),
-    hsl(var(--h) var(--slot-s) var(--slot-l) / var(--slot-fill));
-  border-color: hsl(var(--h) 90% 80% / .32);
+      rgba(255, 255, 255, .09) 0%,
+      rgba(255, 255, 255, .03) 42%,
+      rgba(255, 255, 255, .015) 100%
+    );
+  border-color: rgba(255, 255, 255, .14);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 92% / .3),
-    inset 0 -1px 0 hsl(var(--h) 90% 60% / .2),
-    inset 1px 0 0 hsl(var(--h) 100% 85% / .22),
-    inset -1px 0 0 hsl(var(--h) 100% 75% / .18),
-    0 8px 22px -10px rgba(0, 0, 0, .75);
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    inset 0 -1px 0 rgba(255, 255, 255, .05),
+    0 8px 22px -12px rgba(0, 0, 0, .85);
 }
 
 [data-theme="dark"][data-style="glass"] .today-slot::before {
-  background: linear-gradient(180deg, hsl(var(--h) 100% 88%), hsl(var(--h) 95% 62%));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .22));
   box-shadow:
-    0 0 12px -1px hsl(var(--h) 95% 65% / .85),
-    inset 0 0 2px rgba(255, 255, 255, .5);
+    0 0 10px -2px rgba(214, 232, 255, .35),
+    inset 0 0 2px rgba(255, 255, 255, .4);
 }
 
 [data-theme="dark"][data-style="glass"] .today-slot:hover {
+  border-color: rgba(255, 255, 255, .24);
   box-shadow:
-    inset 0 1px 0 hsl(var(--h) 100% 92% / .4),
-    0 14px 34px -12px rgba(0, 0, 0, .85),
-    0 0 24px -10px hsl(var(--h) 95% 70% / .8);
+    inset 0 1px 0 rgba(255, 255, 255, .26),
+    0 14px 34px -14px rgba(0, 0, 0, .9),
+    inset 0 0 16px -10px rgba(255, 255, 255, .2);
 }
 
 .today-slot.is-special {
@@ -506,29 +501,29 @@
 
 [data-style="glass"] .today-slot.is-special {
   padding-left: 14px;
+  color: var(--text-muted);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .16) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .09) 0%, rgba(255, 255, 255, .03) 100%),
     var(--glass-spec),
     var(--surface-2);
   border-style: solid;
-  border-color: rgba(255, 255, 255, .66);
+  border-color: rgba(255, 255, 255, .2);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .95),
-    inset 0 -1px 0 rgba(160, 205, 255, .4),
-    0 6px 16px -9px rgba(9, 17, 48, .4);
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    0 6px 16px -12px rgba(0, 3, 10, .7);
 }
 
 [data-style="glass"] .today-slot.is-special::before { display: none; }
 
 [data-theme="dark"][data-style="glass"] .today-slot.is-special {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .04) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 100%),
     var(--glass-spec),
     var(--surface-2);
-  border-color: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .13);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .18),
-    0 8px 20px -10px rgba(0, 0, 0, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .13),
+    0 8px 20px -12px rgba(0, 0, 0, .8);
 }
 
 .ts-period {

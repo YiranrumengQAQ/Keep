@@ -53,45 +53,45 @@
   border-color: rgba(255, 255, 255, .85);
 }
 
-/* ── 玻璃：Toast = 一颗悬浮的小水晶 ── */
+/* ── 玻璃：Toast = 雨夜里悬浮的一小片透明玻璃 ── */
 [data-style="glass"] .toast {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .58) 0%, rgba(255, 255, 255, .2) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .18) 0%, rgba(255, 255, 255, .07) 100%),
     var(--glass-spec),
     var(--surface-glass);
-  border-color: rgba(255, 255, 255, .78);
+  border-color: rgba(255, 255, 255, .32);
   -webkit-backdrop-filter: var(--lens-blur-soft);
   backdrop-filter: var(--lens-blur-soft);
   box-shadow:
     var(--glass-float),
-    inset 0 1px 0 rgba(255, 255, 255, .98),
-    inset 0 -1px 0 rgba(160, 205, 255, .5),
-    inset 1px 0 0 rgba(190, 235, 255, .6),
-    inset -1px 0 0 rgba(255, 190, 240, .55);
+    inset 0 1px 0 rgba(255, 255, 255, .35),
+    inset 0 -1px 0 rgba(255, 255, 255, .08),
+    inset 1px 0 0 rgba(255, 255, 255, .12),
+    inset -1px 0 0 rgba(255, 255, 255, .12);
 }
 
 [data-style="glass"] .toast-ok {
   color: var(--accent);
-  border-color: rgba(255, 255, 255, .9);
+  border-color: rgba(255, 255, 255, .45);
   box-shadow:
     var(--glass-float),
-    inset 0 1px 0 rgba(255, 255, 255, .98),
-    inset 0 0 22px -10px rgba(120, 200, 255, .9),
-    0 0 20px -8px rgba(90, 160, 255, .6);
+    inset 0 1px 0 rgba(255, 255, 255, .4),
+    inset 0 0 20px -10px rgba(214, 232, 255, .5),
+    0 0 18px -8px rgba(214, 232, 255, .4);
 }
 
 [data-theme="dark"][data-style="glass"] .toast {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .04) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .11) 0%, rgba(255, 255, 255, .03) 100%),
     var(--glass-spec),
     var(--surface-glass);
-  border-color: rgba(255, 255, 255, .22);
+  border-color: rgba(255, 255, 255, .2);
   box-shadow:
     var(--glass-float),
-    inset 0 1px 0 rgba(255, 255, 255, .24),
-    inset 0 -1px 0 rgba(110, 170, 255, .26),
-    inset 1px 0 0 rgba(120, 220, 255, .24),
-    inset -1px 0 0 rgba(255, 150, 230, .22);
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    inset 1px 0 0 rgba(255, 255, 255, .08),
+    inset -1px 0 0 rgba(255, 255, 255, .08);
 }
 
 @media (prefers-reduced-motion: reduce) {
